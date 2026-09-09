@@ -19,5 +19,6 @@ assert.doesNotMatch(html, /TCP Mobile|TCP \/ FinanceMDM/);
 assert.equal((html.match(/target="_blank"/g) ?? []).length, (html.match(/rel="noreferrer"/g) ?? []).length);
 assert.match(styles, /prefers-reduced-motion/);
 assert.match(styles, /:focus-visible/);
+assert.match(styles, /\.contact-code[^{]*\{[^}]*overflow-wrap: anywhere/);
 
 console.log('Portfolio content and accessibility checks passed.');
