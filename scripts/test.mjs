@@ -5,8 +5,8 @@ const html = await readFile('index.html', 'utf8');
 const styles = await readFile('styles.css', 'utf8');
 
 const selectedProjects = [
-  'TCP / FinanceMDM',
-  'TCP Mobile',
+  'FinanceMDM',
+  'FinanceMDM Mobile',
   'Cashflow',
   'Yoisel Shop',
   'Cesar Fashion',
@@ -15,6 +15,7 @@ const selectedProjects = [
 
 selectedProjects.forEach((project) => assert.match(html, new RegExp(project)));
 assert.doesNotMatch(html, /Hermes|laptop|Porcina/i);
+assert.doesNotMatch(html, /TCP Mobile|TCP \/ FinanceMDM/);
 assert.equal((html.match(/target="_blank"/g) ?? []).length, (html.match(/rel="noreferrer"/g) ?? []).length);
 assert.match(styles, /prefers-reduced-motion/);
 assert.match(styles, /:focus-visible/);
