@@ -113,7 +113,7 @@
             <h2 id="projects-title">Productos reales,<br />problemas difíciles.</h2>
           </div>
           <p class="section-note">
-            Seis casos de estudio entre finanzas, operaciones, movilidad y comercio.
+            Tres productos independientes y un laboratorio de comercio con tres implementaciones backend.
           </p>
         </div>
 
@@ -137,9 +137,20 @@
               <ul class="tech-list" aria-label="Tecnologías">
                 <li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li>
               </ul>
-              <a class="project-link" href="/proyectos/financemdm/">
-                Explorar caso de estudio <span aria-hidden="true">↗</span>
-              </a>
+              <div class="project-actions">
+                <a class="project-link" href="/proyectos/financemdm/">
+                  Explorar caso de estudio <span aria-hidden="true">↗</span>
+                </a>
+                <a
+                  class="project-host"
+                  href="https://kr4t3rdev.xyz"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Abrir FinanceMDM en kr4t3rdev.xyz"
+                >
+                  <span aria-hidden="true">●</span> kr4t3rdev.xyz
+                </a>
+              </div>
             </div>
           </article>
 
@@ -191,73 +202,85 @@
             </div>
           </article>
 
-          <article class="project-card reveal">
-            <div class="project-visual visual-shop visual-yoisel" aria-hidden="true">
-              <span class="visual-label">COMMERCE // 04</span>
-              <span class="shop-monogram">YS</span>
-              <div class="thread-lines"><i></i><i></i><i></i></div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta"><span>04</span><span>Commerce · Full-stack</span></div>
-              <h3>Yoisel Shop</h3>
-              <p>
-                Tienda de moda editorial con catálogo curado, ofertas, pedidos, inventario y panel
-                administrativo conectado a una API Java.
-              </p>
-              <ul class="tech-list" aria-label="Tecnologías">
-                <li>Next.js 16</li><li>Spring Boot</li><li>Java 21</li><li>PostgreSQL</li>
-              </ul>
-              <a class="project-link" href="https://yoisel-shop.vercel.app" target="_blank" rel="noreferrer">
-                Ver tienda <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-visual visual-shop visual-cesar" aria-hidden="true">
-              <span class="visual-label">COMMERCE // 05</span>
-              <span class="shop-monogram">CF</span>
-              <div class="thread-lines"><i></i><i></i><i></i></div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta"><span>05</span><span>Commerce · Architecture</span></div>
-              <h3>Cesar Fashion</h3>
-              <p>
-                Experiencia de comercio electrónico con arquitectura hexagonal, gestión de stock,
-                pedidos, promociones y operaciones administrativas.
-              </p>
-              <ul class="tech-list" aria-label="Tecnologías">
-                <li>Next.js 16</li><li>Spring Boot</li><li>Prisma</li><li>Playwright</li>
-              </ul>
-              <div class="project-links">
-                <a class="project-link" href="https://github.com/kr4t3rdev/cesar-fashion" target="_blank" rel="noreferrer">Ver código <span aria-hidden="true">↗</span></a>
-                <span class="project-state">Demo en mantenimiento</span>
+          <section class="commerce-lab reveal" aria-labelledby="commerce-lab-title">
+            <header class="commerce-lab-header">
+              <div>
+                <p class="commerce-lab-code">COMMERCE_LAB // 04—06</p>
+                <h3 id="commerce-lab-title">Mismo producto.<br /><span>Tres backends.</span></h3>
               </div>
-            </div>
-          </article>
-
-          <article class="project-card reveal">
-            <div class="project-visual visual-shop visual-ym" aria-hidden="true">
-              <span class="visual-label">COMMERCE // 06</span>
-              <span class="shop-monogram">Y&amp;M</span>
-              <div class="thread-lines"><i></i><i></i><i></i></div>
-            </div>
-            <div class="project-content">
-              <div class="project-meta"><span>06</span><span>Commerce · Editorial</span></div>
-              <h3>Y&amp;M Fashion</h3>
-              <p>
-                Vitrina de moda full-stack con una dirección visual editorial, catálogo, ofertas e
-                inventario administrable.
+              <p class="commerce-lab-intro">
+                Una misma experiencia de comercio reconstruida con tres enfoques de servidor. El
+                objetivo no fue cambiar la tienda, sino explorar cómo distintas arquitecturas
+                resuelven el mismo dominio: catálogo, inventario, promociones, pedidos y operación.
               </p>
-              <ul class="tech-list" aria-label="Tecnologías">
-                <li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>Tailwind CSS</li>
-              </ul>
-              <div class="project-links">
-                <a class="project-link" href="https://y-m-fashion-llc.vercel.app" target="_blank" rel="noreferrer">Ver tienda <span aria-hidden="true">↗</span></a>
-                <a class="project-link subtle" href="https://github.com/kr4t3rdev/Y-M-fashion-LLC" target="_blank" rel="noreferrer">Código</a>
+            </header>
+
+            <div class="shared-frontend">
+              <div class="shared-frontend-title">
+                <span aria-hidden="true">UI</span>
+                <div><small>CAPA COMÚN</small><strong>Frontend compartido</strong></div>
               </div>
+              <div class="shared-frontend-grid">
+                <p><strong>Next.js 16 + React 19</strong><span>Estructuran la tienda, navegación, renderizado y panel administrativo.</span></p>
+                <p><strong>TypeScript + Zod</strong><span>Tipan datos y validan formularios y contratos antes de enviarlos al servidor.</span></p>
+                <p><strong>Tailwind CSS</strong><span>Construye una interfaz responsive y consistente para catálogo, checkout y gestión.</span></p>
+                <p><strong>React Table + Playwright</strong><span>Organizan datos operativos y automatizan recorridos críticos de la experiencia.</span></p>
+              </div>
+              <p class="shared-surface"><span>SUPERFICIE FUNCIONAL</span> Catálogo · detalle de producto · combos · ofertas · checkout · inventario · pedidos · ventas · usuarios</p>
             </div>
-          </article>
+
+            <div class="backend-bridge" aria-hidden="true"><span>UNA INTERFAZ</span><i></i><span>TRES IMPLEMENTACIONES</span></div>
+
+            <div class="backend-variants">
+              <article class="backend-variant variant-cesar">
+                <header>
+                  <span class="variant-number">04</span><span class="variant-monogram" aria-hidden="true">CF</span>
+                  <div><small>PYTHON BACKEND</small><h4>Cesar Fashion</h4></div>
+                  <strong class="backend-badge">FastAPI</strong>
+                </header>
+                <p class="variant-summary">API separada y organizada por capas para mantener las reglas comerciales independientes del transporte y la base de datos.</p>
+                <dl class="technology-breakdown">
+                  <div><dt>FastAPI + Pydantic</dt><dd>Exponen endpoints HTTP y validan con esquemas los datos que entran y salen.</dd></div>
+                  <div><dt>SQLAlchemy 2 + PostgreSQL</dt><dd>Modelan y persisten productos, inventario, pedidos, usuarios y promociones.</dd></div>
+                  <div><dt>JWT + bcrypt</dt><dd>Protegen sesiones, contraseñas y acciones según el rol del usuario.</dd></div>
+                  <div><dt>Servicios + dominio</dt><dd>Aíslan precios, descuentos y combos para evitar reglas mezcladas con los controladores.</dd></div>
+                </dl>
+                <div class="variant-links"><a class="project-link" href="https://github.com/kr4t3rdev/cesar-fashion" target="_blank" rel="noreferrer">Ver código <span aria-hidden="true">↗</span></a><span class="project-state">Demo en mantenimiento</span></div>
+              </article>
+
+              <article class="backend-variant variant-yoisel">
+                <header>
+                  <span class="variant-number">05</span><span class="variant-monogram" aria-hidden="true">YS</span>
+                  <div><small>GO BACKEND</small><h4>Yoisel Shop</h4></div>
+                  <strong class="backend-badge">Go</strong>
+                </header>
+                <p class="variant-summary">Servicio HTTP explícito y compacto, diseñado para que transporte, casos de uso, dominio y persistencia tengan límites claros.</p>
+                <dl class="technology-breakdown">
+                  <div><dt>Go HTTP handlers</dt><dd>Reciben solicitudes, serializan JSON y devuelven errores consistentes sin un framework pesado.</dd></div>
+                  <div><dt>pgx + PostgreSQL</dt><dd>Ejecutan SQL y migraciones con control directo sobre la persistencia relacional.</dd></div>
+                  <div><dt>Services + interfaces</dt><dd>Separan los casos de uso del almacenamiento para facilitar pruebas y evolución.</dd></div>
+                  <div><dt>Money + security</dt><dd>Representan importes en centavos y encapsulan autenticación, contraseñas y archivos seguros.</dd></div>
+                </dl>
+                <a class="project-link" href="https://yoisel-shop.vercel.app" target="_blank" rel="noreferrer">Ver tienda <span aria-hidden="true">↗</span></a>
+              </article>
+
+              <article class="backend-variant variant-ym">
+                <header>
+                  <span class="variant-number">06</span><span class="variant-monogram" aria-hidden="true">Y&amp;M</span>
+                  <div><small>FULL-STACK BACKEND</small><h4>Y&amp;M Fashion</h4></div>
+                  <strong class="backend-badge">Next.js full-stack</strong>
+                </header>
+                <p class="variant-summary">Implementación integrada: la interfaz y la lógica de servidor viven en una sola aplicación, reduciendo fronteras de despliegue.</p>
+                <dl class="technology-breakdown">
+                  <div><dt>Next.js server layer</dt><dd>Conecta las acciones de la interfaz con servicios del servidor sin mantener una API externa separada.</dd></div>
+                  <div><dt>Prisma + PostgreSQL</dt><dd>Define el modelo relacional y repositorios para consultar y actualizar la operación comercial.</dd></div>
+                  <div><dt>NextAuth + roles</dt><dd>Gestiona identidad, sesiones y autorización del área administrativa.</dd></div>
+                  <div><dt>Zod + UploadThing</dt><dd>Valida entradas y gestiona los recursos visuales asociados al catálogo.</dd></div>
+                </dl>
+                <div class="variant-links"><a class="project-link" href="https://y-m-fashion-llc.vercel.app" target="_blank" rel="noreferrer">Ver tienda <span aria-hidden="true">↗</span></a><a class="project-link subtle" href="https://github.com/kr4t3rdev/Y-M-fashion-LLC" target="_blank" rel="noreferrer">Código</a></div>
+              </article>
+            </div>
+          </section>
         </div>
       </section>
 

@@ -16,6 +16,15 @@ const selectedProjects = [
 selectedProjects.forEach((project) => assert.match(html, new RegExp(project)));
 assert.doesNotMatch(html, /Hermes|laptop|Porcina/i);
 assert.doesNotMatch(html, /TCP Mobile|TCP \/ FinanceMDM/);
+assert.match(html, /Mismo producto\./);
+assert.match(html, /Tres backends\./);
+assert.match(html, /FastAPI/);
+assert.match(html, />Go</);
+assert.match(html, /Next\.js full-stack/i);
+assert.match(html, /Frontend compartido/);
+assert.doesNotMatch(html, /Spring Boot|Java 21|API Java/);
+assert.match(styles, /\.commerce-lab\s*\{/);
+assert.match(styles, /\.backend-variants\s*\{/);
 assert.equal((html.match(/target="_blank"/g) ?? []).length, (html.match(/rel="noreferrer"/g) ?? []).length);
 assert.match(styles, /prefers-reduced-motion/);
 assert.match(styles, /:focus-visible/);
@@ -34,6 +43,8 @@ assert.match(styles, /\.social-link\s*\{[^}]*min-width:\s*54px[^}]*min-height:\s
 
 const casePage = await readFile('proyectos/financemdm/index.html', 'utf8');
 assert.match(html, /href="\/proyectos\/financemdm\/"/);
+assert.match(html, /href="https:\/\/kr4t3rdev\.xyz"/);
+assert.match(html, />\s*kr4t3rdev\.xyz\s*</);
 assert.match(casePage, /sin adopción comercial/i);
 assert.match(casePage, /Desarrollo individual/);
 for (const section of ['contexto', 'arquitectura', 'frontend', 'backend', 'desafios', 'calidad']) {
