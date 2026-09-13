@@ -30,4 +30,21 @@ assert.doesNotMatch(visibleText, /53917705|5353917705/);
 assert.doesNotMatch(visibleText, /Ver perfil|@kr4t3rdev/);
 assert.match(styles, /\.social-link\s*\{[^}]*min-width:\s*54px[^}]*min-height:\s*54px/);
 
-console.log('Portfolio content and accessibility checks passed.');
+
+
+const casePage = await readFile('proyectos/financemdm/index.html', 'utf8');
+assert.match(html, /href="\/proyectos\/financemdm\/"/);
+assert.match(casePage, /sin adopción comercial/i);
+assert.match(casePage, /Desarrollo individual/);
+for (const section of ['contexto', 'arquitectura', 'frontend', 'backend', 'desafios', 'calidad']) {
+  assert.ok(casePage.includes(`id="${section}"`), `Missing section ${section}`);
+}
+assert.equal((casePage.match(/<h1[ >]/g) ?? []).length, 1);
+const ids = [...casePage.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+assert.equal(ids.length, new Set(ids).size);
+for (const match of casePage.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(match[1]));
+assert.doesNotMatch(casePage, /628|263|137|47 dominios/);
+
+const caseStyles = await readFile('proyectos/financemdm/case-study.css', 'utf8');
+assert.match(caseStyles, /\.case-index \{ display:block;/);
+console.log('Portfolio and case-study checks passed.');

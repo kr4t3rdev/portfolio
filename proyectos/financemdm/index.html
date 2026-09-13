@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FinanceMDM: caso de estudio full-stack | Michel García</title>
+  <meta name="description" content="Cómo construí FinanceMDM: desarrollo individual, arquitectura multiempresa, frontend React, backend Next.js y persistencia con Prisma y PostgreSQL.">
+  <meta name="theme-color" content="#171916">
+  <link rel="canonical" href="https://michel-garcia-portfolio.vercel.app/proyectos/financemdm/">
+  <meta property="og:title" content="FinanceMDM — De la interfaz al modelo de datos">
+  <meta property="og:description" content="Un caso de estudio sobre desarrollo full-stack, contexto multiempresa y permisos granulares. Por Michel García Aguero.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://michel-garcia-portfolio.vercel.app/proyectos/financemdm/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Syne:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/proyectos/financemdm/case-study.css">
+</head>
+<body class="case-study">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<header class="case-header section-shell">
+  <a class="brand" href="/" aria-label="Michel García — Inicio"><span class="brand-mark" aria-hidden="true">M</span> MICHEL.DEV</a>
+  <a href="/#proyectos">← Todos los proyectos</a>
+</header>
+<main id="contenido">
+  <section class="case-hero section-shell" aria-labelledby="case-title">
+    <p class="case-eyebrow">DOSSIER / 01 &nbsp; — &nbsp; FULL-STACK ENGINEERING</p>
+    <h1 id="case-title">FinanceMDM<span>De la interfaz<br>al modelo de datos.</span></h1>
+    <p class="case-lead">Inventario, ventas y procesos financieros dentro de una aplicación multiempresa. Un producto construido de principio a fin, con una misma responsabilidad: conectar las piezas.</p>
+    <dl class="case-facts">
+      <div><dt>Autoría</dt><dd>Desarrollo individual</dd></div>
+      <div><dt>Recorrido</dt><dd>Aproximadamente dos años</dd></div>
+      <div><dt>Estado</dt><dd>En mejora continua</dd></div>
+    </dl>
+    <p class="case-status"><span aria-hidden="true">●</span> Sin adopción comercial todavía. Este caso presenta implementación, no resultados de clientes.</p>
+    <a class="button button-primary" href="#arquitectura">Explorar la arquitectura <span aria-hidden="true">↓</span></a>
+  </section>
+  <div class="case-layout section-shell">
+    <nav class="case-index" aria-label="Secciones del caso de estudio">
+      <p>EN ESTE DOSSIER</p>
+      <a href="#contexto">01 / Contexto</a>
+      <a href="#arquitectura">02 / Arquitectura</a>
+      <a href="#frontend">03 / Frontend</a>
+      <a href="#backend">04 / Backend</a>
+      <a href="#desafios">05 / Desafíos</a>
+      <a href="#calidad">06 / Calidad y límites</a>
+    </nav>
+    <div class="case-content">
+      <section id="contexto" class="case-section">
+        <p class="case-eyebrow">01 / EL PROBLEMA</p><h2>Un producto no termina en el CRUD.</h2>
+        <p>Un catálogo necesita productos. Una operación empresarial necesita además ubicaciones, documentos, usuarios autorizados y movimientos financieros. FinanceMDM aborda esa relación entre áreas, en lugar de tratarlas como pantallas desconectadas.</p>
+        <p>Soy Michel García Aguero. Desarrollé el proyecto de forma independiente durante aproximadamente dos años y continúo refinándolo. Todavía no lo utiliza ningún negocio: la validación comercial sigue pendiente.</p>
+        <div class="domain-list">
+          <div><h3>Operación</h3><p>Productos, existencias por ubicación, compras, ventas y facturación.</p></div>
+          <div><h3>Finanzas</h3><p>Modelos y servicios para monedas, cuentas y conciliación.</p></div>
+          <div><h3>Administración</h3><p>Empresas, membresías, permisos y capacidades por plan.</p></div>
+        </div>
+      </section>
+      <section id="arquitectura" class="case-section">
+        <p class="case-eyebrow">02 / SISTEMA</p><h2>Una aplicación.<br>Responsabilidades distintas.</h2>
+        <p>Next.js aloja tanto la interfaz como operaciones del backend. La organización por funcionalidades convive con servicios compartidos para autenticación, autorización y acceso a datos.</p>
+        <figure class="architecture">
+          <div class="architecture-clients"><div><small>CLIENTE WEB</small><strong>React + Next.js</strong></div><div><small>CLIENTE MÓVIL</small><strong>API específica</strong></div></div>
+          <p class="architecture-arrow" aria-hidden="true">↓</p>
+          <div class="architecture-layer"><small>ENTRADA</small><strong>Server Actions · Route Handlers</strong></div>
+          <p class="architecture-arrow" aria-hidden="true">↓</p>
+          <div class="architecture-layer"><small>CONTROL Y DOMINIO</small><strong>Sesión · Empresa · Permisos · Servicios</strong></div>
+          <p class="architecture-arrow" aria-hidden="true">↓</p>
+          <div class="architecture-layer"><small>PERSISTENCIA</small><strong>Prisma → PostgreSQL</strong></div>
+          <figcaption>Esquema conceptual: la web utiliza acciones y rutas; el cliente móvil accede por HTTP. No representa el recorrido exacto de todas las solicitudes.</figcaption>
+        </figure>
+        <p class="case-note">La API forma parte del proyecto Next.js. No se presenta como microservicios ni como un backend NestJS separado.</p>
+      </section>
+      <section id="frontend" class="case-section">
+        <p class="case-eyebrow">03 / FRONTEND</p><h2>Hacer legible<br>la complejidad.</h2>
+        <p>La interfaz organiza información administrativa mediante páginas, formularios, tablas y reportes. El objetivo es permitir que una persona entienda qué está operando, no solo mostrar datos.</p>
+        <div class="tech-explainer">
+          <article><span>01</span><div><h3>Next.js y React</h3><p>App Router organiza las páginas. Los componentes de servidor y cliente separan renderizado e interacción; las acciones y rutas conectan la interfaz con operaciones del backend.</p></div></article>
+          <article><span>02</span><div><h3>TypeScript</h3><p>Describe contratos de componentes, servicios y datos. Ayuda a detectar incompatibilidades durante el desarrollo, sin sustituir la validación de entradas en ejecución.</p></div></article>
+          <article><span>03</span><div><h3>Tailwind CSS y Radix UI</h3><p>Estilos y componentes de interacción para mantener patrones comunes en formularios, diálogos y navegación. La accesibilidad del producto completo requiere comprobaciones adicionales.</p></div></article>
+          <article><span>04</span><div><h3>Zod</h3><p>Los esquemas definen estructuras de entrada en módulos como productos y operaciones contables: qué datos acepta una operación y qué restricciones deben cumplir.</p></div></article>
+        </div>
+        <details><summary>¿Por qué no listar todas las dependencias?</summary><p>Una librería instalada no demuestra su uso ni una mejora medible. Este desglose prioriza responsabilidades; los ejemplos visuales y de ejecución se incorporarán cuando estén verificados.</p></details>
+      </section>
+      <section id="backend" class="case-section">
+        <p class="case-eyebrow">04 / BACKEND</p><h2>Datos con contexto.<br>Operaciones con reglas.</h2>
+        <div class="tech-explainer">
+          <article><span>01</span><div><h3>Prisma y PostgreSQL</h3><p>El esquema relaciona empresas, membresías, productos, existencias, documentos y entidades financieras. Prisma expresa el acceso a ese modelo relacional desde el código del servidor.</p></div></article>
+          <article><span>02</span><div><h3>JWT y sesiones persistidas</h3><p>El flujo de autenticación inspeccionado verifica el token, consulta la sesión y comprueba vigencia y estado del usuario antes de resolver el contexto de empresa.</p></div></article>
+          <article><span>03</span><div><h3>Contexto multiempresa</h3><p>La empresa solicitada se contrasta con la membresía del usuario. Si no puede resolverse un contexto autorizado, la solicitud se rechaza. Este control es una parte del aislamiento, no una certificación de todas las rutas.</p></div></article>
+          <article><span>04</span><div><h3>Permisos y planes</h3><p>Los permisos determinan qué acciones puede realizar un usuario. Las capacidades del plan determinan qué funcionalidades tiene habilitadas la empresa. Son controles distintos.</p></div></article>
+          <article><span>05</span><div><h3>OpenTelemetry y Prometheus</h3><p>El código incluye instrumentación de trazas y métricas. Permite preparar el diagnóstico de operaciones y errores; no implica que colectores, alertas o paneles estén activos en producción.</p></div></article>
+        </div>
+      </section>
+      <section id="desafios" class="case-section">
+        <p class="case-eyebrow">05 / INGENIERÍA</p><h2>Tres problemas<br>que merecen evidencia.</h2>
+        <article class="challenge"><span class="case-eyebrow">A / AISLAMIENTO</span><h3>Una cuenta, distintos contextos.</h3><p>Resolver una empresa no consiste en aceptar un identificador enviado por el cliente. El recorrido inspeccionado verifica su relación con el usuario.</p><p class="case-note">Siguiente evidencia: demostrar el rechazo de acceso cruzado entre dos empresas con datos ficticios.</p></article>
+        <article class="challenge"><span class="case-eyebrow">B / AUTORIZACIÓN</span><h3>Ocultar un botón no basta.</h3><p>El servidor controla permisos. En el flujo web inspeccionado, cuando se solicita validación de permisos, una ruta sin mapeo se rechaza. El API móvil dispone de controles propios por grupos.</p><p class="case-note">Siguiente evidencia: comparar la misma operación con dos roles y comprobar su respuesta.</p></article>
+        <article class="challenge"><span class="case-eyebrow">C / FINANZAS</span><h3>Un número necesita significado.</h3><p>Monedas, cuentas y conciliación forman parte del modelo. Explicar un reporte exige seguir el origen de sus datos y distinguir sus criterios, no limitarse a mostrar un total.</p><p class="case-note">Siguiente evidencia: cálculo reproducible y recorrido de conciliación en un entorno de prueba.</p></article>
+      </section>
+      <section id="calidad" class="case-section">
+        <p class="case-eyebrow">06 / ESTADO REAL</p><h2>Lo construido.<br>Lo que falta demostrar.</h2>
+        <div class="evidence-columns">
+          <div><h3>Evidencia de implementación</h3><ul><li>Estructura web y backend en Next.js.</li><li>Modelo relacional con Prisma.</li><li>Sesiones, contexto de empresa y permisos.</li><li>Configuración y archivos de pruebas unitarias, integración y E2E.</li></ul></div>
+          <div><h3>Validación pendiente</h3><ul><li>Uso por negocios y resultados comerciales.</li><li>Demostraciones completas con datos ficticios.</li><li>Cobertura y resultados actuales de la suite completa.</li><li>Verificación operativa de observabilidad.</li></ul></div>
+        </div>
+        <p>Las cifras de archivos no equivalen a calidad, cobertura o escala operativa. Por eso este caso no utiliza contadores del repositorio como indicadores de éxito.</p>
+        <details><summary>Cómo se construyó este caso de estudio</summary><p>La explicación técnica se basa en una revisión del repositorio, no en una auditoría exhaustiva de seguridad o producción. La autoría, duración aproximada y ausencia de adopción comercial fueron confirmadas por el autor. No se incluyen capturas simuladas ni métricas de clientes.</p></details>
+      </section>
+    </div>
+  </div>
+  <section class="case-outro section-shell">
+    <p class="case-eyebrow">SIGUIENTE CONVERSACIÓN</p><h2>¿Tu equipo construye<br>productos empresariales?</h2>
+    <p>Me interesan oportunidades full-stack donde pueda aportar experiencia conectando interfaz, backend y modelos de datos.</p>
+    <a class="button button-primary" href="/#contacto">Conversar sobre una oportunidad <span aria-hidden="true">↗</span></a>
+    <a class="case-back" href="/#proyectos">Volver al catálogo</a>
+  </section>
+</main>
+<footer class="section-shell case-footer">Michel García Aguero · FinanceMDM / Caso de estudio</footer>
+</body>
+</html>
