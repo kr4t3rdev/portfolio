@@ -50,7 +50,7 @@ assert.match(html, /href="https:\/\/kr4t3rdev\.xyz"/);
 assert.match(html, />\s*kr4t3rdev\.xyz\s*</);
 assert.match(casePage, /sin adopción comercial/i);
 assert.match(casePage, /Desarrollo individual/);
-for (const section of ['contexto', 'arquitectura', 'frontend', 'backend', 'desafios', 'calidad']) {
+for (const section of ['contexto', 'arquitectura', 'frontend', 'backend', 'desafios', 'cicd', 'calidad']) {
   assert.ok(casePage.includes(`id="${section}"`), `Missing section ${section}`);
 }
 assert.equal((casePage.match(/<h1[ >]/g) ?? []).length, 1);

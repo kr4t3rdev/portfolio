@@ -45,7 +45,8 @@
       <a href="#frontend">03 / Frontend</a>
       <a href="#backend">04 / Backend</a>
       <a href="#desafios">05 / Desafíos</a>
-      <a href="#calidad">06 / Calidad y límites</a>
+      <a href="#cicd">06 / CI/CD</a>
+      <a href="#calidad">07 / Calidad y límites</a>
     </nav>
     <div class="case-content">
       <section id="contexto" class="case-section">
@@ -100,11 +101,23 @@
         <article class="challenge"><span class="case-eyebrow">B / AUTORIZACIÓN</span><h3>Ocultar un botón no basta.</h3><p>El servidor controla permisos. En el flujo web inspeccionado, cuando se solicita validación de permisos, una ruta sin mapeo se rechaza. El API móvil dispone de controles propios por grupos.</p><p class="case-note">Siguiente evidencia: comparar la misma operación con dos roles y comprobar su respuesta.</p></article>
         <article class="challenge"><span class="case-eyebrow">C / FINANZAS</span><h3>Un número necesita significado.</h3><p>Monedas, cuentas y conciliación forman parte del modelo. Explicar un reporte exige seguir el origen de sus datos y distinguir sus criterios, no limitarse a mostrar un total.</p><p class="case-note">Siguiente evidencia: cálculo reproducible y recorrido de conciliación en un entorno de prueba.</p></article>
       </section>
+      <section id="cicd" class="case-section">
+        <p class="case-eyebrow">06 / ENTREGA CONTINUA</p><h2>Integrar no basta.<br>La entrega debe demostrarlo.</h2>
+        <p>La rama principal utiliza GitHub Actions como puerta de calidad. Cada cambio debe superar controles de código, pruebas, integración y compilación antes de considerarse válido. Después del despliegue externo, la automatización comprueba que cada entorno corresponde al commit esperado antes de ejecutar sus pruebas de humo.</p>
+        <div class="tech-explainer">
+          <article><span>01</span><div><h3>Validación estática</h3><p>Lint, contratos de seguridad del pipeline y comprobación de tipos con TypeScript detectan errores de estructura y compatibilidad antes de construir la aplicación.</p></div></article>
+          <article><span>02</span><div><h3>Pruebas unitarias en paralelo</h3><p>La suite se divide en cuatro grupos para reducir el tiempo de espera. Sus reportes se combinan y la cobertura global se aplica como requisito, no como una cifra aislada.</p></div></article>
+          <article><span>03</span><div><h3>PostgreSQL y migraciones reales</h3><p>Las pruebas de integración levantan una base PostgreSQL aislada, aplican las migraciones del proyecto y validan los recorridos que dependen de persistencia.</p></div></article>
+          <article><span>04</span><div><h3>Build y contratos</h3><p>El pipeline verifica la compilación de producción de Next.js. Workflows complementarios comprueban el contrato OpenAPI, el SDK generado y las validaciones del cliente móvil.</p></div></article>
+          <article><span>05</span><div><h3>Smoke tests por entorno</h3><p>Staging y producción están protegidos por una comprobación de identidad: las pruebas esperan el despliegue exacto del commit antes de validar rutas críticas. El gate final rechaza checks fallidos, cancelados, omitidos o ausentes.</p></div></article>
+        </div>
+        <p class="case-note">Evidencia verificada en la rama <code>main</code> el 20 de septiembre de 2026, sobre el commit <code>dc75b03</code>. GitHub Actions valida la entrega posterior al despliegue; el despliegue lo realiza una plataforma externa.</p>
+      </section>
       <section id="calidad" class="case-section">
-        <p class="case-eyebrow">06 / ESTADO REAL</p><h2>Lo construido.<br>Lo que falta demostrar.</h2>
+        <p class="case-eyebrow">07 / ESTADO REAL</p><h2>Lo construido.<br>Lo que falta demostrar.</h2>
         <div class="evidence-columns">
-          <div><h3>Evidencia de implementación</h3><ul><li>Estructura web y backend en Next.js.</li><li>Modelo relacional con Prisma.</li><li>Sesiones, contexto de empresa y permisos.</li><li>Configuración y archivos de pruebas unitarias, integración y E2E.</li></ul></div>
-          <div><h3>Validación pendiente</h3><ul><li>Uso por negocios y resultados comerciales.</li><li>Demostraciones completas con datos ficticios.</li><li>Cobertura y resultados actuales de la suite completa.</li><li>Verificación operativa de observabilidad.</li></ul></div>
+          <div><h3>Evidencia de implementación</h3><ul><li>Estructura web y backend en Next.js.</li><li>Modelo relacional con Prisma.</li><li>Sesiones, contexto de empresa y permisos.</li><li>Pipeline activo con pruebas unitarias, integración, cobertura, build y smoke tests.</li></ul></div>
+          <div><h3>Validación pendiente</h3><ul><li>Uso por negocios y resultados comerciales.</li><li>Demostraciones completas con datos ficticios.</li><li>Publicación de métricas históricas de cobertura y estabilidad.</li><li>Verificación operativa de observabilidad.</li></ul></div>
         </div>
         <p>Las cifras de archivos no equivalen a calidad, cobertura o escala operativa. Por eso este caso no utiliza contadores del repositorio como indicadores de éxito.</p>
         <details><summary>Cómo se construyó este caso de estudio</summary><p>La explicación técnica se basa en una revisión del repositorio, no en una auditoría exhaustiva de seguridad o producción. La autoría, duración aproximada y ausencia de adopción comercial fueron confirmadas por el autor. No se incluyen capturas simuladas ni métricas de clientes.</p></details>
