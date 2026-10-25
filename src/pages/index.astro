@@ -1,3 +1,6 @@
+---
+import "../styles/global.css";
+---
 <!doctype html>
 <html lang="es">
   <head>
@@ -14,8 +17,8 @@
       content="Arquitectura sólida. Productos reales. Software preparado para crecer."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://michel-garcia-portfolio.vercel.app" />
-    <link rel="canonical" href="https://michel-garcia-portfolio.vercel.app" />
+    <meta property="og:url" content="https://kr4t3rdev.xyz" />
+    <link rel="canonical" href="https://kr4t3rdev.xyz" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,6 +42,7 @@
         <span>MICHEL<span class="brand-dot">.DEV</span></span>
       </a>
       <nav aria-label="Navegación principal">
+        <a href="#servicios">Servicios</a>
         <a href="#proyectos">Proyectos</a>
         <a href="#metodo">Método</a>
         <a class="nav-cta" href="#contacto">Contacto <span aria-hidden="true">↗</span></a>
@@ -53,7 +57,7 @@
             Diseño sistemas.<br />
             <span class="muted-title">Resuelvo el caos.</span>
           </h1>
-          <p class="hero-intro">
+          <p class="hero-intro text-pretty">
             Soy <strong>Michel García Aguero</strong>, ingeniero de software. Convierto procesos
             complejos en productos claros, sólidos y preparados para crecer.
           </p>
@@ -131,9 +135,19 @@
               <div class="project-meta"><span>01</span><span>SaaS · Fintech · Inventory</span></div>
               <h3>FinanceMDM</h3>
               <p>
-                Plataforma empresarial para inventario, ventas, facturación, contabilidad
-                multimoneda y operación de múltiples ubicaciones.
+                ERP multiempresa para coordinar inventario por almacenes, compras, ventas y
+                producción con facturación y contabilidad multidivisa. Integra reglas de negocio,
+                acceso por roles y trazabilidad operativa en una sola plataforma.
               </p>
+              <details class="project-details">
+                <summary>Avances recientes del producto</summary>
+                <ul>
+                  <li>Producción con recetas, vales y validación de unidades para seguir insumos y productos resultantes.</li>
+                  <li>Facturación fiscal configurada desde Mi Empresa, junto con flujos de ventas y cobros.</li>
+                  <li>Contratos con numeración configurable, reseñas públicas moderadas y respaldos con restauración estructurada.</li>
+                  <li>Acceso y navegación sujetos a permisos por función y disponibilidad del plan.</li>
+                </ul>
+              </details>
               <ul class="tech-list" aria-label="Tecnologías">
                 <li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li>
               </ul>
@@ -143,12 +157,12 @@
                 </a>
                 <a
                   class="project-host"
-                  href="https://kr4t3rdev.xyz"
+                  href="https://financemdm.kr4t3rdev.xyz"
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="Abrir FinanceMDM en kr4t3rdev.xyz"
+                  aria-label="Abrir FinanceMDM en financemdm.kr4t3rdev.xyz"
                 >
-                  <span aria-hidden="true">●</span> kr4t3rdev.xyz
+                  <span aria-hidden="true">●</span> financemdm.kr4t3rdev.xyz
                 </a>
               </div>
             </div>
@@ -190,13 +204,23 @@
               <div class="project-meta"><span>03</span><span>Fintech · Mobile + API</span></div>
               <h3>Cashflow</h3>
               <p>
-                Ecosistema para casas de cambio: caja, tasas, transacciones, gastos, objetivos,
-                conciliación y reportes financieros.
+                App móvil y API para casas de cambio: controla caja, saldos y movimientos por
+                moneda; centraliza tasas de cambio, gastos, objetivos, conciliaciones y reportes de
+                flujo de caja y resultados por período.
               </p>
+              <details class="project-details">
+                <summary>Avances recientes del producto</summary>
+                <ul>
+                  <li>Importes financieros normalizados como cadenas decimales en tasas, caja, cuentas bancarias, indicadores y reportes, para preservar precisión al cruzar la API.</li>
+                  <li>El flujo de caja agrupa entradas y salidas por moneda e incorpora transacciones, gastos y ajustes de efectivo.</li>
+                  <li>Contrato OpenAPI con validación Spectral y control de cambios incompatibles mediante oasdiff.</li>
+                  <li>Generación y compilación comprobada de SDKs Swift y Kotlin; son clientes de API, no una afirmación de aplicaciones nativas publicadas.</li>
+                </ul>
+              </details>
               <ul class="tech-list" aria-label="Tecnologías">
                 <li>React Native</li><li>NestJS</li><li>Prisma</li><li>React Query</li>
               </ul>
-              <a class="project-link" href="https://cashflow-eight-cyan.vercel.app" target="_blank" rel="noreferrer">
+              <a class="project-link" href="https://cashflow.kr4t3rdev.xyz" target="_blank" rel="noreferrer">
                 Ver producto <span aria-hidden="true">↗</span>
               </a>
             </div>
@@ -281,6 +305,66 @@
               </article>
             </div>
           </section>
+        </div>
+      </section>
+
+      <section class="services section-shell" id="servicios" aria-labelledby="services-title">
+        <header class="section-heading services-heading">
+          <h2 id="services-title">Diseño que se entiende.<br />Ingeniería que responde.</h2>
+          <p class="section-note">Servicios por alcance, no paquetes rígidos. Cada propuesta parte de tus objetivos, procesos y prioridades.</p>
+        </header>
+        <div class="service-catalog" aria-label="Servicios de desarrollo">
+          <article class="service-sheet" aria-labelledby="service-landing">
+            <header class="service-intro">
+              <p class="service-tag">WEB / PRESENCIA</p>
+              <h3 id="service-landing">Una primera impresión que trabaja por tu marca.</h3>
+              <p>Landing pages y sitios para explicar tu propuesta, presentar productos y convertir visitas en conversaciones.</p>
+            </header>
+            <div class="service-body">
+              <div class="service-deliverables">
+                <h4>Qué podemos construir</h4>
+                <ul><li>Diseño personalizado y responsive para móvil, tablet y escritorio.</li><li>Estructura y contenido alineados con la identidad de tu negocio.</li><li>Iconografía, recursos gráficos y llamadas a la acción claras.</li></ul>
+              </div>
+              <footer class="service-footer">
+                <p>El presupuesto se ajusta a la cantidad de páginas, complejidad visual y funcionalidades.</p>
+                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20landing%20page%20o%20sitio%20web." target="_blank" rel="noreferrer">Hablemos de tu sitio <span aria-hidden="true">↗</span></a>
+              </footer>
+            </div>
+          </article>
+          <article class="service-sheet" aria-labelledby="service-negocio">
+            <header class="service-intro">
+              <p class="service-tag">WEB / OPERACIÓN</p>
+              <h3 id="service-negocio">Menos tareas dispersas. Más control del negocio.</h3>
+              <p>Una aplicación web conectada a su API y base de datos, diseñada alrededor de los procesos del pequeño negocio.</p>
+            </header>
+            <div class="service-body">
+              <div class="service-deliverables">
+                <h4>Qué podemos construir</h4>
+                <ul><li>Panel administrativo y gestión de usuarios.</li><li>Módulos CRUD para productos, clientes u otros registros del negocio.</li><li>Reglas de acceso y datos modelados según el flujo acordado.</li></ul>
+              </div>
+              <footer class="service-footer">
+                <p>El alcance y el presupuesto dependen de los módulos, pantallas y reglas operativas.</p>
+                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20un%20sistema%20web%20para%20mi%20negocio." target="_blank" rel="noreferrer">Hablemos de tu sistema <span aria-hidden="true">↗</span></a>
+              </footer>
+            </div>
+          </article>
+          <article class="service-sheet service-sheet-platform" aria-labelledby="service-plataforma">
+            <header class="service-intro">
+              <p class="service-tag">PLATAFORMA / WEB + MÓVIL</p>
+              <h3 id="service-plataforma">Una plataforma para usuarios, equipos y operaciones complejas.</h3>
+              <p>Soluciones de mayor alcance con servicios compartidos, controles de acceso y aplicaciones nativas.</p>
+            </header>
+            <div class="service-body">
+              <div class="service-deliverables">
+                <h4>Qué podemos construir</h4>
+                <ul><li>Frontend, API y base de datos PostgreSQL.</li><li>OAuth, roles y paneles para usuarios y administración.</li><li>Middleware para proteger rutas y operaciones.</li><li>Despliegue web y aplicaciones nativas: Swift para iOS, Kotlin para Android.</li></ul>
+              </div>
+              <footer class="service-footer">
+                <p>La propuesta define módulos, integraciones, plataformas, infraestructura y mantenimiento; la publicación en tiendas se acuerda por separado.</p>
+                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20plataforma%20web%20con%20apps%20nativas." target="_blank" rel="noreferrer">Hablemos de tu plataforma <span aria-hidden="true">↗</span></a>
+              </footer>
+            </div>
+          </article>
         </div>
       </section>
 

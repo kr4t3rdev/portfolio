@@ -1,23 +1,23 @@
 # Michel García Aguero — Personal Landing Page
 
-Static personal portfolio showcasing selected finance, inventory, mobile, and commerce products.
+Astro-powered personal portfolio showcasing selected finance, inventory, mobile, and commerce products.
 
 ## Local preview
 
 ```bash
 npm test
 npm run build
-python3 -m http.server 4173 --directory dist
+npm run preview
 ```
 
-Open `http://localhost:4173`.
+For active development, run `npm run dev` and open the local URL printed by Astro.
 
 ## Structure
 
-- `index.html` — semantic page content and metadata
-- `styles.css` — responsive matte visual system
-- `script.js` — progressive reveal behavior and dynamic year
-- `scripts/` — dependency-free validation and production build
+- `src/pages/` — statically rendered Astro routes
+- `src/styles/global.css` — Tailwind CSS v4 theme and utilities, without Preflight to preserve the existing visual system
+- `public/` — static styles, scripts, favicon, and case-study styles
+- `scripts/test.mjs` — dependency-free content and configuration regression checks
 - `.openai/hosting.json` — Sites hosting configuration
 
-The page is dependency-free and can be deployed as a static site.
+Astro renders pages statically by default. Interactive client-side components can be added selectively where the portfolio needs them.

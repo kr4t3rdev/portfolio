@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
-const html = await readFile('index.html', 'utf8');
-const styles = await readFile('styles.css', 'utf8');
+const html = await readFile('src/pages/index.astro', 'utf8');
+const styles = await readFile('public/styles.css', 'utf8');
 
 const selectedProjects = [
   'FinanceMDM',
@@ -44,10 +44,10 @@ assert.match(styles, /\.social-link\s*\{[^}]*min-width:\s*54px[^}]*min-height:\s
 
 
 
-const casePage = await readFile('proyectos/financemdm/index.html', 'utf8');
+const casePage = await readFile('src/pages/proyectos/financemdm/index.astro', 'utf8');
 assert.match(html, /href="\/proyectos\/financemdm\/"/);
-assert.match(html, /href="https:\/\/kr4t3rdev\.xyz"/);
-assert.match(html, />\s*kr4t3rdev\.xyz\s*</);
+assert.match(html, /href="https:\/\/financemdm\.kr4t3rdev\.xyz"/);
+assert.match(html, />\s*financemdm\.kr4t3rdev\.xyz\s*</);
 assert.match(casePage, /sin adopción comercial/i);
 assert.match(casePage, /Desarrollo individual/);
 for (const section of ['contexto', 'arquitectura', 'frontend', 'backend', 'desafios', 'cicd', 'calidad']) {
@@ -59,6 +59,52 @@ assert.equal(ids.length, new Set(ids).size);
 for (const match of casePage.matchAll(/href="#([^"]+)"/g)) assert.ok(ids.includes(match[1]));
 assert.doesNotMatch(casePage, /628|263|137|47 dominios/);
 
-const caseStyles = await readFile('proyectos/financemdm/case-study.css', 'utf8');
+const caseStyles = await readFile('public/proyectos/financemdm/case-study.css', 'utf8');
 assert.match(caseStyles, /\.case-index \{ display:block;/);
+
+const packageJson = JSON.parse(await readFile('package.json', 'utf8'));
+const astroConfig = await readFile('astro.config.mjs', 'utf8');
+const globalStyles = await readFile('src/styles/global.css', 'utf8');
+assert.equal(packageJson.scripts.dev, 'astro dev');
+assert.equal(packageJson.scripts.build, 'astro build');
+assert.ok(packageJson.devDependencies.astro);
+assert.ok(packageJson.devDependencies.tailwindcss);
+assert.ok(packageJson.devDependencies['@tailwindcss/vite']);
+assert.match(astroConfig, /tailwindcss\(\)/);
+assert.match(globalStyles, /@layer theme, base, components, utilities/);
+assert.match(globalStyles, /@import ["']tailwindcss\/theme\.css["'] layer\(theme\)/);
+assert.match(globalStyles, /@import ["']tailwindcss\/utilities\.css["'] layer\(utilities\)/);
+assert.doesNotMatch(globalStyles, /preflight\.css/);
+assert.doesNotMatch(globalStyles, /@import\s+["']tailwindcss["']\s*;/);
+assert.match(html, /import ['"]\.\.\/styles\/global\.css['"]/);
+assert.match(casePage, /import ['"]\.\.\/\.\.\/\.\.\/styles\/global\.css['"]/);
+assert.match(html, /class="hero-intro text-pretty"/);
+
+
+for (const page of [html, casePage]) {
+  assert.doesNotMatch(page, /michel-garcia-portfolio\.vercel\.app/);
+  assert.match(page, /rel="canonical" href="https:\/\/kr4t3rdev\.xyz/);
+}
+assert.match(html, /href="https:\/\/cashflow\.kr4t3rdev\.xyz"/);
+assert.doesNotMatch(html, /cashflow-eight-cyan\.vercel\.app/);
+
 console.log('Portfolio and case-study checks passed.');
+
+assert.match(html, /id="servicios"/);
+for (const id of ['landing', 'negocio', 'plataforma']) {
+  assert.match(html, new RegExp(`id="service-${id}"`));
+  assert.match(html, new RegExp(`aria-labelledby="service-${id}"`));
+}
+for (const term of ['Swift', 'Kotlin', 'OAuth', 'PostgreSQL', 'Hablemos de tu sitio']) assert.ok(html.includes(term));
+assert.match(html, /href="#servicios"/);
+assert.match(styles, /\.service-sheet/);
+assert.match(visibleText, /producción con facturación/i);
+assert.match(visibleText, /trazabilidad operativa/i);
+assert.match(visibleText, /ERP multiempresa/i);
+assert.match(visibleText, /acceso por roles/i);
+assert.match(visibleText, /saldos y movimientos por\s+moneda/i);
+assert.match(visibleText, /flujo de caja/i);
+assert.match(visibleText, /contrato OpenAPI/i);
+assert.match(visibleText, /SDKs Swift y Kotlin/i);
+assert.match(html, /service-sheet/);
+assert.match(styles, /\.service-sheet/);
