@@ -1,5 +1,7 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm test && npm run build && npm run test:build",
+  "installCommand": "npm ci",
+  "framework": "astro",
   "outputDirectory": "dist",
   "cleanUrls": true
 }
