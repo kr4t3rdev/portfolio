@@ -16,7 +16,7 @@ For active development, run `npm run dev` and open the local URL printed by Astr
 
 GitHub Actions runs on pushes to `main`, pull requests, and manual dispatch. It uses Node.js 24, installs the lockfile with `npm ci`, runs `npm test`, builds the site, and smoke-checks the generated home and FinanceMDM case-study routes and their static assets with `npm run test:build`. Dependabot checks npm dependencies and GitHub Actions weekly.
 
-GitHub Actions is a validation workflow; it does not deploy the site. The existing Vercel project should be connected to this GitHub repository and configured to run `npm test && npm run build && npm run test:build` as its build gate. Vercel validates independently of GitHub Actions, creates previews for pull requests, and deploys production from `main` according to the Vercel project's Git settings. No deployment secrets or GitHub deployment workflow are needed for this Git integration.
+GitHub Actions is a validation workflow; it does not deploy the site. This repository is connected to the existing Vercel project `michel-garcia-portfolio`, which runs `npm test && npm run build && npm run test:build` as its build gate. Vercel validates independently of GitHub Actions, creates previews for pull requests, and deploys production from `main` to https://kr4t3rdev.xyz. A failed Vercel validation prevents publication, but Vercel does not wait for the separate GitHub Actions result. No deployment secrets or GitHub deployment workflow are needed for this Git integration.
 
 ## Structure
 
