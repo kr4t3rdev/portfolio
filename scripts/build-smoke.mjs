@@ -7,6 +7,7 @@ const builtFiles = [
   'index.html',
   'proyectos/financemdm/index.html',
   'styles.css',
+  'motion.css',
   'script.js',
   'favicon.svg',
   'proyectos/financemdm/case-study.css',
@@ -58,3 +59,21 @@ assert.match(renderedStyles, /\.icon-trigger:is\(:hover,:focus-within\)/);
 assert.match(renderedStyles, /:is\(a,button,summary\):is\(:hover,:focus-visible\)/);
 assert.match(pqoqubbwNotice, /MIT License/);
 assert.match(lucideNotice, /ISC License/);
+
+/* Motion layer presente en el build. */
+const motionBuilt = await readFile(join(buildDirectory, 'motion.css'), 'utf8');
+const motionScriptBuilt = await readFile(join(buildDirectory, 'script.js'), 'utf8');
+assert.match(motionBuilt, /@keyframes intro-rise/);
+assert.match(motionBuilt, /@keyframes intro-mask/);
+assert.match(motionBuilt, /::view-transition-new\(root\)/);
+assert.match(motionBuilt, /prefers-reduced-motion: reduce/);
+assert.match(motionScriptBuilt, /astro:page-load/);
+assert.match(home, /motion\.css/);
+assert.match(financeCase, /motion\.css/);
+assert.match(home, /class="scroll-progress"/);
+assert.match(financeCase, /class="scroll-progress"/);
+assert.match(home, /data-intro="mask"/);
+assert.match(home, /data-stagger="pop"/);
+assert.match(home, /data-parallax="0\.05"/);
+assert.match(financeCase, /data-intro="mask"/);
+assert.match(financeCase, /data-stagger/);

@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 import AnimatedIcon from "../components/icons/AnimatedIcon.astro";
 import BrandIcon from "../components/icons/BrandIcon.astro";
 ---
@@ -29,16 +30,19 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./motion.css" />
     <script src="./script.js" defer></script>
     <title>Michel García Aguero — Software Engineer</title>
+    <ClientRouter />
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
-    <div class="ambient-grid" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"><i></i></div>
+    <div class="ambient-grid" data-intro="fade" aria-hidden="true"></div>
     <div class="noise" aria-hidden="true"></div>
 
-    <header class="site-header">
+    <header class="site-header" data-intro="down">
       <a class="brand" href="#inicio" aria-label="Ir al inicio">
         <span class="brand-mark" aria-hidden="true">M</span>
         <span>MICHEL<span class="brand-dot">.DEV</span></span>
@@ -53,17 +57,17 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
 
     <main id="contenido">
       <section class="hero section-shell" id="inicio" aria-labelledby="hero-title">
-        <div class="hero-copy reveal">
-          <p class="eyebrow"><span class="status-dot"></span> Disponible para proyectos ambiciosos</p>
-          <h1 id="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow" data-intro style="--intro-delay: 90ms"><span class="status-dot"></span> Disponible para proyectos ambiciosos</p>
+          <h1 id="hero-title" data-intro="mask" style="--intro-delay: 210ms">
             Diseño sistemas.<br />
             <span class="muted-title">Resuelvo el caos.</span>
           </h1>
-          <p class="hero-intro text-pretty">
+          <p class="hero-intro text-pretty" data-intro style="--intro-delay: 360ms">
             Soy <strong>Michel García Aguero</strong>, ingeniero de software. Convierto procesos
             complejos en productos claros, sólidos y preparados para crecer.
           </p>
-          <div class="hero-actions">
+          <div class="hero-actions" data-intro style="--intro-delay: 480ms">
             <a class="button button-primary" href="#proyectos">
               Explorar proyectos <AnimatedIcon name="arrow-down" />
             </a>
@@ -78,7 +82,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
           </div>
         </div>
 
-        <div class="hero-console reveal" aria-label="Perfil técnico resumido">
+        <div class="hero-console" data-intro="right" style="--intro-delay: 420ms" aria-label="Perfil técnico resumido">
           <div class="console-bar">
             <span class="console-dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span>michel.profile</span>
@@ -104,7 +108,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
         </div>
       </section>
 
-      <section class="manifesto section-shell reveal" aria-label="Principios de trabajo">
+      <section class="manifesto section-shell reveal" data-motion="blur" aria-label="Principios de trabajo">
         <p class="manifesto-index">[01]</p>
         <p>
           No construyo pantallas aisladas. Construyo <em>sistemas completos</em>: desde la regla de
@@ -113,7 +117,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
       </section>
 
       <section class="projects section-shell" id="proyectos" aria-labelledby="projects-title">
-        <div class="section-heading reveal">
+        <div class="section-heading reveal" data-motion="mask">
           <div>
             <p class="kicker">TRABAJO SELECCIONADO / 2024—2026</p>
             <h2 id="projects-title">Productos reales,<br />problemas difíciles.</h2>
@@ -150,7 +154,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
                   <li>Acceso y navegación sujetos a permisos por función y disponibilidad del plan.</li>
                 </ul>
               </details>
-              <ul class="tech-list" aria-label="Tecnologías">
+              <ul class="tech-list" data-stagger aria-label="Tecnologías">
                 <li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li>
               </ul>
               <div class="project-actions">
@@ -170,7 +174,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-motion="right">
             <div class="project-visual visual-mobile" aria-hidden="true">
               <span class="visual-label">MOBILE // 02</span>
               <div class="phone-frame">
@@ -187,14 +191,14 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
                 Cliente móvil seguro para gestionar productos, existencias, ventas, facturación y
                 administración global desde cualquier lugar.
               </p>
-              <ul class="tech-list" aria-label="Tecnologías">
+              <ul class="tech-list" data-stagger aria-label="Tecnologías">
                 <li>Expo</li><li>React Native</li><li>TypeScript</li><li>Secure Store</li>
               </ul>
               <span class="project-state">Repositorio privado · 502 pruebas</span>
             </div>
           </article>
 
-          <article class="project-card reveal">
+          <article class="project-card reveal" data-motion="left">
             <div class="project-visual visual-cashflow" aria-hidden="true">
               <span class="visual-label">FINTECH // 03</span>
               <div class="currency-orbit">
@@ -219,7 +223,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
                   <li>Generación y compilación comprobada de SDKs Swift y Kotlin; son clientes de API, no una afirmación de aplicaciones nativas publicadas.</li>
                 </ul>
               </details>
-              <ul class="tech-list" aria-label="Tecnologías">
+              <ul class="tech-list" data-stagger aria-label="Tecnologías">
                 <li>React Native</li><li>NestJS</li><li>Prisma</li><li>React Query</li>
               </ul>
               <a class="project-link" href="https://cashflow.kr4t3rdev.xyz" target="_blank" rel="noreferrer">
@@ -246,7 +250,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
                 <span aria-hidden="true">UI</span>
                 <div><small>CAPA COMÚN</small><strong>Frontend compartido</strong></div>
               </div>
-              <div class="shared-frontend-grid">
+              <div class="shared-frontend-grid" data-stagger>
                 <p><strong>Next.js 16 + React 19</strong><span>Estructuran la tienda, navegación, renderizado y panel administrativo.</span></p>
                 <p><strong>TypeScript + Zod</strong><span>Tipan datos y validan formularios y contratos antes de enviarlos al servidor.</span></p>
                 <p><strong>Tailwind CSS</strong><span>Construye una interfaz responsive y consistente para catálogo, checkout y gestión.</span></p>
@@ -257,7 +261,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
 
             <div class="backend-bridge" aria-hidden="true"><span>UNA INTERFAZ</span><i></i><span>TRES IMPLEMENTACIONES</span></div>
 
-            <div class="backend-variants">
+            <div class="backend-variants" data-stagger>
               <article class="backend-variant variant-cesar">
                 <header>
                   <span class="variant-number">04</span><span class="variant-monogram" aria-hidden="true">CF</span>
@@ -311,12 +315,12 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
       </section>
 
       <section class="services section-shell" id="servicios" aria-labelledby="services-title">
-        <header class="section-heading services-heading">
+        <header class="section-heading services-heading reveal" data-motion="mask">
           <h2 id="services-title">Diseño que se entiende.<br />Ingeniería que responde.</h2>
           <p class="section-note">Servicios por alcance, no paquetes rígidos. Cada propuesta parte de tus objetivos, procesos y prioridades.</p>
         </header>
         <div class="service-catalog" aria-label="Servicios de desarrollo">
-          <article class="service-sheet icon-trigger" aria-labelledby="service-landing">
+          <article class="service-sheet icon-trigger reveal" data-motion="left" aria-labelledby="service-landing">
             <header class="service-intro">
               <p class="service-tag"><AnimatedIcon name="layout-panel-top" />WEB / PRESENCIA</p>
               <h3 id="service-landing">Una primera impresión que trabaja por tu marca.</h3>
@@ -325,7 +329,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             <div class="service-body">
               <div class="service-deliverables">
                 <h4>Qué podemos construir</h4>
-                <ul><li>Diseño personalizado y responsive para móvil, tablet y escritorio.</li><li>Estructura y contenido alineados con la identidad de tu negocio.</li><li>Iconografía, recursos gráficos y llamadas a la acción claras.</li></ul>
+                <ul data-stagger><li>Diseño personalizado y responsive para móvil, tablet y escritorio.</li><li>Estructura y contenido alineados con la identidad de tu negocio.</li><li>Iconografía, recursos gráficos y llamadas a la acción claras.</li></ul>
               </div>
               <footer class="service-footer">
                 <p>El presupuesto se ajusta a la cantidad de páginas, complejidad visual y funcionalidades.</p>
@@ -333,7 +337,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
               </footer>
             </div>
           </article>
-          <article class="service-sheet icon-trigger" aria-labelledby="service-negocio">
+          <article class="service-sheet icon-trigger reveal" data-motion="right" aria-labelledby="service-negocio">
             <header class="service-intro">
               <p class="service-tag"><AnimatedIcon name="server" />WEB / OPERACIÓN</p>
               <h3 id="service-negocio">Menos tareas dispersas. Más control del negocio.</h3>
@@ -342,7 +346,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             <div class="service-body">
               <div class="service-deliverables">
                 <h4>Qué podemos construir</h4>
-                <ul><li>Panel administrativo y gestión de usuarios.</li><li>Módulos CRUD para productos, clientes u otros registros del negocio.</li><li>Reglas de acceso y datos modelados según el flujo acordado.</li></ul>
+                <ul data-stagger><li>Panel administrativo y gestión de usuarios.</li><li>Módulos CRUD para productos, clientes u otros registros del negocio.</li><li>Reglas de acceso y datos modelados según el flujo acordado.</li></ul>
               </div>
               <footer class="service-footer">
                 <p>El alcance y el presupuesto dependen de los módulos, pantallas y reglas operativas.</p>
@@ -350,7 +354,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
               </footer>
             </div>
           </article>
-          <article class="service-sheet service-sheet-platform icon-trigger" aria-labelledby="service-plataforma">
+          <article class="service-sheet service-sheet-platform icon-trigger reveal" data-motion="zoom" aria-labelledby="service-plataforma">
             <header class="service-intro">
               <p class="service-tag"><AnimatedIcon name="layers" />PLATAFORMA / WEB + MÓVIL</p>
               <h3 id="service-plataforma">Una plataforma para usuarios, equipos y operaciones complejas.</h3>
@@ -359,7 +363,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             <div class="service-body">
               <div class="service-deliverables">
                 <h4>Qué podemos construir</h4>
-                <ul><li>Frontend, API y base de datos PostgreSQL.</li><li>OAuth, roles y paneles para usuarios y administración.</li><li>Middleware para proteger rutas y operaciones.</li><li>Despliegue web y aplicaciones nativas: Swift para iOS, Kotlin para Android.</li></ul>
+                <ul data-stagger><li>Frontend, API y base de datos PostgreSQL.</li><li>OAuth, roles y paneles para usuarios y administración.</li><li>Middleware para proteger rutas y operaciones.</li><li>Despliegue web y aplicaciones nativas: Swift para iOS, Kotlin para Android.</li></ul>
               </div>
               <footer class="service-footer">
                 <p>La propuesta define módulos, integraciones, plataformas, infraestructura y mantenimiento; la publicación en tiendas se acuerda por separado.</p>
@@ -379,20 +383,20 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             comprender el negocio y termina con evidencia de que realmente funciona.
           </p>
         </div>
-        <ol class="method-list">
-          <li class="reveal">
+        <ol class="method-list" data-stagger>
+          <li>
             <span>01 / ENTENDER</span>
             <div><h3>Primero el problema</h3><p>Modelo el dominio, los riesgos y las reglas antes de elegir herramientas.</p></div>
           </li>
-          <li class="reveal">
+          <li>
             <span>02 / DISEÑAR</span>
             <div><h3>Arquitectura con intención</h3><p>Separo responsabilidades para que el sistema pueda cambiar sin colapsar.</p></div>
           </li>
-          <li class="reveal">
+          <li>
             <span>03 / PROBAR</span>
             <div><h3>Evidencia, no esperanza</h3><p>Las pruebas, contratos y observabilidad convierten suposiciones en confianza.</p></div>
           </li>
-          <li class="reveal">
+          <li>
             <span>04 / ENTREGAR</span>
             <div><h3>Producto completo</h3><p>Una interfaz clara y un despliegue estable son parte de la ingeniería.</p></div>
           </li>
@@ -400,7 +404,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
       </section>
 
       <section class="contact section-shell reveal" id="contacto" aria-labelledby="contact-title">
-        <div class="contact-code" aria-hidden="true">READY_FOR_<br />THE_NEXT_<br />MISSION</div>
+        <div class="contact-code" data-parallax="0.05" aria-hidden="true">READY_FOR_<br />THE_NEXT_<br />MISSION</div>
         <div class="contact-copy">
           <p class="kicker">CANAL ABIERTO</p>
           <h2 id="contact-title">¿Construimos algo que importe?</h2>
@@ -408,7 +412,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             Si tienes un producto complejo, una operación que necesita orden o una idea que merece
             bases sólidas, conversemos.
           </p>
-          <div class="social-links" aria-label="Redes sociales y contacto">
+          <div class="social-links" data-stagger="pop" aria-label="Redes sociales y contacto">
             <a
               class="social-link social-link-whatsapp"
               href="https://wa.me/5353917705"
@@ -434,7 +438,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
       </section>
     </main>
 
-    <footer class="site-footer section-shell">
+    <footer class="site-footer section-shell reveal">
       <p>© <span id="year">2026</span> Michel García Aguero</p>
       <p>Diseñado con intención. Construido con código.</p>
       <a href="#inicio">Volver arriba <AnimatedIcon name="arrow-up" /></a>

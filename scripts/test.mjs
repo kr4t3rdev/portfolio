@@ -150,7 +150,7 @@ assert.match(animatedIcon, /<style is:global>[\s\S]*@import "\.\/icon-motion\.cs
 assert.match(brandIcon, /<style is:global>[\s\S]*@import "\.\/icon-motion\.css"/);
 assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="6" y2="6"/);
 assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="18" y2="18"/);
-assert.match(html, /<article class="service-sheet icon-trigger"/);
+assert.match(html, /<article class="service-sheet icon-trigger reveal"/);
 const readme = await readFile('README.md', 'utf8');
 assert.match(readme, /<AnimatedIcon name="arrow-up-right" \/>/);
 assert.match(brandIcon, /data-icon=\{name\}/);
@@ -163,3 +163,57 @@ assert.match(lucideLicense, /The MIT License \(MIT\)/);
 assert.match(html, /AnimatedIcon/);
 assert.match(html, /BrandIcon/);
 assert.match(casePage, /AnimatedIcon/);
+
+/* ---------- Motion layer: intro, variantes, stagger y transiciones ---------- */
+const motionStyles = await readFile('public/motion.css', 'utf8');
+const motionScript = await readFile('public/script.js', 'utf8');
+
+for (const keyframe of [
+  'intro-rise', 'intro-drop', 'intro-slide-right', 'intro-slide-left',
+  'intro-mask', 'intro-fade', 'orbit-spin', 'status-pulse', 'orbit-float',
+  'detail-item', 'vt-out', 'vt-in',
+]) {
+  assert.match(motionStyles, new RegExp(`@keyframes ${keyframe}\\b`), `motion layer must define ${keyframe}`);
+}
+
+for (const variant of ['left', 'right', 'zoom', 'blur', 'mask']) {
+  assert.match(motionStyles, new RegExp(`\\[data-motion="${variant}"\\]\\.reveal`), `reveal variant ${variant} missing`);
+}
+assert.match(motionStyles, /\[data-motion\]\.reveal\.is-visible\s*\{\s*opacity: 1/);
+assert.match(motionStyles, /\[data-stagger\] > \*/);
+assert.match(motionStyles, /\[data-stagger="pop"\] > \*/);
+assert.match(motionStyles, /\.scroll-progress/);
+assert.match(motionStyles, /\[data-parallax\]/);
+assert.match(motionStyles, /::view-transition-old\(root\)/);
+assert.match(motionStyles, /::view-transition-new\(root\)/);
+assert.match(motionStyles, /\.ledger-chart i\s*\{[^}]*transform: scaleY\(0\)/);
+assert.match(motionStyles, /\.commerce-lab\.is-visible \.backend-bridge i/);
+assert.match(motionStyles, /details\[open\] > \*:not\(summary\)/);
+assert.match(motionStyles, /\.site-header\.is-scrolled/);
+assert.match(motionStyles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none !important/);
+
+assert.match(motionScript, /astro:page-load/);
+assert.match(motionScript, /prefers-reduced-motion/);
+assert.match(motionScript, /data-stagger/);
+assert.match(motionScript, /is-staggered/);
+assert.match(motionScript, /scroll-progress i/);
+assert.match(motionScript, /data-parallax/);
+assert.match(motionScript, /is-scrolled/);
+assert.match(motionScript, /__motionScrollBound/);
+
+assert.match(html, /href="\.\/motion\.css"/);
+assert.match(casePage, /href="\/motion\.css"/);
+assert.match(html, /ClientRouter/);
+assert.match(casePage, /ClientRouter/);
+assert.match(html, /class="scroll-progress"/);
+assert.match(casePage, /class="scroll-progress"/);
+for (const attr of [
+  'data-intro="down"', 'data-intro="right"', 'data-intro="mask"', 'data-intro="fade"',
+  'data-motion="blur"', 'data-motion="mask"', 'data-motion="left"', 'data-motion="right"',
+  'data-motion="zoom"', 'data-stagger="pop"', 'data-parallax="0.05"',
+]) {
+  assert.ok(html.includes(attr), `index page must include ${attr}`);
+}
+assert.ok(casePage.includes('data-motion="left"'));
+assert.ok(casePage.includes('data-stagger'));
+assert.ok(casePage.includes('data-delay="90"'));

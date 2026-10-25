@@ -1,0 +1,241 @@
+/* ============================================================
+   MOTION LAYER — sistema de animaciones editorial
+   Entradas, reveals con variantes, staggers, decorados vivos,
+   progreso de scroll, parallax sutil y transiciones de página.
+   Solo propiedades GPU (transform, opacity, filter, clip-path).
+   ============================================================ */
+
+/* ---------- 1. Intro (secuencia de carga de página) ---------- */
+
+[data-intro] {
+  animation: intro-rise 760ms cubic-bezier(.2, .75, .25, 1) both;
+  animation-delay: var(--intro-delay, 0ms);
+}
+
+[data-intro="down"]  { animation-name: intro-drop; }
+[data-intro="right"] { animation-name: intro-slide-right; }
+[data-intro="left"]  { animation-name: intro-slide-left; }
+[data-intro="mask"]  { animation-name: intro-mask; }
+[data-intro="fade"]  { animation-name: intro-fade; animation-duration: 1400ms; }
+
+@keyframes intro-rise {
+  from { opacity: 0; transform: translateY(26px); }
+}
+
+@keyframes intro-drop {
+  from { opacity: 0; transform: translateY(-18px); }
+}
+
+@keyframes intro-slide-right {
+  from { opacity: 0; transform: translateX(38px); }
+}
+
+@keyframes intro-slide-left {
+  from { opacity: 0; transform: translateX(-38px); }
+}
+
+/* Revelado editorial con máscara: la tipografía emerge de abajo. */
+@keyframes intro-mask {
+  from { opacity: 0; transform: translateY(18px); clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0 0 -12% 0); }
+}
+
+@keyframes intro-fade {
+  from { opacity: 0; }
+}
+
+/* ---------- 2. Scroll reveals con variantes (data-motion) ---------- */
+
+/* La base .reveal (fade-up) vive en styles.css; aquí se añaden direcciones. */
+
+[data-motion="left"].reveal  { transform: translateX(-36px); }
+[data-motion="right"].reveal { transform: translateX(36px); }
+[data-motion="zoom"].reveal  { transform: scale(.93); }
+
+/* Estado final visible: gana a cualquier variante por especificidad. */
+[data-motion].reveal.is-visible {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+[data-motion="blur"].reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(12px);
+  transition-property: opacity, transform, filter;
+}
+
+/* Variante mask: el clip NO puede vivir en el elemento observado, porque
+   clip-path reduce el área de intersección y bloquearía el observer
+   (deadlock). El contenedor permanece geométricamente visible y la
+   máscara se aplica a los hijos, que se revelan al llegar is-visible. */
+[data-motion="mask"].reveal {
+  opacity: 1;
+  transform: none;
+}
+
+[data-motion="mask"].reveal > * {
+  opacity: 0;
+  transform: translateY(18px);
+  clip-path: inset(0 0 100% 0);
+  transition-property: opacity, transform, clip-path;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(.2, .75, .25, 1);
+}
+
+[data-motion="mask"].reveal.is-visible > * {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 -12% 0);
+}
+
+/* ---------- 3. Grupos escalonados (data-stagger) ---------- */
+
+[data-stagger] > * {
+  opacity: 0;
+  transform: translateY(20px);
+  transition-property: opacity, transform;
+  transition-duration: 640ms;
+  transition-timing-function: cubic-bezier(.2, .75, .25, 1);
+}
+
+[data-stagger].is-staggered > * { opacity: 1; transform: none; }
+
+/* Variante pop: entradas con acento para botones sociales. */
+[data-stagger="pop"] > * { transform: scale(.82) translateY(8px); }
+[data-stagger="pop"].is-staggered > * { transform: scale(1) translateY(0); }
+
+/* ---------- 4. Elementos vivos (decorados continuos, sutiles) ---------- */
+
+/* Título de misión girando despacio en su órbita. */
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+.orbit-stamp span { animation: orbit-spin 48s linear infinite; }
+
+/* Pulso del indicador de disponibilidad. */
+@keyframes status-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(182, 109, 82, .45); }
+  70%  { box-shadow: 0 0 0 8px rgba(182, 109, 82, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(182, 109, 82, 0); }
+}
+.status-dot { animation: status-pulse 2.4s ease-out infinite; }
+
+/* Barras del panel FinanceMDM crecen al entrar el card en escena. */
+.ledger-chart i {
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 720ms cubic-bezier(.2, .75, .25, 1);
+}
+.project-card-featured.is-visible .ledger-chart i { transform: scaleY(1); }
+.project-card-featured.is-visible .ledger-chart i:nth-child(2) { transition-delay: 90ms; }
+.project-card-featured.is-visible .ledger-chart i:nth-child(3) { transition-delay: 160ms; }
+.project-card-featured.is-visible .ledger-chart i:nth-child(4) { transition-delay: 230ms; }
+.project-card-featured.is-visible .ledger-chart i:nth-child(5) { transition-delay: 300ms; }
+.project-card-featured.is-visible .ledger-chart i:nth-child(6) { transition-delay: 370ms; }
+
+/* Monedas del orbit de Cashflow respiran en alturas desfasadas. */
+@keyframes orbit-float { from { transform: translateY(-4px); } to { transform: translateY(4px); } }
+.currency-orbit span { animation: orbit-float 5s ease-in-out infinite alternate; }
+.currency-orbit span:nth-child(2) { animation-duration: 6s; animation-delay: .7s; }
+.currency-orbit span:nth-child(3) { animation-duration: 5.5s; animation-delay: 1.4s; }
+
+/* Línea del puente backend-variants se dibuja al llegar. */
+.backend-bridge i {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 900ms cubic-bezier(.7, 0, .2, 1) 180ms;
+}
+.commerce-lab.is-visible .backend-bridge i { transform: scaleX(1); }
+
+/* Contenido de <details> entra con un barrido suave. */
+@keyframes detail-item { from { opacity: 0; transform: translateY(-6px); } }
+details[open] > *:not(summary) { animation: detail-item 460ms cubic-bezier(.2, .75, .25, 1) both; }
+details[open] > *:not(summary):nth-child(3) { animation-delay: 60ms; }
+details[open] > *:not(summary):nth-child(4) { animation-delay: 120ms; }
+details[open] > *:not(summary):nth-child(5) { animation-delay: 180ms; }
+details[open] > ul > li:nth-child(2) { animation-delay: 60ms; }
+details[open] > ul > li:nth-child(3) { animation-delay: 120ms; }
+details[open] > ul > li:nth-child(4) { animation-delay: 180ms; }
+
+/* Subrayado de navegación con transición. */
+nav a:not(.nav-cta) { transition: border-color 220ms ease-out; }
+
+/* ---------- 5. Progreso de scroll y header fijo ---------- */
+
+.scroll-progress {
+  position: fixed;
+  z-index: 60;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  pointer-events: none;
+}
+
+.scroll-progress i {
+  display: block;
+  height: 100%;
+  background: var(--clay);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.site-header { position: sticky; top: 0; }
+.site-header.is-scrolled {
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---------- 6. Parallax sutil (data-parallax) ---------- */
+
+[data-parallax] { transform: translateY(var(--py, 0px)); will-change: transform; }
+
+/* ---------- 7. Transiciones entre páginas (View Transitions) ---------- */
+
+::view-transition-old(root) {
+  animation: vt-out 240ms cubic-bezier(.4, 0, .2, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: vt-in 420ms cubic-bezier(.2, .75, .25, 1) both;
+}
+
+@keyframes vt-out {
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+@keyframes vt-in {
+  from { opacity: 0; transform: translateY(14px); }
+}
+
+/* ---------- 8. Movimiento reducido: todo estático ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-intro],
+  .reveal,
+  [data-motion="mask"].reveal > *,
+  [data-stagger] > *,
+  .ledger-chart i,
+  .backend-bridge i {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .orbit-stamp span,
+  .currency-orbit span,
+  .status-dot,
+  [data-parallax] {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
