@@ -523,3 +523,6 @@ h1 { max-width: 820px; font-size: clamp(4rem, 8.3vw, 8.1rem); font-weight: 700; 
   .site-header { flex-wrap: wrap; gap: .5rem; padding-block: .75rem; }
   .site-header nav { width: 100%; justify-content: space-between; }
 }
+
+/* Reusable SVG icon micro-interactions */
+.service-tag .animated-icon { width: 24px; height: 24px; margin-right: .55rem; }

@@ -29,3 +29,18 @@ GitHub Actions is a validation workflow; it does not deploy the site. This repos
 - `.openai/hosting.json` — Sites hosting configuration
 
 Astro renders pages statically by default. Interactive client-side components can be added selectively where the portfolio needs them.
+
+## Reusable icons
+
+`src/components/icons/AnimatedIcon.astro` provides the locally rendered, typed directional and service SVGs; use its `name`, optional `size`, `strokeWidth`, `class`, and optional accessible `label` props. Without a label it is decorative (`aria-hidden` and unfocusable); with a label it is exposed as an image. `BrandIcon.astro` reuses the existing WhatsApp and Instagram SVG geometry without changing the accessible names on their links. Shared styles are imported with the components. On link, button, or summary hover and keyboard focus, directional arrows travel 5 SVG units along their indicated direction and recoil in a 520ms one-shot; WhatsApp rocks through a 9-degree nudge in 520ms, while Instagram turns 9 degrees and scales to 1.12 before settling in 560ms. Inside an opt-in `.icon-trigger`, the 24px service marks animate only on hover/focus-within: the three panel pieces separate and settle in 720ms, server racks open/close 3 units with a brief LED blink in 760ms, and the three layers fan apart by up to 3 units in 680ms. There are no loops, automatic entrances, or layout shifts. All are CSS-only; `prefers-reduced-motion` removes animation, transitions, and transforms so every icon remains fully visible and static.
+
+Example:
+
+```astro
+---
+import AnimatedIcon from "../components/icons/AnimatedIcon.astro";
+---
+<a href="/projects/">Browse projects <AnimatedIcon name="arrow-up-right" /></a>
+```
+
+The borrowed SVG source geometry and full license texts are documented in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); copies are also shipped in `public/licenses/` in the built site.

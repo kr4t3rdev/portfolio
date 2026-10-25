@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import AnimatedIcon from "../components/icons/AnimatedIcon.astro";
+import BrandIcon from "../components/icons/BrandIcon.astro";
 ---
 <!doctype html>
 <html lang="es">
@@ -45,7 +47,7 @@ import "../styles/global.css";
         <a href="#servicios">Servicios</a>
         <a href="#proyectos">Proyectos</a>
         <a href="#metodo">Método</a>
-        <a class="nav-cta" href="#contacto">Contacto <span aria-hidden="true">↗</span></a>
+        <a class="nav-cta" href="#contacto">Contacto <AnimatedIcon name="arrow-up-right" /></a>
       </nav>
     </header>
 
@@ -63,7 +65,7 @@ import "../styles/global.css";
           </p>
           <div class="hero-actions">
             <a class="button button-primary" href="#proyectos">
-              Explorar proyectos <span aria-hidden="true">↓</span>
+              Explorar proyectos <AnimatedIcon name="arrow-down" />
             </a>
             <a
               class="button button-ghost"
@@ -71,7 +73,7 @@ import "../styles/global.css";
               target="_blank"
               rel="noreferrer"
             >
-              GitHub <span aria-hidden="true">↗</span>
+              GitHub <AnimatedIcon name="arrow-up-right" />
             </a>
           </div>
         </div>
@@ -153,7 +155,7 @@ import "../styles/global.css";
               </ul>
               <div class="project-actions">
                 <a class="project-link" href="/proyectos/financemdm/">
-                  Explorar caso de estudio <span aria-hidden="true">↗</span>
+                  Explorar caso de estudio <AnimatedIcon name="arrow-up-right" />
                 </a>
                 <a
                   class="project-host"
@@ -221,7 +223,7 @@ import "../styles/global.css";
                 <li>React Native</li><li>NestJS</li><li>Prisma</li><li>React Query</li>
               </ul>
               <a class="project-link" href="https://cashflow.kr4t3rdev.xyz" target="_blank" rel="noreferrer">
-                Ver producto <span aria-hidden="true">↗</span>
+                Ver producto <AnimatedIcon name="arrow-up-right" />
               </a>
             </div>
           </article>
@@ -269,7 +271,7 @@ import "../styles/global.css";
                   <div><dt>JWT + bcrypt</dt><dd>Protegen sesiones, contraseñas y acciones según el rol del usuario.</dd></div>
                   <div><dt>Servicios + dominio</dt><dd>Aíslan precios, descuentos y combos para evitar reglas mezcladas con los controladores.</dd></div>
                 </dl>
-                <div class="variant-links"><a class="project-link" href="https://cesar-fashion.vercel.app" target="_blank" rel="noreferrer">Ver tienda <span aria-hidden="true">↗</span></a></div>
+                <div class="variant-links"><a class="project-link" href="https://cesar-fashion.vercel.app" target="_blank" rel="noreferrer">Ver tienda <AnimatedIcon name="arrow-up-right" /></a></div>
               </article>
 
               <article class="backend-variant variant-yoisel">
@@ -285,7 +287,7 @@ import "../styles/global.css";
                   <div><dt>Services + interfaces</dt><dd>Separan los casos de uso del almacenamiento para facilitar pruebas y evolución.</dd></div>
                   <div><dt>Money + security</dt><dd>Representan importes en centavos y encapsulan autenticación, contraseñas y archivos seguros.</dd></div>
                 </dl>
-                <a class="project-link" href="https://yoisel-shop.vercel.app" target="_blank" rel="noreferrer">Ver tienda <span aria-hidden="true">↗</span></a>
+                <a class="project-link" href="https://yoisel-shop.vercel.app" target="_blank" rel="noreferrer">Ver tienda <AnimatedIcon name="arrow-up-right" /></a>
               </article>
 
               <article class="backend-variant variant-ym">
@@ -301,7 +303,7 @@ import "../styles/global.css";
                   <div><dt>NextAuth + roles</dt><dd>Gestiona identidad, sesiones y autorización del área administrativa.</dd></div>
                   <div><dt>Zod + UploadThing</dt><dd>Valida entradas y gestiona los recursos visuales asociados al catálogo.</dd></div>
                 </dl>
-                <div class="variant-links"><a class="project-link" href="https://y-m-fashion-llc.vercel.app" target="_blank" rel="noreferrer">Ver tienda <span aria-hidden="true">↗</span></a><a class="project-link subtle" href="https://github.com/kr4t3rdev/Y-M-fashion-LLC" target="_blank" rel="noreferrer">Código</a></div>
+                <div class="variant-links"><a class="project-link" href="https://y-m-fashion-llc.vercel.app" target="_blank" rel="noreferrer">Ver tienda <AnimatedIcon name="arrow-up-right" /></a><a class="project-link subtle" href="https://github.com/kr4t3rdev/Y-M-fashion-LLC" target="_blank" rel="noreferrer">Código</a></div>
               </article>
             </div>
           </section>
@@ -314,9 +316,9 @@ import "../styles/global.css";
           <p class="section-note">Servicios por alcance, no paquetes rígidos. Cada propuesta parte de tus objetivos, procesos y prioridades.</p>
         </header>
         <div class="service-catalog" aria-label="Servicios de desarrollo">
-          <article class="service-sheet" aria-labelledby="service-landing">
+          <article class="service-sheet icon-trigger" aria-labelledby="service-landing">
             <header class="service-intro">
-              <p class="service-tag">WEB / PRESENCIA</p>
+              <p class="service-tag"><AnimatedIcon name="layout-panel-top" />WEB / PRESENCIA</p>
               <h3 id="service-landing">Una primera impresión que trabaja por tu marca.</h3>
               <p>Landing pages y sitios para explicar tu propuesta, presentar productos y convertir visitas en conversaciones.</p>
             </header>
@@ -327,13 +329,13 @@ import "../styles/global.css";
               </div>
               <footer class="service-footer">
                 <p>El presupuesto se ajusta a la cantidad de páginas, complejidad visual y funcionalidades.</p>
-                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20landing%20page%20o%20sitio%20web." target="_blank" rel="noreferrer">Hablemos de tu sitio <span aria-hidden="true">↗</span></a>
+                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20landing%20page%20o%20sitio%20web." target="_blank" rel="noreferrer">Hablemos de tu sitio <AnimatedIcon name="arrow-up-right" /></a>
               </footer>
             </div>
           </article>
-          <article class="service-sheet" aria-labelledby="service-negocio">
+          <article class="service-sheet icon-trigger" aria-labelledby="service-negocio">
             <header class="service-intro">
-              <p class="service-tag">WEB / OPERACIÓN</p>
+              <p class="service-tag"><AnimatedIcon name="server" />WEB / OPERACIÓN</p>
               <h3 id="service-negocio">Menos tareas dispersas. Más control del negocio.</h3>
               <p>Una aplicación web conectada a su API y base de datos, diseñada alrededor de los procesos del pequeño negocio.</p>
             </header>
@@ -344,13 +346,13 @@ import "../styles/global.css";
               </div>
               <footer class="service-footer">
                 <p>El alcance y el presupuesto dependen de los módulos, pantallas y reglas operativas.</p>
-                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20un%20sistema%20web%20para%20mi%20negocio." target="_blank" rel="noreferrer">Hablemos de tu sistema <span aria-hidden="true">↗</span></a>
+                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20un%20sistema%20web%20para%20mi%20negocio." target="_blank" rel="noreferrer">Hablemos de tu sistema <AnimatedIcon name="arrow-up-right" /></a>
               </footer>
             </div>
           </article>
-          <article class="service-sheet service-sheet-platform" aria-labelledby="service-plataforma">
+          <article class="service-sheet service-sheet-platform icon-trigger" aria-labelledby="service-plataforma">
             <header class="service-intro">
-              <p class="service-tag">PLATAFORMA / WEB + MÓVIL</p>
+              <p class="service-tag"><AnimatedIcon name="layers" />PLATAFORMA / WEB + MÓVIL</p>
               <h3 id="service-plataforma">Una plataforma para usuarios, equipos y operaciones complejas.</h3>
               <p>Soluciones de mayor alcance con servicios compartidos, controles de acceso y aplicaciones nativas.</p>
             </header>
@@ -361,7 +363,7 @@ import "../styles/global.css";
               </div>
               <footer class="service-footer">
                 <p>La propuesta define módulos, integraciones, plataformas, infraestructura y mantenimiento; la publicación en tiendas se acuerda por separado.</p>
-                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20plataforma%20web%20con%20apps%20nativas." target="_blank" rel="noreferrer">Hablemos de tu plataforma <span aria-hidden="true">↗</span></a>
+                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20plataforma%20web%20con%20apps%20nativas." target="_blank" rel="noreferrer">Hablemos de tu plataforma <AnimatedIcon name="arrow-up-right" /></a>
               </footer>
             </div>
           </article>
@@ -415,9 +417,7 @@ import "../styles/global.css";
               aria-label="Contactar por WhatsApp"
               title="WhatsApp"
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12.04 2a9.84 9.84 0 0 0-8.46 14.86L2.05 22l5.29-1.49A9.95 9.95 0 1 0 12.04 2Zm0 17.9a8 8 0 0 1-4.08-1.11l-.29-.17-3.14.89.9-3.06-.19-.31a7.9 7.9 0 1 1 6.8 3.76Zm4.34-5.92c-.24-.12-1.41-.69-1.63-.77-.22-.08-.38-.12-.54.12-.16.24-.61.77-.75.93-.14.16-.28.18-.52.06-.24-.12-1-.37-1.91-1.18a7.12 7.12 0 0 1-1.32-1.64c-.14-.24-.01-.37.1-.49.11-.11.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.19-.47-.39-.4-.54-.41h-.46c-.16 0-.42.06-.63.3-.22.24-.84.83-.84 2.02s.86 2.34.98 2.5c.12.16 1.7 2.59 4.11 3.63.58.25 1.03.4 1.38.51.58.18 1.1.16 1.52.1.46-.07 1.41-.58 1.61-1.13.2-.56.2-1.03.14-1.13-.06-.1-.22-.16-.46-.28Z"/>
-              </svg>
+              <BrandIcon name="whatsapp" />
             </a>
             <a
               class="social-link social-link-instagram"
@@ -427,9 +427,7 @@ import "../styles/global.css";
               aria-label="Ver Instagram de Michel"
               title="Instagram"
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm10.5 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
-              </svg>
+              <BrandIcon name="instagram" />
             </a>
           </div>
         </div>
@@ -439,7 +437,7 @@ import "../styles/global.css";
     <footer class="site-footer section-shell">
       <p>© <span id="year">2026</span> Michel García Aguero</p>
       <p>Diseñado con intención. Construido con código.</p>
-      <a href="#inicio">Volver arriba <span aria-hidden="true">↑</span></a>
+      <a href="#inicio">Volver arriba <AnimatedIcon name="arrow-up" /></a>
     </footer>
   </body>
 </html>

@@ -108,3 +108,58 @@ assert.match(visibleText, /contrato OpenAPI/i);
 assert.match(visibleText, /SDKs Swift y Kotlin/i);
 assert.match(html, /service-sheet/);
 assert.match(styles, /\.service-sheet/);
+
+const animatedIcon = await readFile('src/components/icons/AnimatedIcon.astro', 'utf8');
+const brandIcon = await readFile('src/components/icons/BrandIcon.astro', 'utf8');
+const iconStyles = await readFile('src/components/icons/icon-motion.css', 'utf8');
+const pageIconStyles = await readFile('public/styles.css', 'utf8');
+const iconNotices = await readFile('THIRD_PARTY_NOTICES.md', 'utf8');
+const pqoqubbwLicense = await readFile('licenses/pqoqubbw-icons-MIT.txt', 'utf8');
+const lucideLicense = await readFile('licenses/lucide-ISC-and-feather-MIT.txt', 'utf8');
+for (const icon of ['arrow-up-right', 'arrow-down', 'arrow-up', 'arrow-left', 'layout-panel-top', 'server', 'layers']) {
+  assert.ok(animatedIcon.includes(`"${icon}"`), `AnimatedIcon must include ${icon}`);
+}
+assert.match(animatedIcon, /aria-hidden=\{accessible \? undefined : "true"\}/);
+assert.match(animatedIcon, /focusable="false"/);
+assert.match(animatedIcon, /role=\{accessible \? "img" : undefined\}/);
+assert.match(iconStyles, /prefers-reduced-motion/);
+assert.match(iconStyles, /:focus-visible/);
+assert.match(iconStyles, /:is\(a, button, summary\)/);
+assert.match(iconStyles, /\.icon-trigger:is\(:hover, :focus-within\)/);
+assert.doesNotMatch(iconStyles, /\.service-sheet/);
+assert.doesNotMatch(iconStyles, /infinite/);
+assert.match(iconStyles, /\.brand-icon\s*\{[^}]*fill:\s*currentColor/);
+assert.match(brandIcon, /size = 23/);
+assert.doesNotMatch(iconStyles, /\.brand-icon\s*\{[^}]*\b(?:width|height):\s*23px/);
+assert.match(styles, /\.social-link svg \{ width: 23px; height: 23px;/);
+assert.match(pageIconStyles, /\.service-tag \.animated-icon \{ width: 24px; height: 24px; margin-right: \.55rem; \}/);
+for (const keyframe of ['icon-arrow-up-right', 'icon-arrow-down', 'icon-arrow-up', 'icon-arrow-left', 'icon-panel-assemble', 'icon-server-top', 'icon-server-led', 'icon-layer-fan', 'brand-whatsapp-nudge', 'brand-instagram-snap']) {
+  assert.match(iconStyles, new RegExp(`@keyframes ${keyframe}\\b`), `icon motion must define ${keyframe}`);
+}
+assert.match(iconStyles, /animation: icon-arrow-up-right 520ms/);
+assert.match(iconStyles, /animation: icon-panel-assemble 720ms/);
+assert.match(iconStyles, /animation: icon-server-top 760ms/);
+assert.match(iconStyles, /animation: icon-layer-fan 680ms/);
+assert.match(iconStyles, /animation: brand-whatsapp-nudge 520ms/);
+assert.match(iconStyles, /animation: brand-instagram-snap 560ms/);
+assert.match(iconStyles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*\.brand-icon[\s\S]*animation: none !important/);
+assert.match(animatedIcon, /<g class="icon-motion arrow-motion">/);
+assert.match(brandIcon, /<g class="brand-motion">/);
+assert.doesNotMatch(pageIconStyles, /\.icon-trigger|\.animated-icon-arrow/);
+assert.match(animatedIcon, /<style is:global>[\s\S]*@import "\.\/icon-motion\.css"/);
+assert.match(brandIcon, /<style is:global>[\s\S]*@import "\.\/icon-motion\.css"/);
+assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="6" y2="6"/);
+assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="18" y2="18"/);
+assert.match(html, /<article class="service-sheet icon-trigger"/);
+const readme = await readFile('README.md', 'utf8');
+assert.match(readme, /<AnimatedIcon name="arrow-up-right" \/>/);
+assert.match(brandIcon, /data-icon=\{name\}/);
+assert.match(html, /aria-label="Contactar por WhatsApp"/);
+assert.match(html, /aria-label="Ver Instagram de Michel"/);
+assert.match(iconNotices, /4662fff2b60fdcf4751b32013606756caf7c4c26/);
+assert.match(pqoqubbwLicense, /MIT License/);
+assert.match(lucideLicense, /ISC License/);
+assert.match(lucideLicense, /The MIT License \(MIT\)/);
+assert.match(html, /AnimatedIcon/);
+assert.match(html, /BrandIcon/);
+assert.match(casePage, /AnimatedIcon/);

@@ -1,5 +1,6 @@
 ---
 import "../../../styles/global.css";
+import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
 ---
 <!doctype html>
 <html lang="es">
@@ -25,7 +26,7 @@ import "../../../styles/global.css";
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <header class="case-header section-shell">
   <a class="brand" href="/" aria-label="Michel García — Inicio"><span class="brand-mark" aria-hidden="true">M</span> MICHEL.DEV</a>
-  <a href="/#proyectos">← Todos los proyectos</a>
+  <a href="/#proyectos"><AnimatedIcon name="arrow-left" />Todos los proyectos</a>
 </header>
 <main id="contenido">
   <section class="case-hero section-shell" aria-labelledby="case-title">
@@ -38,7 +39,7 @@ import "../../../styles/global.css";
       <div><dt>Estado</dt><dd>En mejora continua</dd></div>
     </dl>
     <p class="case-status"><span aria-hidden="true">●</span> Sin adopción comercial todavía. Este caso presenta implementación, no resultados de clientes.</p>
-    <a class="button button-primary" href="#arquitectura">Explorar la arquitectura <span aria-hidden="true">↓</span></a>
+    <a class="button button-primary" href="#arquitectura">Explorar la arquitectura <AnimatedIcon name="arrow-down" /></a>
   </section>
   <div class="case-layout section-shell">
     <nav class="case-index" aria-label="Secciones del caso de estudio">
@@ -67,11 +68,11 @@ import "../../../styles/global.css";
         <p>Next.js aloja tanto la interfaz como operaciones del backend. La organización por funcionalidades convive con servicios compartidos para autenticación, autorización y acceso a datos.</p>
         <figure class="architecture">
           <div class="architecture-clients"><div><small>CLIENTE WEB</small><strong>React + Next.js</strong></div><div><small>CLIENTE MÓVIL</small><strong>API específica</strong></div></div>
-          <p class="architecture-arrow" aria-hidden="true">↓</p>
+          <p class="architecture-arrow"><AnimatedIcon name="arrow-down" size={18} /></p>
           <div class="architecture-layer"><small>ENTRADA</small><strong>Server Actions · Route Handlers</strong></div>
-          <p class="architecture-arrow" aria-hidden="true">↓</p>
+          <p class="architecture-arrow"><AnimatedIcon name="arrow-down" size={18} /></p>
           <div class="architecture-layer"><small>CONTROL Y DOMINIO</small><strong>Sesión · Empresa · Permisos · Servicios</strong></div>
-          <p class="architecture-arrow" aria-hidden="true">↓</p>
+          <p class="architecture-arrow"><AnimatedIcon name="arrow-down" size={18} /></p>
           <div class="architecture-layer"><small>PERSISTENCIA</small><strong>Prisma → PostgreSQL</strong></div>
           <figcaption>Esquema conceptual: la web utiliza acciones y rutas; el cliente móvil accede por HTTP. No representa el recorrido exacto de todas las solicitudes.</figcaption>
         </figure>
@@ -130,7 +131,7 @@ import "../../../styles/global.css";
   <section class="case-outro section-shell">
     <p class="case-eyebrow">SIGUIENTE CONVERSACIÓN</p><h2>¿Tu equipo construye<br>productos empresariales?</h2>
     <p>Me interesan oportunidades full-stack donde pueda aportar experiencia conectando interfaz, backend y modelos de datos.</p>
-    <a class="button button-primary" href="/#contacto">Conversar sobre una oportunidad <span aria-hidden="true">↗</span></a>
+    <a class="button button-primary" href="/#contacto">Conversar sobre una oportunidad <AnimatedIcon name="arrow-up-right" /></a>
     <a class="case-back" href="/#proyectos">Volver al catálogo</a>
   </section>
 </main>
