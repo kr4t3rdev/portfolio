@@ -44,7 +44,7 @@ The animation layer is dependency-free: `public/motion.css` (styles, keyframes, 
 
 **Living decorations.** The FinanceMDM ledger bars grow (`scaleY`) when the featured card reveals, the Cashflow currency badges float on offset timings, the hero orbit stamp spins slowly, the availability dot pulses, the commerce-lab bridge line draws itself, and `<details>` content sweeps in on open.
 
-All motion uses GPU-friendly properties (`transform`, `opacity`, `filter`, `clip-path`) with the existing editorial easing `cubic-bezier(.2, .75, .25, 1)`. The engine is idempotent and re-initializes on `astro:page-load`, so reveals survive view transitions without duplicating listeners. A 26-check Playwright suite verified the layer in a real browser, including the reduced-motion path.
+All motion uses GPU-friendly properties (`transform`, `opacity`, `filter`, `clip-path`) with the existing editorial easing `cubic-bezier(.2, .75, .25, 1)`. The engine re-initializes on `astro:page-load`, so reveals survive view transitions. The repository's dependency-free `npm test` suite provides source-level regression checks for these contracts; it is not a browser-based Playwright suite.
 
 ## Dark mode
 
