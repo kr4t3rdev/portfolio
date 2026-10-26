@@ -58,7 +58,7 @@
         applyTheme(next, { persist: true, animate: true });
       });
     }
-    syncToggle();
+    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
   };
 
   const revealObserver = () => {

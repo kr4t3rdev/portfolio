@@ -24,6 +24,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
               ? 'dark'
               : 'light';
         document.documentElement.dataset.theme = theme;
+        document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#191b17' : '#e7e1d4');
       })();
     </script>
     <meta property="og:title" content="Michel García Aguero — Software Engineer" />
