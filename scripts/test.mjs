@@ -278,6 +278,17 @@ assert.match(motionScript, /try\s*\{\s*window\.localStorage\.setItem\('theme', t
 assert.match(motionScript, /aria-pressed/, 'toggle must expose aria-pressed');
 assert.match(motionScript, /meta\[name="theme-color"\]/, 'engine must sync meta theme-color');
 
+/* Persistencia del tema en navegación de cliente (issue #13). */
+assert.match(motionScript, /astro:after-swap/, 'engine must re-apply the theme after Astro swaps');
+assert.match(motionScript, /const resolveTheme/, 'engine must resolve the theme from its source of truth');
+assert.match(motionScript, /applyTheme\(resolveTheme\(\)\)/, 'theme initialization must re-resolve the stored theme instead of trusting the swap-wiped attribute');
+assert.match(motionScript, /localStorage\.getItem\('theme'\);[\s\S]{0,140}?catch/, 'theme resolution must tolerate blocked storage reads');
+assert.doesNotMatch(
+  motionScript,
+  /applyTheme\(document\.documentElement\.dataset\.theme === 'dark' \? 'dark' : 'light'\)/,
+  'initTheme must not derive the theme from the data-theme attribute wiped by the router swap',
+);
+
 for (const page of [html, casePage]) {
   assert.match(page, /theme\.css/, 'page must link theme.css');
   assert.match(page, /localStorage\.getItem\('theme'\)/, 'page needs inline no-flash theme script');
@@ -288,7 +299,6 @@ for (const page of [html, casePage]) {
   assert.match(page, /class="icon-sun"/, 'toggle needs sun icon');
   assert.match(page, /class="icon-moon"/, 'toggle needs moon icon');
 }
-assert.match(motionScript, /applyTheme\(document\.documentElement\.dataset\.theme === 'dark' \? 'dark' : 'light'\)/, 'client navigation must sync theme-color during theme initialization');
 
 /* Native case-study coverage: contracts are per product, not per platform. */
 const studySlugs = ['financemdm', 'cashflows', 'yoisel-shop'];
@@ -343,4 +353,3 @@ for (const source of [html, casePage, cashflowsCase, shopCase]) {
   assert.match(source, /try\s*\{\s*stored = localStorage\.getItem\('theme'\);\s*\} catch/, 'all case bootstraps must tolerate blocked storage');
   assert.match(source, /setAttribute\('content', theme === 'dark' \? '#191b17' : '#e7e1d4'\)/, 'inline theme bootstrap must sync theme-color');
 }
-assert.match(motionScript, /applyTheme\(document\.documentElement\.dataset\.theme === 'dark' \? 'dark' : 'light'\)/, 'client navigation must sync theme-color during theme initialization');
