@@ -167,6 +167,14 @@ assert.match(casePage, /AnimatedIcon/);
 /* ---------- Motion layer: intro, variantes, stagger y transiciones ---------- */
 const motionStyles = await readFile('public/motion.css', 'utf8');
 const motionScript = await readFile('public/script.js', 'utf8');
+assert.match(styles, /\.reveal\s*\{[^}]*opacity:\s*1/);
+assert.match(styles, /\.motion-ready \.reveal:not\(\.is-visible\)/);
+assert.match(motionStyles, /\.motion-ready \[data-stagger\] > \*/);
+assert.match(motionStyles, /\.motion-ready \[data-motion="blur"\]\.reveal/);
+assert.match(motionStyles, /\.motion-ready \[data-motion="mask"\]\.reveal > \*/);
+assert.match(motionStyles, /\.motion-ready \.ledger-chart i/);
+assert.match(motionStyles, /\.motion-ready \.backend-bridge i/);
+assert.match(motionScript, /document\.documentElement\.classList\.add\(['"]motion-ready['"]\)/);
 
 for (const keyframe of [
   'intro-rise', 'intro-drop', 'intro-slide-right', 'intro-slide-left',
@@ -175,6 +183,8 @@ for (const keyframe of [
 ]) {
   assert.match(motionStyles, new RegExp(`@keyframes ${keyframe}\\b`), `motion layer must define ${keyframe}`);
 }
+assert.doesNotMatch(motionStyles, /@keyframes status-pulse[\s\S]*?box-shadow/);
+assert.match(motionStyles, /\.status-dot::after/);
 
 for (const variant of ['left', 'right', 'zoom', 'blur', 'mask']) {
   assert.match(motionStyles, new RegExp(`\\[data-motion="${variant}"\\]\\.reveal`), `reveal variant ${variant} missing`);
@@ -201,6 +211,9 @@ assert.match(motionSpec, /registro histórico.*no está incluida en este reposit
 assert.match(themeSpec, /registro histórico.*no están incluidas en este repositorio/i);
 
 assert.match(motionScript, /astro:page-load/);
+assert.doesNotMatch(motionScript, /revealObserverCache/);
+assert.match(motionScript, /activeRevealObserver\?\.disconnect\(\)/);
+assert.match(motionScript, /activeGroupObserver\?\.disconnect\(\)/);
 assert.match(motionScript, /prefers-reduced-motion/);
 assert.match(motionScript, /data-stagger/);
 assert.match(motionScript, /is-staggered/);
@@ -228,6 +241,7 @@ assert.ok(casePage.includes('data-delay="90"'));
 
 /* ---------- Theme layer: modo oscuro ---------- */
 const themeStyles = await readFile('public/theme.css', 'utf8');
+assert.doesNotMatch(themeStyles, /@keyframes status-pulse-dark/);
 
 assert.match(themeStyles, /:root\[data-theme="dark"\]\s*\{/, 'dark token block missing');
 assert.match(themeStyles, /--ink:\s*#e8e2d5/, 'dark --ink must invert to light');
@@ -236,7 +250,7 @@ assert.match(themeStyles, /color-scheme:\s*dark/, 'dark color-scheme missing');
 assert.match(themeStyles, /\.theme-toggle\s*\{[^}]*cursor:\s*pointer/, 'theme toggle needs cursor pointer');
 assert.match(themeStyles, /\.theme-toggle\s*\{[^}]*width:\s*44px/, 'theme toggle needs 44px target');
 assert.match(themeStyles, /:root:not\(\[data-theme="dark"\]\)\s*\.theme-toggle\s*\.icon-moon/, 'icon swap rules missing');
-assert.match(themeStyles, /@keyframes status-pulse-dark/, 'dark status pulse missing');
+assert.match(themeStyles, /--status-pulse-color:\s*rgba\(168, 182, 153, 0\.35\)/, 'dark pulse color missing');
 assert.match(themeStyles, /html\.theme-anim/, 'theme transition rules missing');
 assert.match(themeStyles, /prefers-reduced-motion:\s*reduce\)[\s\S]*animation:\s*none\s*!important/, 'reduced motion must disable theme animations');
 for (const override of [
