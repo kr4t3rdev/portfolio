@@ -25,7 +25,13 @@
       window.setTimeout(() => root.classList.remove('theme-anim'), 300);
     }
     root.dataset.theme = theme;
-    if (persist) window.localStorage.setItem('theme', theme);
+    if (persist) {
+      try {
+        window.localStorage.setItem('theme', theme);
+      } catch {
+        /* Storage may be unavailable; keep the theme change in memory. */
+      }
+    }
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', THEME_BG[theme] ?? THEME_BG.light);
     syncToggle();

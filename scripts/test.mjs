@@ -267,12 +267,14 @@ for (const override of [
 
 assert.match(motionScript, /applyTheme/, 'engine must include applyTheme');
 assert.match(motionScript, /localStorage\.setItem\('theme'/, 'theme choice must persist');
+assert.match(motionScript, /try\s*\{\s*window\.localStorage\.setItem\('theme', theme\);\s*\} catch/, 'theme changes must survive blocked persistence');
 assert.match(motionScript, /aria-pressed/, 'toggle must expose aria-pressed');
 assert.match(motionScript, /meta\[name="theme-color"\]/, 'engine must sync meta theme-color');
 
 for (const page of [html, casePage]) {
   assert.match(page, /theme\.css/, 'page must link theme.css');
   assert.match(page, /localStorage\.getItem\('theme'\)/, 'page needs inline no-flash theme script');
+  assert.match(page, /try\s*\{\s*stored = localStorage\.getItem\('theme'\);\s*\} catch/, 'theme bootstrap must survive blocked storage reads');
   assert.match(page, /content="#e7e1d4"/, 'meta theme-color must default to light paper');
   assert.match(page, /setAttribute\('content', theme === 'dark' \? '#191b17' : '#e7e1d4'\)/, 'inline theme bootstrap must sync theme-color');
   assert.match(page, /class="theme-toggle"/, 'page needs the theme toggle button');
