@@ -183,6 +183,8 @@ for (const keyframe of [
 ]) {
   assert.match(motionStyles, new RegExp(`@keyframes ${keyframe}\\b`), `motion layer must define ${keyframe}`);
 }
+assert.doesNotMatch(motionStyles, /@keyframes status-pulse[\s\S]*?box-shadow/);
+assert.match(motionStyles, /\.status-dot::after/);
 
 for (const variant of ['left', 'right', 'zoom', 'blur', 'mask']) {
   assert.match(motionStyles, new RegExp(`\\[data-motion="${variant}"\\]\\.reveal`), `reveal variant ${variant} missing`);
@@ -231,6 +233,7 @@ assert.ok(casePage.includes('data-delay="90"'));
 
 /* ---------- Theme layer: modo oscuro ---------- */
 const themeStyles = await readFile('public/theme.css', 'utf8');
+assert.doesNotMatch(themeStyles, /@keyframes status-pulse-dark/);
 
 assert.match(themeStyles, /:root\[data-theme="dark"\]\s*\{/, 'dark token block missing');
 assert.match(themeStyles, /--ink:\s*#e8e2d5/, 'dark --ink must invert to light');
@@ -239,7 +242,7 @@ assert.match(themeStyles, /color-scheme:\s*dark/, 'dark color-scheme missing');
 assert.match(themeStyles, /\.theme-toggle\s*\{[^}]*cursor:\s*pointer/, 'theme toggle needs cursor pointer');
 assert.match(themeStyles, /\.theme-toggle\s*\{[^}]*width:\s*44px/, 'theme toggle needs 44px target');
 assert.match(themeStyles, /:root:not\(\[data-theme="dark"\]\)\s*\.theme-toggle\s*\.icon-moon/, 'icon swap rules missing');
-assert.match(themeStyles, /@keyframes status-pulse-dark/, 'dark status pulse missing');
+assert.match(themeStyles, /--status-pulse-color:\s*rgba\(168, 182, 153, 0\.35\)/, 'dark pulse color missing');
 assert.match(themeStyles, /html\.theme-anim/, 'theme transition rules missing');
 assert.match(themeStyles, /prefers-reduced-motion:\s*reduce\)[\s\S]*animation:\s*none\s*!important/, 'reduced motion must disable theme animations');
 for (const override of [
