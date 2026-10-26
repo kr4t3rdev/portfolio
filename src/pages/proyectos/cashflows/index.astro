@@ -13,7 +13,12 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
   <meta name="theme-color" content="#e7e1d4">
   <script is:inline>
     (() => {
-      const stored = localStorage.getItem('theme');
+      let stored;
+      try {
+        stored = localStorage.getItem('theme');
+      } catch {
+        /* Use the system preference when storage is unavailable. */
+      }
       const theme =
         stored === 'light' || stored === 'dark'
           ? stored
@@ -21,6 +26,7 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
             ? 'dark'
             : 'light';
       document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#191b17' : '#e7e1d4');
     })();
   </script>
   <link rel="canonical" href="https://kr4t3rdev.xyz/proyectos/cashflows/">
