@@ -106,4 +106,4 @@ sin throttle (rAF) ni reflows forzados.
 - `public/motion.css` — keyframes, variantes, staggers, decoraciones, progreso, VT, reduced-motion.
 - `public/script.js` — motor idempotente (observers, staggers, progreso, header, parallax).
 - `src/pages/index.astro`, `src/pages/proyectos/financemdm/index.astro` — atributos y wiring.
-- Commit `9749cb1` (2026-10-25). QA: suite Playwright de 26 checks, 26/26 en verde.
+- Registro histórico de QA del commit `9749cb1` (2026-10-25): reporta una suite Playwright de 26 checks (26/26). La suite no está incluida en este repositorio, así que el resultado no es reproducible aquí; `npm test` valida contratos de fuente.

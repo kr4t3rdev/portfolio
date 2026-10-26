@@ -245,6 +245,12 @@ nav a:not(.nav-cta) { transition: border-color 220ms ease-out; }
 
   .status-dot::after { opacity: 0 !important; }
 
+  details[open] > *:not(summary),
+  nav a:not(.nav-cta) {
+    animation: none !important;
+    transition: none !important;
+  }
+
   ::view-transition-old(root),
   ::view-transition-new(root) {
     animation: none !important;

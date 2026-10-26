@@ -113,6 +113,7 @@ const animatedIcon = await readFile('src/components/icons/AnimatedIcon.astro', '
 const brandIcon = await readFile('src/components/icons/BrandIcon.astro', 'utf8');
 const iconStyles = await readFile('src/components/icons/icon-motion.css', 'utf8');
 const pageIconStyles = await readFile('public/styles.css', 'utf8');
+const readme = await readFile('README.md', 'utf8');
 const iconNotices = await readFile('THIRD_PARTY_NOTICES.md', 'utf8');
 const pqoqubbwLicense = await readFile('licenses/pqoqubbw-icons-MIT.txt', 'utf8');
 const lucideLicense = await readFile('licenses/lucide-ISC-and-feather-MIT.txt', 'utf8');
@@ -151,7 +152,6 @@ assert.match(brandIcon, /<style is:global>[\s\S]*@import "\.\/icon-motion\.css"/
 assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="6" y2="6"/);
 assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="18" y2="18"/);
 assert.match(html, /<article class="service-sheet icon-trigger reveal"/);
-const readme = await readFile('README.md', 'utf8');
 assert.match(readme, /<AnimatedIcon name="arrow-up-right" \/>/);
 assert.match(brandIcon, /data-icon=\{name\}/);
 assert.match(html, /aria-label="Contactar por WhatsApp"/);
@@ -201,6 +201,14 @@ assert.match(motionStyles, /\.commerce-lab\.is-visible \.backend-bridge i/);
 assert.match(motionStyles, /details\[open\] > \*:not\(summary\)/);
 assert.match(motionStyles, /\.site-header\.is-scrolled/);
 assert.match(motionStyles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none !important/);
+assert.match(motionStyles, /details\[open\] > \*:not\(summary\),\s*nav a:not\(\.nav-cta\)\s*\{[^}]*animation: none !important;[^}]*transition: none !important;/);
+assert.doesNotMatch(readme, /26-check Playwright suite/);
+assert.match(readme, /source-level.*not a browser-based Playwright suite/i);
+assert.match(readme, /Historical QA notes.*not included in this repository/i);
+const motionSpec = await readFile('openspec/specs/motion-system/spec.md', 'utf8');
+const themeSpec = await readFile('openspec/specs/dark-theme/spec.md', 'utf8');
+assert.match(motionSpec, /registro histórico.*no está incluida en este repositorio/i);
+assert.match(themeSpec, /registro histórico.*no están incluidas en este repositorio/i);
 
 assert.match(motionScript, /astro:page-load/);
 assert.doesNotMatch(motionScript, /revealObserverCache/);
