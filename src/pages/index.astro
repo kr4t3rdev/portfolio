@@ -16,7 +16,12 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
     />
     <script is:inline>
       (() => {
-        const stored = localStorage.getItem('theme');
+        let stored;
+        try {
+          stored = localStorage.getItem('theme');
+        } catch {
+          /* Use the system preference when storage is unavailable. */
+        }
         const theme =
           stored === 'light' || stored === 'dark'
             ? stored
