@@ -159,6 +159,7 @@
       );
     }
     window.dispatchEvent(new Event('scroll'));
+    if (hasIO && !reduced) document.documentElement.classList.add('motion-ready');
   };
 
   if (document.readyState === 'loading') {

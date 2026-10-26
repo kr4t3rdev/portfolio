@@ -92,7 +92,7 @@
 
 /* ---------- 3. Grupos escalonados (data-stagger) ---------- */
 
-[data-stagger] > * {
+.motion-ready [data-stagger] > * {
   opacity: 0;
   transform: translateY(20px);
   transition-property: opacity, transform;

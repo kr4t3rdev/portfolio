@@ -167,6 +167,10 @@ assert.match(casePage, /AnimatedIcon/);
 /* ---------- Motion layer: intro, variantes, stagger y transiciones ---------- */
 const motionStyles = await readFile('public/motion.css', 'utf8');
 const motionScript = await readFile('public/script.js', 'utf8');
+assert.match(styles, /\.reveal\s*\{[^}]*opacity:\s*1/);
+assert.match(styles, /\.motion-ready \.reveal:not\(\.is-visible\)/);
+assert.match(motionStyles, /\.motion-ready \[data-stagger\] > \*/);
+assert.match(motionScript, /document\.documentElement\.classList\.add\(['"]motion-ready['"]\)/);
 
 for (const keyframe of [
   'intro-rise', 'intro-drop', 'intro-slide-right', 'intro-slide-left',
