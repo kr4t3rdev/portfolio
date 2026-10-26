@@ -193,6 +193,9 @@ assert.match(motionStyles, /\.site-header\.is-scrolled/);
 assert.match(motionStyles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*animation: none !important/);
 
 assert.match(motionScript, /astro:page-load/);
+assert.doesNotMatch(motionScript, /revealObserverCache/);
+assert.match(motionScript, /activeRevealObserver\?\.disconnect\(\)/);
+assert.match(motionScript, /activeGroupObserver\?\.disconnect\(\)/);
 assert.match(motionScript, /prefers-reduced-motion/);
 assert.match(motionScript, /data-stagger/);
 assert.match(motionScript, /is-staggered/);
