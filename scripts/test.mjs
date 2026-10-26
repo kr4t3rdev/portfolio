@@ -337,3 +337,9 @@ for (const asset of ['favicon.svg', 'styles.css', 'motion.css', 'theme.css', 'sc
   assert.ok(html.includes(`"/${asset}"`), `Homepage asset must be root-absolute: ${asset}`);
   assert.ok(!html.includes(`"./${asset}"`));
 }
+
+// Preserve theme metadata on initial render and ClientRouter navigation.
+for (const source of [html, casePage, cashflowsCase, shopCase]) {
+  assert.match(source, /setAttribute\('content', theme === 'dark' \? '#191b17' : '#e7e1d4'\)/, 'inline theme bootstrap must sync theme-color');
+}
+assert.match(motionScript, /applyTheme\(document\.documentElement\.dataset\.theme === 'dark' \? 'dark' : 'light'\)/, 'client navigation must sync theme-color during theme initialization');
