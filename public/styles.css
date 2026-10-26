@@ -421,7 +421,9 @@ h1 { max-width: 820px; font-size: clamp(4rem, 8.3vw, 8.1rem); font-weight: 700; 
 .site-footer { min-height: 150px; display: grid; grid-template-columns: 1fr 1fr auto; gap: 2rem; align-items: center; font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; }
 .site-footer a { min-height: 44px; display: inline-flex; align-items: center; text-underline-offset: 4px; }
 
-.reveal { opacity: 0; transform: translateY(24px); transition-property: opacity, transform; transition-duration: 700ms; transition-timing-function: cubic-bezier(.2,.75,.25,1); }
+.reveal { opacity: 1; transform: none; transition-property: opacity, transform; transition-duration: 700ms; transition-timing-function: cubic-bezier(.2,.75,.25,1); }
+.motion-ready .reveal:not(.is-visible) { opacity: 0; }
+.motion-ready .reveal:not([data-motion]):not(.is-visible) { transform: translateY(24px); }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 :focus-visible { outline: 3px solid var(--clay); outline-offset: 4px; }
