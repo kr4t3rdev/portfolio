@@ -61,20 +61,22 @@
     syncToggle();
   };
 
-  const revealObserver = () =>
-    new IntersectionObserver(
+  const revealObserver = () => {
+    const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
-            revealObserverCache.unobserve(entry.target);
+            observer.unobserve(entry.target);
           }
         }
       },
       { threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
     );
-
-  let revealObserverCache = null;
+    return observer;
+  };
+  let activeRevealObserver = null;
+  let activeGroupObserver = null;
 
   /**
    * @description Inicializa el motor sobre el documento actual: observa
@@ -84,6 +86,8 @@
    */
   const initMotion = () => {
     initTheme();
+    activeRevealObserver?.disconnect();
+    activeGroupObserver?.disconnect();
     const year = document.querySelector('#year');
     if (year) year.textContent = String(new Date().getFullYear());
 
@@ -93,11 +97,11 @@
     /* Reveals individuales (.reveal, con data-motion y data-delay opcionales). */
     const reveals = document.querySelectorAll('.reveal');
     if (hasIO && !reduced) {
-      revealObserverCache = revealObserver();
+      activeRevealObserver = revealObserver();
       reveals.forEach((element) => {
         const delay = element.dataset.delay;
         if (delay) element.style.transitionDelay = `${delay}ms`;
-        revealObserverCache.observe(element);
+        activeRevealObserver.observe(element);
       });
     } else {
       reveals.forEach((element) => element.classList.add('is-visible'));
@@ -117,6 +121,7 @@
         },
         { threshold: 0.15 },
       );
+      activeGroupObserver = groupObserver;
       groups.forEach((group) => {
         Array.from(group.children).forEach((child, index) => {
           child.style.transitionDelay = `${Math.min(index * 85, 600)}ms`;
