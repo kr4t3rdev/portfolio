@@ -57,7 +57,7 @@ Behavior:
 - **Transition:** a transient `html.theme-anim` class cross-fades colors for 240ms; under `prefers-reduced-motion` the switch is instant and the icon animation is removed.
 - **Contraste:** dark body text measures 13.44:1 on `#191b17` (WCAG AA+); `color-scheme` is declared for native controls.
 
-Verified with a 25-check Playwright suite (defaults, system preference, toggle, persistence, meta sync, contrast, case study, reduced motion) plus a 24-check motion regression running under dark theme.
+Historical QA notes reported a 25-check Playwright suite for the theme and 24 motion regression checks under dark theme. Those browser tests are not included in this repository and cannot be reproduced here; the current `npm test` suite validates source-level contracts only.
 
 ## Reusable icons
 

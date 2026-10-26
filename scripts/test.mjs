@@ -194,6 +194,11 @@ assert.match(motionStyles, /@media \(prefers-reduced-motion: reduce\)[\s\S]*anim
 assert.match(motionStyles, /details\[open\] > \*:not\(summary\),\s*nav a:not\(\.nav-cta\)\s*\{[^}]*animation: none !important;[^}]*transition: none !important;/);
 assert.doesNotMatch(readme, /26-check Playwright suite/);
 assert.match(readme, /source-level.*not a browser-based Playwright suite/i);
+assert.match(readme, /Historical QA notes.*not included in this repository/i);
+const motionSpec = await readFile('openspec/specs/motion-system/spec.md', 'utf8');
+const themeSpec = await readFile('openspec/specs/dark-theme/spec.md', 'utf8');
+assert.match(motionSpec, /registro histórico.*no está incluida en este repositorio/i);
+assert.match(themeSpec, /registro histórico.*no están incluidas en este repositorio/i);
 
 assert.match(motionScript, /astro:page-load/);
 assert.match(motionScript, /prefers-reduced-motion/);

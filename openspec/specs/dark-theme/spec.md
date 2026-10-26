@@ -70,4 +70,4 @@ sobre el fondo `#191b17` (verificado: 13.44:1 en QA), y el modo claro no debe re
 - `public/theme.css` — tokens oscuros, overrides, botón, transición y reduced-motion.
 - `public/script.js` — `applyTheme`/`initTheme` (persistencia, meta, aria).
 - Ambas páginas — script inline anti-flash, `theme.css`, `meta theme-color`, botón.
-- QA: suite Playwright de 25 checks (25/25) + regresión de motion 24/24 con tema oscuro.
+- Registro histórico de QA: reporta una suite Playwright de 25 checks (25/25) y 24 checks de regresión de motion bajo tema oscuro. Esas suites no están incluidas en este repositorio y los resultados no son reproducibles aquí; `npm test` valida contratos de fuente.
