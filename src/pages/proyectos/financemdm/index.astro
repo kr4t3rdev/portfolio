@@ -9,7 +9,7 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>FinanceMDM: caso de estudio full-stack | Michel García</title>
-  <meta name="description" content="Cómo construí FinanceMDM: desarrollo individual, arquitectura multiempresa, frontend React, backend Next.js y persistencia con Prisma y PostgreSQL.">
+  <meta name="description" content="Cómo construí FinanceMDM: desarrollo individual, arquitectura multiempresa, web y API en Next.js, persistencia con Prisma y PostgreSQL, y apps nativas Swift/Kotlin en desarrollo con OpenAPI.">
   <meta name="theme-color" content="#e7e1d4">
   <script is:inline>
     (() => {
@@ -31,7 +31,7 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
   </script>
   <link rel="canonical" href="https://kr4t3rdev.xyz/proyectos/financemdm/">
   <meta property="og:title" content="FinanceMDM — De la interfaz al modelo de datos">
-  <meta property="og:description" content="Un caso de estudio sobre desarrollo full-stack, contexto multiempresa y permisos granulares. Por Michel García Aguero.">
+  <meta property="og:description" content="Un caso de estudio sobre desarrollo full-stack, contexto multiempresa y apps nativas en desarrollo conectadas mediante OpenAPI. Por Michel García Aguero.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://kr4t3rdev.xyz/proyectos/financemdm/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -67,7 +67,7 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
   <section class="case-hero section-shell" aria-labelledby="case-title">
     <p class="case-eyebrow" data-intro style="--intro-delay: 90ms">DOSSIER / 01 &nbsp; — &nbsp; FULL-STACK ENGINEERING</p>
     <h1 id="case-title" data-intro="mask" style="--intro-delay: 200ms">FinanceMDM<span>De la interfaz<br>al modelo de datos.</span></h1>
-    <p class="case-lead" data-intro style="--intro-delay: 340ms">Inventario, ventas y procesos financieros dentro de una aplicación multiempresa. Un producto construido de principio a fin, con una misma responsabilidad: conectar las piezas.</p>
+    <p class="case-lead" data-intro style="--intro-delay: 340ms">Inventario, ventas y procesos financieros dentro de una aplicación multiempresa. Un producto construido de principio a fin, con una misma responsabilidad: conectar las piezas. La evolución móvil apuesta por interfaces nativas en Swift y Kotlin, coordinadas desde el contrato OpenAPI.</p>
     <dl class="case-facts" data-stagger style="--intro-delay: 430ms">
       <div><dt>Autoría</dt><dd>Desarrollo individual</dd></div>
       <div><dt>Recorrido</dt><dd>Aproximadamente dos años</dd></div>
@@ -83,9 +83,11 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
       <a href="#arquitectura">02 / Arquitectura</a>
       <a href="#frontend">03 / Frontend</a>
       <a href="#backend">04 / Backend</a>
-      <a href="#desafios">05 / Desafíos</a>
-      <a href="#cicd">06 / CI/CD</a>
-      <a href="#calidad">07 / Calidad y límites</a>
+      <a href="#apps-nativas">05 / Apps nativas</a>
+      <a href="#contratos">06 / Contratos OpenAPI</a>
+      <a href="#desafios">07 / Desafíos</a>
+      <a href="#cicd">08 / CI/CD</a>
+      <a href="#calidad">09 / Calidad y límites</a>
     </nav>
     <div class="case-content">
       <section id="contexto" class="case-section reveal">
@@ -102,7 +104,7 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
         <p class="case-eyebrow">02 / SISTEMA</p><h2>Una aplicación.<br>Responsabilidades distintas.</h2>
         <p>Next.js aloja tanto la interfaz como operaciones del backend. La organización por funcionalidades convive con servicios compartidos para autenticación, autorización y acceso a datos.</p>
         <figure class="architecture" data-stagger>
-          <div class="architecture-clients"><div><small>CLIENTE WEB</small><strong>React + Next.js</strong></div><div><small>CLIENTE MÓVIL</small><strong>API específica</strong></div></div>
+          <div class="architecture-clients"><div><small>CLIENTE WEB</small><strong>React + Next.js</strong></div><div><small>APPS NATIVAS / EN DESARROLLO</small><strong>Swift · Kotlin · OpenAPI</strong></div></div>
           <p class="architecture-arrow"><AnimatedIcon name="arrow-down" size={18} /></p>
           <div class="architecture-layer"><small>ENTRADA</small><strong>Server Actions · Route Handlers</strong></div>
           <p class="architecture-arrow"><AnimatedIcon name="arrow-down" size={18} /></p>
@@ -134,14 +136,34 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
           <article><span>05</span><div><h3>OpenTelemetry y Prometheus</h3><p>El código incluye instrumentación de trazas y métricas. Permite preparar el diagnóstico de operaciones y errores; no implica que colectores, alertas o paneles estén activos en producción.</p></div></article>
         </div>
       </section>
+      <section id="apps-nativas" class="case-section reveal">
+        <p class="case-eyebrow">05 / DESARROLLO NATIVO</p><h2>Dos plataformas.<br>Una operación compartida.</h2>
+        <p>La app forma parte de FinanceMDM, no es un producto separado. La dirección móvil es desarrollo totalmente nativo: Swift y SwiftUI para iOS, Kotlin para Android. La interfaz se construye para cada plataforma; lo que se comparte es el contrato HTTP de la operación empresarial.</p>
+        <div class="tech-explainer" data-stagger>
+          <article><span>01</span><div><h3>SwiftUI y estado de la aplicación</h3><p>La aplicación iOS cuenta con un punto de entrada SwiftUI, estado de autenticación y un contenedor SwiftData. La navegación organiza inicio y gestión; existen servicios y modelos para productos, almacenes, categorías, unidades y otras operaciones.</p></div></article>
+          <article><span>02</span><div><h3>Clientes tipados para Swift y Kotlin</h3><p>Las configuraciones de generación producen un cliente Swift con URLSession y async/await, y un cliente Kotlin con OkHttp. El SDK traduce las operaciones descritas por la API a código de cada lenguaje; no construye las pantallas ni reemplaza sus reglas de interacción.</p></div></article>
+          <article><span>03</span><div><h3>Una evolución en desarrollo</h3><p>La implementación SwiftUI todavía contiene áreas por completar. La aplicación Android sigue pendiente de verificación de implementación; disponer del generador Kotlin no demuestra una app Android terminada.</p></div></article>
+        </div>
+        <p class="case-note">Generar un SDK no equivale a entregar una app nativa. La compilación actual de las apps, las pruebas en dispositivos y la publicación en tiendas no están verificadas en este caso.</p>
+      </section>
+      <section id="contratos" class="case-section reveal">
+        <p class="case-eyebrow">06 / OPENAPI</p><h2>El contrato conecta.<br>La interfaz sigue siendo nativa.</h2>
+        <p>FinanceMDM describe su API móvil en <code>docs/openapi/mobile-v1.json</code>, con OpenAPI 3.1 y la base <code>/api/mobile/v1</code>. Ese contrato alimenta tanto el cliente Swift como el Kotlin: no se mantiene una especificación diferente para cada sistema operativo.</p>
+        <div class="domain-list" data-stagger>
+          <div><h3>Definir</h3><p>Documentar operaciones, entradas y respuestas de la API móvil antes de integrarlas en cada cliente.</p></div>
+          <div><h3>Generar</h3><p>Derivar código tipado para Swift y Kotlin mediante configuraciones explícitas del generador.</p></div>
+          <div><h3>Comprobar</h3><p>Scripts de lint, paridad, smoke y detección de diferencias del código generado acompañan el contrato. El workflow OpenAPI configura su validación; aquí no se afirma una nueva ejecución de esos controles.</p></div>
+        </div>
+        <p class="case-note">Entre FinanceMDM y <a href="/proyectos/cashflows/">Cashflows</a> se mantienen dos contratos independientes: un contrato por producto, compartido por sus clientes Swift y Kotlin. No son dos contratos por plataforma.</p>
+      </section>
       <section id="desafios" class="case-section reveal">
-        <p class="case-eyebrow">05 / INGENIERÍA</p><h2>Tres problemas<br>que merecen evidencia.</h2>
+        <p class="case-eyebrow">07 / INGENIERÍA</p><h2>Tres problemas<br>que merecen evidencia.</h2>
         <article class="challenge reveal" data-delay="0"><span class="case-eyebrow">A / AISLAMIENTO</span><h3>Una cuenta, distintos contextos.</h3><p>Resolver una empresa no consiste en aceptar un identificador enviado por el cliente. El recorrido inspeccionado verifica su relación con el usuario.</p><p class="case-note">Siguiente evidencia: demostrar el rechazo de acceso cruzado entre dos empresas con datos ficticios.</p></article>
         <article class="challenge reveal" data-delay="90"><span class="case-eyebrow">B / AUTORIZACIÓN</span><h3>Ocultar un botón no basta.</h3><p>El servidor controla permisos. En el flujo web inspeccionado, cuando se solicita validación de permisos, una ruta sin mapeo se rechaza. El API móvil dispone de controles propios por grupos.</p><p class="case-note">Siguiente evidencia: comparar la misma operación con dos roles y comprobar su respuesta.</p></article>
         <article class="challenge reveal" data-delay="180"><span class="case-eyebrow">C / FINANZAS</span><h3>Un número necesita significado.</h3><p>Monedas, cuentas y conciliación forman parte del modelo. Explicar un reporte exige seguir el origen de sus datos y distinguir sus criterios, no limitarse a mostrar un total.</p><p class="case-note">Siguiente evidencia: cálculo reproducible y recorrido de conciliación en un entorno de prueba.</p></article>
       </section>
       <section id="cicd" class="case-section reveal">
-        <p class="case-eyebrow">06 / ENTREGA CONTINUA</p><h2>Integrar no basta.<br>La entrega debe demostrarlo.</h2>
+        <p class="case-eyebrow">08 / ENTREGA CONTINUA</p><h2>Integrar no basta.<br>La entrega debe demostrarlo.</h2>
         <p>La rama principal utiliza GitHub Actions como puerta de calidad. Cada cambio debe superar controles de código, pruebas, integración y compilación antes de considerarse válido. Después del despliegue externo, la automatización comprueba que cada entorno corresponde al commit esperado antes de ejecutar sus pruebas de humo.</p>
         <div class="tech-explainer" data-stagger>
           <article><span>01</span><div><h3>Validación estática</h3><p>Lint, contratos de seguridad del pipeline y comprobación de tipos con TypeScript detectan errores de estructura y compatibilidad antes de construir la aplicación.</p></div></article>
@@ -153,13 +175,13 @@ import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
         <p class="case-note">Evidencia verificada en la rama <code>main</code> el 20 de septiembre de 2026, sobre el commit <code>dc75b03</code>. GitHub Actions valida la entrega posterior al despliegue; el despliegue lo realiza una plataforma externa.</p>
       </section>
       <section id="calidad" class="case-section reveal">
-        <p class="case-eyebrow">07 / ESTADO REAL</p><h2>Lo construido.<br>Lo que falta demostrar.</h2>
+        <p class="case-eyebrow">09 / ESTADO REAL</p><h2>Lo construido.<br>Lo que falta demostrar.</h2>
         <div class="evidence-columns" data-stagger>
-          <div><h3>Evidencia de implementación</h3><ul><li>Estructura web y backend en Next.js.</li><li>Modelo relacional con Prisma.</li><li>Sesiones, contexto de empresa y permisos.</li><li>Pipeline activo con pruebas unitarias, integración, cobertura, build y smoke tests.</li></ul></div>
-          <div><h3>Validación pendiente</h3><ul><li>Uso por negocios y resultados comerciales.</li><li>Demostraciones completas con datos ficticios.</li><li>Publicación de métricas históricas de cobertura y estabilidad.</li><li>Verificación operativa de observabilidad.</li></ul></div>
+          <div><h3>Evidencia de implementación</h3><ul><li>Estructura web y backend en Next.js.</li><li>Modelo relacional con Prisma.</li><li>Sesiones, contexto de empresa y permisos.</li><li>Pipeline configurado con pruebas unitarias, integración, cobertura, build y smoke tests.</li><li>App SwiftUI en desarrollo y contrato móvil con generación Swift/Kotlin.</li></ul></div>
+          <div><h3>Validación pendiente</h3><ul><li>Uso por negocios y resultados comerciales.</li><li>Demostraciones completas con datos ficticios.</li><li>Publicación de métricas históricas de cobertura y estabilidad.</li><li>Verificación operativa de observabilidad.</li><li>Completar la experiencia nativa, verificar Android, compilar y probar ambas apps en dispositivos antes de su publicación.</li></ul></div>
         </div>
         <p>Las cifras de archivos no equivalen a calidad, cobertura o escala operativa. Por eso este caso no utiliza contadores del repositorio como indicadores de éxito.</p>
-        <details><summary>Cómo se construyó este caso de estudio</summary><p>La explicación técnica se basa en una revisión del repositorio, no en una auditoría exhaustiva de seguridad o producción. La autoría, duración aproximada y ausencia de adopción comercial fueron confirmadas por el autor. No se incluyen capturas simuladas ni métricas de clientes.</p></details>
+        <details><summary>Cómo se construyó este caso de estudio</summary><p>La explicación técnica se basa en una revisión del repositorio, no en una auditoría exhaustiva de seguridad o producción. La autoría, duración aproximada y ausencia de adopción comercial fueron confirmadas por el autor. La ampliación móvil se basa en fuentes locales revisadas el 26 de octubre de 2026: entrada y navegación SwiftUI, contrato móvil y configuraciones de generación. No se ejecutaron builds de las apps para este caso. No se incluyen capturas simuladas ni métricas de clientes.</p></details>
       </section>
     </div>
   </div>

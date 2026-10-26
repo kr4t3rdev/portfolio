@@ -4,30 +4,37 @@ import { readFile } from 'node:fs/promises';
 const html = await readFile('src/pages/index.astro', 'utf8');
 const styles = await readFile('public/styles.css', 'utf8');
 
-const selectedProjects = [
-  'FinanceMDM',
-  'FinanceMDM Mobile',
-  'Cashflow',
-  'Yoisel Shop',
-  'Cesar Fashion',
-  'Y&amp;M Fashion',
-];
+const projectSection = html.split('id="proyectos"')[1].split('id="servicios"')[0];
+const projectCards = [...projectSection.matchAll(/<article class="project-card[^>]*>([\s\S]*?)<\/article>/g)].map(match => match[1]);
+assert.deepEqual(projectCards.map(card => card.match(/<h3>([^<]+)<\/h3>/)?.[1]), [
+  'FinanceMDM', 'Cashflows', 'Yoisel Shop',
+]);
+assert.doesNotMatch(projectSection, /FinanceMDM Mobile|Cesar Fashion|Y&amp;M Fashion|Tres backends|COMMERCE_LAB/);
+assert.match(projectCards[0], /Web \+ API \+ App/);
+for (const card of projectCards.slice(0, 2)) {
+  for (const technology of ['Swift', 'Kotlin', 'OpenAPI']) assert.ok(card.includes(`<li>${technology}</li>`), `Native stack must include ${technology}`);
+  assert.doesNotMatch(card, /React Native|\bExpo\b|React Query/);
+  assert.match(card, /nativ[ao]s?[^<]*en desarrollo/i);
+}
+assert.match(projectCards[1], /Web \+ API \+ App/);
+assert.match(projectCards[1], /Web, API y app/);
+assert.match(projectCards[2], /href="https:\/\/yoisel-shop\.vercel\.app"/);
+for (const technology of ['Next.js', 'Go', 'PostgreSQL']) assert.ok(projectCards[2].includes(technology));
+assert.match(projectSection, /Tres proyectos/);
+for (const card of projectCards) {
+  assert.match(card, /<img[^>]+src="\/proyectos\/[^"]+\/preview\.webp"[^>]+alt="[^"]+"/);
+  assert.doesNotMatch(card, /<details|ledger-window|currency-orbit|phone-frame/);
+  const actions = card.split('class="project-actions"')[1];
+  assert.ok(actions, 'Each card must have an action footer');
+  assert.ok(actions.indexOf('Repo') < actions.indexOf('Caso de Estudio'));
+  assert.ok(actions.indexOf('Caso de Estudio') < actions.indexOf('Preview'));
+  assert.doesNotMatch(actions, /href="#"/);
+}
+assert.match(styles, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
 
-selectedProjects.forEach((project) => assert.match(html, new RegExp(project)));
 assert.doesNotMatch(html, /Hermes|laptop|Porcina/i);
 assert.doesNotMatch(html, /TCP Mobile|TCP \/ FinanceMDM/);
-assert.match(html, /Mismo producto\./);
-assert.match(html, /Tres backends\./);
-assert.match(html, /FastAPI/);
-assert.match(html, />Go</);
-assert.match(html, /Next\.js full-stack/i);
-assert.match(html, /Frontend compartido/);
-assert.match(html, /href="https:\/\/cesar-fashion\.vercel\.app"/);
-assert.match(html, /Ver tienda/);
-assert.doesNotMatch(html, /href="https:\/\/github\.com\/kr4t3rdev\/cesar-fashion"/);
 assert.doesNotMatch(html, /Spring Boot|Java 21|API Java/);
-assert.match(styles, /\.commerce-lab\s*\{/);
-assert.match(styles, /\.backend-variants\s*\{/);
 assert.equal((html.match(/target="_blank"/g) ?? []).length, (html.match(/rel="noreferrer"/g) ?? []).length);
 assert.match(styles, /prefers-reduced-motion/);
 assert.match(styles, /:focus-visible/);
@@ -47,7 +54,7 @@ assert.match(styles, /\.social-link\s*\{[^}]*min-width:\s*54px[^}]*min-height:\s
 const casePage = await readFile('src/pages/proyectos/financemdm/index.astro', 'utf8');
 assert.match(html, /href="\/proyectos\/financemdm\/"/);
 assert.match(html, /href="https:\/\/financemdm\.kr4t3rdev\.xyz"/);
-assert.match(html, />\s*financemdm\.kr4t3rdev\.xyz\s*</);
+
 assert.match(casePage, /sin adopción comercial/i);
 assert.match(casePage, /Desarrollo individual/);
 for (const section of ['contexto', 'arquitectura', 'frontend', 'backend', 'desafios', 'cicd', 'calidad']) {
@@ -104,8 +111,8 @@ assert.match(visibleText, /ERP multiempresa/i);
 assert.match(visibleText, /acceso por roles/i);
 assert.match(visibleText, /saldos y movimientos por\s+moneda/i);
 assert.match(visibleText, /flujo de caja/i);
-assert.match(visibleText, /contrato OpenAPI/i);
-assert.match(visibleText, /SDKs Swift y Kotlin/i);
+
+
 assert.match(html, /service-sheet/);
 assert.match(styles, /\.service-sheet/);
 
@@ -222,7 +229,7 @@ assert.match(motionScript, /data-parallax/);
 assert.match(motionScript, /is-scrolled/);
 assert.match(motionScript, /__motionScrollBound/);
 
-assert.match(html, /href="\.\/motion\.css"/);
+assert.match(html, /href="\/motion\.css"/);
 assert.match(casePage, /href="\/motion\.css"/);
 assert.match(html, /ClientRouter/);
 assert.match(casePage, /ClientRouter/);
@@ -282,3 +289,51 @@ for (const page of [html, casePage]) {
   assert.match(page, /class="icon-moon"/, 'toggle needs moon icon');
 }
 assert.match(motionScript, /applyTheme\(document\.documentElement\.dataset\.theme === 'dark' \? 'dark' : 'light'\)/, 'client navigation must sync theme-color during theme initialization');
+
+/* Native case-study coverage: contracts are per product, not per platform. */
+const studySlugs = ['financemdm', 'cashflows', 'yoisel-shop'];
+for (const [index, slug] of studySlugs.entries()) {
+  assert.match(projectCards[index], new RegExp(`href="/proyectos/${slug}/"[^>]*>Caso de Estudio`));
+  const source = await readFile(`src/pages/proyectos/${slug}/index.astro`, 'utf8');
+  assert.equal((source.match(/<h1[ >]/g) ?? []).length, 1);
+  const studyIds = [...source.matchAll(/\bid="([^"]+)"/g)].map(match => match[1]);
+  assert.equal(studyIds.length, new Set(studyIds).size);
+  for (const match of source.matchAll(/href="#([^"]+)"/g)) assert.ok(studyIds.includes(match[1]), `${slug}: unresolved anchor ${match[1]}`);
+  assert.match(source, new RegExp(`rel="canonical" href="https://kr4t3rdev.xyz/proyectos/${slug}/"`));
+  assert.match(source, /id="contexto"/);
+  assert.match(source, /id="arquitectura"/);
+  assert.match(source, /id="calidad"/);
+  assert.match(source, /href="\/#proyectos"/);
+  assert.match(source, /theme\.css/);
+  assert.match(source, /motion\.css/);
+}
+const cashflowsCase = await readFile('src/pages/proyectos/cashflows/index.astro', 'utf8');
+const shopCase = await readFile('src/pages/proyectos/yoisel-shop/index.astro', 'utf8');
+for (const nativeCase of [casePage, cashflowsCase]) {
+  for (const term of ['Swift', 'SwiftUI', 'Kotlin', 'OpenAPI']) assert.ok(nativeCase.includes(term));
+  assert.match(nativeCase, /id="apps-nativas"/);
+  assert.match(nativeCase, /id="contratos"/);
+  assert.match(nativeCase, /en desarrollo/i);
+  assert.match(nativeCase, /SDK[^<]*no equivale/i);
+  assert.match(nativeCase, /un contrato por producto/i);
+  assert.doesNotMatch(nativeCase, /React Native|\bExpo\b/);
+}
+assert.match(casePage, /mobile-v1\.json/);
+assert.match(casePage, /OpenAPI 3\.1/);
+assert.match(casePage, /Android[^<]*pendiente/i);
+assert.match(cashflowsCase, /OpenAPI 3\.0/);
+assert.match(cashflowsCase, /Keychain/);
+assert.match(cashflowsCase, /cadenas decimales/);
+assert.match(cashflowsCase, /Jetpack Compose[^<]*pendiente/i);
+assert.match(shopCase, /Go/);
+assert.match(shopCase, /pgx/);
+assert.match(shopCase, /centavos enteros/);
+assert.match(shopCase, /reservas/);
+assert.match(shopCase, /OpenAPI/);
+console.log('Three linked case studies and native contract checks passed.');
+
+// Root-absolute assets survive ClientRouter returns from nested case routes.
+for (const asset of ['favicon.svg', 'styles.css', 'motion.css', 'theme.css', 'script.js']) {
+  assert.ok(html.includes(`"/${asset}"`), `Homepage asset must be root-absolute: ${asset}`);
+  assert.ok(!html.includes(`"./${asset}"`));
+}

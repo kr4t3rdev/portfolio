@@ -1,0 +1,147 @@
+---
+import "../../../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import AnimatedIcon from "../../../components/icons/AnimatedIcon.astro";
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cashflows: finanzas, contratos y apps nativas | Michel García</title>
+  <meta name="description" content="Control de caja multidivisa, API NestJS y apps nativas Swift/Kotlin en desarrollo, con precisión decimal y un contrato OpenAPI compartido por ambos clientes nativos.">
+  <meta name="theme-color" content="#e7e1d4">
+  <script is:inline>
+    (() => {
+      const stored = localStorage.getItem('theme');
+      const theme =
+        stored === 'light' || stored === 'dark'
+          ? stored
+          : matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+      document.documentElement.dataset.theme = theme;
+    })();
+  </script>
+  <link rel="canonical" href="https://kr4t3rdev.xyz/proyectos/cashflows/">
+  <meta property="og:title" content="Cashflows — finanzas, contratos y apps nativas">
+  <meta property="og:description" content="Control de caja multidivisa, API NestJS y apps nativas Swift/Kotlin en desarrollo, con precisión decimal y un contrato OpenAPI compartido por ambos clientes nativos.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://kr4t3rdev.xyz/proyectos/cashflows/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&amp;family=Syne:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/motion.css">
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/proyectos/financemdm/case-study.css">
+  <script src="/script.js" defer></script>
+  <ClientRouter />
+</head>
+<body class="case-study">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+<div class="scroll-progress" aria-hidden="true"><i></i></div>
+<header class="case-header section-shell" data-intro="down">
+  <a class="brand" href="/" aria-label="Michel García — Inicio"><span class="brand-mark" aria-hidden="true">M</span> MICHEL.DEV</a>
+  <div class="case-header-actions">
+    <a href="/#proyectos"><AnimatedIcon name="arrow-left" />Todos los proyectos</a>
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar a modo oscuro">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
+        <circle cx="12" cy="12" r="4.2" />
+        <path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9" />
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <path d="M20.4 14.2A8.3 8.3 0 0 1 9.8 3.6a8.3 8.3 0 1 0 10.6 10.6Z" />
+      </svg>
+    </button>
+  </div>
+</header>
+<main id="contenido">
+  <section class="case-hero section-shell" aria-labelledby="case-title">
+    <p class="case-eyebrow" data-intro>DOSSIER / 02 — FINANZAS + DESARROLLO NATIVO</p>
+    <h1 id="case-title" data-intro="mask">Cashflows<span>Cada moneda.<br>Un saldo con origen.</span></h1>
+    <p class="case-lead" data-intro>Una operación de cambio necesita saber qué entró, qué salió y en qué moneda. Cashflows conecta web, API y desarrollo móvil nativo alrededor de esa trazabilidad, sin tratar el dinero como un número genérico.</p>
+    <dl class="case-facts" data-stagger>
+      <div><dt>Dominio</dt><dd>Caja y cambio multidivisa</dd></div>
+      <div><dt>Backend</dt><dd>NestJS · Prisma · PostgreSQL</dd></div>
+      <div><dt>Apps nativas</dt><dd>Swift + Kotlin · En desarrollo</dd></div>
+    </dl>
+    <p class="case-status"><span aria-hidden="true">●</span> Este caso describe código y automatizaciones configuradas. No presenta resultados comerciales ni apps publicadas.</p>
+    <a class="button button-primary" href="#arquitectura">Explorar la arquitectura <AnimatedIcon name="arrow-down" /></a>
+  </section>
+  <div class="case-layout section-shell">
+    <nav class="case-index reveal" data-motion="left" aria-label="Secciones del caso de estudio">
+      <p>EN ESTE DOSSIER</p>
+      <a href="#contexto">01 / Contexto</a><a href="#arquitectura">02 / Arquitectura</a><a href="#precision">03 / Precisión financiera</a><a href="#apps-nativas">04 / Apps nativas</a><a href="#contratos">05 / Contratos OpenAPI</a><a href="#calidad">06 / Estado y evidencia</a>
+    </nav>
+    <div class="case-content">
+      <section id="contexto" class="case-section reveal">
+        <p class="case-eyebrow">01 / EL PROBLEMA</p><h2>Un total no explica<br>una caja.</h2>
+        <p>Sumar importes de monedas distintas oculta la operación que los produjo. El problema exige registrar moneda, tasa, movimiento y contexto antes de construir balances o reportes.</p>
+        <div class="domain-list" data-stagger>
+          <div><h3>Caja</h3><p>Saldos, movimientos, controles y arqueos por moneda, junto con cuentas bancarias.</p></div>
+          <div><h3>Cambio</h3><p>Tasas e historial, transacciones y remesas con recorridos de conciliación.</p></div>
+          <div><h3>Seguimiento</h3><p>Gastos, pagos a trabajadores, objetivos y reportes de flujo de caja y resultados.</p></div>
+        </div>
+      </section>
+      <section id="arquitectura" class="case-section reveal">
+        <p class="case-eyebrow">02 / SISTEMA</p><h2>Una API financiera.<br>Experiencias separadas.</h2>
+        <p>La web y las apps consumen operaciones de una API NestJS. Los modelos y servicios del backend centralizan el acceso a los datos mediante Prisma y PostgreSQL; los clientes no sustituyen las reglas financieras del servidor.</p>
+        <figure class="architecture" data-stagger>
+          <div class="architecture-clients"><div><small>WEB</small><strong>Operación y consulta</strong></div><div><small>NATIVO / EN DESARROLLO</small><strong>SwiftUI · Kotlin / Jetpack Compose</strong></div></div>
+          <p class="architecture-arrow"><AnimatedIcon name="arrow-down" size={18} /></p>
+          <div class="architecture-layer"><small>CONTRATO HTTP</small><strong>OpenAPI → clientes tipados</strong></div>
+          <p class="architecture-arrow"><AnimatedIcon name="arrow-down" size={18} /></p>
+          <div class="architecture-layer"><small>API Y PERSISTENCIA</small><strong>NestJS · Prisma · PostgreSQL</strong></div>
+          <figcaption>Arquitectura conceptual. La app iOS tiene implementación inicial; la app Android es una línea de trabajo pendiente, no una entrega final.</figcaption>
+        </figure>
+      </section>
+      <section id="precision" class="case-section reveal">
+        <p class="case-eyebrow">03 / DECISIONES FINANCIERAS</p><h2>La precisión también<br>es un contrato.</h2>
+        <div class="tech-explainer" data-stagger>
+          <article><span>01</span><div><h3>Importes como cadenas decimales</h3><p>Los contratos normalizan importes financieros como cadenas decimales. El cálculo utiliza aritmética Decimal: la representación que cruza HTTP no debe introducir redondeos propios del punto flotante.</p></div></article>
+          <article><span>02</span><div><h3>Movimientos antes que totales</h3><p>El flujo de caja distingue entradas y salidas por moneda e incorpora transacciones, gastos y ajustes. Esa procedencia permite explicar un saldo en lugar de mostrar solo una cifra.</p></div></article>
+          <article><span>03</span><div><h3>Conciliación como recorrido</h3><p>Remesas, cuentas y movimientos necesitan coherencia entre estados. La implementación incluye recorridos de conciliación; demostrar su cobertura operativa completa requiere pruebas específicas, no una captura del panel.</p></div></article>
+        </div>
+      </section>
+      <section id="apps-nativas" class="case-section reveal">
+        <p class="case-eyebrow">04 / DESARROLLO NATIVO</p><h2>Swift para iOS.<br>Kotlin para Android.</h2>
+        <p>La dirección móvil es totalmente nativa, con interfaces y navegación propias de cada plataforma. Las apps están en desarrollo: compartir modelos HTTP no implica compartir la capa de presentación.</p>
+        <div class="evidence-columns" data-stagger>
+          <div><h3>iOS / SwiftUI</h3><ul><li>Proyecto de app y núcleo por capas con flujo de autenticación y sesión.</li><li>SDK Swift generado integrado como dependencia local.</li><li>Keychain para credenciales y manejo de vencimiento de sesión.</li><li>Paridad de operaciones financieras todavía en desarrollo.</li></ul></div>
+          <div><h3>Android / Kotlin</h3><ul><li>Cliente Kotlin generado desde el mismo contrato.</li><li>Configuración de generación y compilación del SDK.</li><li>La aplicación con Jetpack Compose sigue pendiente en el plan verificado.</li><li>No se presenta el SDK como una aplicación terminada.</li></ul></div>
+        </div>
+        <p class="case-note">Generar un SDK no equivale a entregar una app nativa. Firma, TestFlight, pruebas de interfaz y publicación siguen pendientes de validación; este caso no afirma paridad funcional entre ambas apps.</p>
+      </section>
+      <section id="contratos" class="case-section reveal">
+        <p class="case-eyebrow">05 / OPENAPI</p><h2>Dos productos.<br>Dos contratos, no dos por app.</h2>
+        <p>Cashflows mantiene <code>API/openapi.json</code> con OpenAPI 3.0. De esa especificación se generan clientes TypeScript, Swift y Kotlin. Las interfaces nativas evolucionan por separado, pero los datos y operaciones HTTP se describen en un único contrato del producto.</p>
+        <div class="tech-explainer" data-stagger>
+          <article><span>01</span><div><h3>Exportación y validación</h3><p>Scripts y CI configuran exportación desde la API, validación con Spectral y detección de diferencias entre código y especificación versionada.</p></div></article>
+          <article><span>02</span><div><h3>Compatibilidad y conformidad</h3><p>El pipeline incluye controles de cambios incompatibles y conformidad del runtime en un entorno aislado. Su configuración expresa una puerta de calidad; no es evidencia de una ejecución reciente.</p></div></article>
+          <article><span>03</span><div><h3>Generación reproducible</h3><p>Las tareas del proyecto regeneran los SDKs y configuran controles de diferencias y compilación para Swift y Kotlin. El código generado se actualiza desde el contrato, no mediante parches manuales.</p></div></article>
+        </div>
+        <p class="case-note">Con <a href="/proyectos/financemdm/#contratos">FinanceMDM</a> se mantienen dos especificaciones independientes: un contrato por producto. Cada uno alimenta sus clientes Swift y Kotlin; no hay un contrato para iOS y otro para Android.</p>
+      </section>
+      <section id="calidad" class="case-section reveal">
+        <p class="case-eyebrow">06 / ESTADO REAL</p><h2>Separar el código<br>de la entrega.</h2>
+        <div class="evidence-columns" data-stagger>
+          <div><h3>Implementación inspeccionada</h3><ul><li>API financiera y contrato OpenAPI.</li><li>Normalización decimal y recorridos de caja y conciliación.</li><li>App SwiftUI inicial con autenticación y gestión de sesión.</li><li>Automatizaciones de contrato y generación de clientes nativos.</li></ul></div>
+          <div><h3>Pendiente de demostrar</h3><ul><li>Paridad funcional de la app iOS con la operación financiera.</li><li>Implementación de la app Android en Kotlin.</li><li>Firma, pruebas en dispositivos y distribución de las apps.</li><li>Resultados comerciales y comprobación actual de CI y producción.</li></ul></div>
+        </div>
+        <details><summary>Fuentes y alcance de este caso</summary><p>Revisión de fuentes locales el 26 de octubre de 2026: README de iOS, plan de clientes nativos, contrato OpenAPI, scripts de la API y workflow de CI. No se ejecutaron builds de las apps ni se verificó una publicación en tiendas. La imagen del catálogo corresponde a la web pública, no a una pantalla nativa.</p></details>
+        <a class="project-link" href="https://cashflow.kr4t3rdev.xyz" target="_blank" rel="noreferrer">Abrir preview web <AnimatedIcon name="arrow-up-right" /></a>
+      </section>
+    </div>
+  </div>
+  <section class="case-outro section-shell reveal">
+    <p class="case-eyebrow">DEL CASO AL PRODUCTO</p><h2>Interfaz, contratos<br>y reglas que se conectan.</h2>
+    <p>Construir una aplicación exige decidir dónde vive cada responsabilidad y qué evidencia respalda su funcionamiento.</p>
+    <a class="button button-primary" href="/#contacto">Conversar sobre un proyecto <AnimatedIcon name="arrow-up-right" /></a>
+    <a class="case-back" href="/#proyectos">Volver al catálogo</a>
+  </section>
+</main>
+<footer class="section-shell case-footer reveal">Michel García Aguero · Cashflows / Caso de estudio</footer>
+</body>
+</html>

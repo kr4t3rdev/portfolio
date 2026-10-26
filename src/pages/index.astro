@@ -40,17 +40,17 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://kr4t3rdev.xyz" />
     <link rel="canonical" href="https://kr4t3rdev.xyz" />
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./motion.css" />
-    <link rel="stylesheet" href="./theme.css" />
-    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/motion.css" />
+    <link rel="stylesheet" href="/theme.css" />
+    <script src="/script.js" defer></script>
     <title>Michel García Aguero — Software Engineer</title>
     <ClientRouter />
   </head>
@@ -151,194 +151,65 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             <h2 id="projects-title">Productos reales,<br />problemas difíciles.</h2>
           </div>
           <p class="section-note">
-            Tres productos independientes y un laboratorio de comercio con tres implementaciones backend.
+            Tres proyectos: gestión empresarial, finanzas y comercio electrónico.
           </p>
         </div>
 
         <div class="project-grid">
-          <article class="project-card project-card-featured reveal">
-            <div class="project-visual visual-finance" aria-hidden="true">
-              <span class="visual-label">CORE // 01</span>
-              <div class="ledger-window">
-                <div class="ledger-head"><span>FINANCE_MDM</span><span>LIVE</span></div>
-                <div class="ledger-chart"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="ledger-stats"><span>Stock</span><span>Cashflow</span><span>Ops</span></div>
-              </div>
+          <article class="project-card reveal">
+            <div class="project-image">
+              <img src="/proyectos/financemdm/preview.webp" alt="Captura de la web de FinanceMDM" width="1440" height="900" loading="lazy" decoding="async" />
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>01</span><span>SaaS · Fintech · Inventory</span></div>
+              <div class="project-meta"><span>01</span><span>Web + API + App</span></div>
               <h3>FinanceMDM</h3>
-              <p>
-                ERP multiempresa para coordinar inventario por almacenes, compras, ventas y
-                producción con facturación y contabilidad multidivisa. Integra reglas de negocio,
-                acceso por roles y trazabilidad operativa en una sola plataforma.
-              </p>
-              <details class="project-details">
-                <summary>Avances recientes del producto</summary>
-                <ul>
-                  <li>Producción con recetas, vales y validación de unidades para seguir insumos y productos resultantes.</li>
-                  <li>Facturación fiscal configurada desde Mi Empresa, junto con flujos de ventas y cobros.</li>
-                  <li>Contratos con numeración configurable, reseñas públicas moderadas y respaldos con restauración estructurada.</li>
-                  <li>Acceso y navegación sujetos a permisos por función y disponibilidad del plan.</li>
-                </ul>
-              </details>
-              <ul class="tech-list" data-stagger aria-label="Tecnologías">
-                <li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li>
+              <p>ERP multiempresa para coordinar inventario, compras, ventas y producción con facturación y contabilidad multidivisa. Integra acceso por roles y trazabilidad operativa en web y API, con apps nativas en desarrollo para iOS y Android.</p>
+              <ul class="tech-list" data-stagger aria-label="Stack de FinanceMDM">
+                <li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li><li>Swift</li><li>Kotlin</li><li>OpenAPI</li>
               </ul>
-              <div class="project-actions">
-                <a class="project-link" href="/proyectos/financemdm/">
-                  Explorar caso de estudio <AnimatedIcon name="arrow-up-right" />
-                </a>
-                <a
-                  class="project-host"
-                  href="https://financemdm.kr4t3rdev.xyz"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Abrir FinanceMDM en financemdm.kr4t3rdev.xyz"
-                >
-                  <span aria-hidden="true">●</span> financemdm.kr4t3rdev.xyz
-                </a>
+              <div class="project-actions" aria-label="Enlaces de FinanceMDM">
+                <span class="project-link project-link-unavailable" aria-disabled="true" title="Repositorio privado">Repo<span class="project-action-status">Privado</span></span>
+                <a class="project-link" href="/proyectos/financemdm/">Caso de Estudio <AnimatedIcon name="arrow-up-right" /></a>
+                <a class="project-link" href="https://financemdm.kr4t3rdev.xyz" target="_blank" rel="noreferrer">Preview <AnimatedIcon name="arrow-up-right" /></a>
               </div>
             </div>
           </article>
-
-          <article class="project-card reveal" data-motion="right">
-            <div class="project-visual visual-mobile" aria-hidden="true">
-              <span class="visual-label">MOBILE // 02</span>
-              <div class="phone-frame">
-                <div class="phone-pill"></div>
-                <div class="phone-title">FinanceMDM</div>
-                <div class="phone-metric"><span>Resumen</span><strong>24/7</strong></div>
-                <div class="phone-lines"><i></i><i></i><i></i></div>
-              </div>
+          <article class="project-card reveal">
+            <div class="project-image">
+              <img src="/proyectos/cashflows/preview.webp" alt="Captura de la web de Cashflows" width="1440" height="900" loading="lazy" decoding="async" />
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>02</span><span>Mobile · Operations</span></div>
-              <h3>FinanceMDM Mobile</h3>
-              <p>
-                Cliente móvil seguro para gestionar productos, existencias, ventas, facturación y
-                administración global desde cualquier lugar.
-              </p>
-              <ul class="tech-list" data-stagger aria-label="Tecnologías">
-                <li>Expo</li><li>React Native</li><li>TypeScript</li><li>Secure Store</li>
+              <div class="project-meta"><span>02</span><span>Web + API + App</span></div>
+              <h3>Cashflows</h3>
+              <p>Web, API y apps nativas en desarrollo para casas de cambio: controla caja, saldos y movimientos por moneda; centraliza tasas, gastos, conciliaciones y reportes de flujo de caja.</p>
+              <ul class="tech-list" data-stagger aria-label="Stack de Cashflows">
+                <li>NestJS</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li><li>Swift</li><li>Kotlin</li><li>OpenAPI</li>
               </ul>
-              <span class="project-state">Repositorio privado · 502 pruebas</span>
+              <div class="project-actions" aria-label="Enlaces de Cashflows">
+                <span class="project-link project-link-unavailable" aria-disabled="true" title="Código fuente no disponible públicamente">Repo<span class="project-action-status">No público</span></span>
+                <a class="project-link" href="/proyectos/cashflows/">Caso de Estudio <AnimatedIcon name="arrow-up-right" /></a>
+                <a class="project-link" href="https://cashflow.kr4t3rdev.xyz" target="_blank" rel="noreferrer">Preview <AnimatedIcon name="arrow-up-right" /></a>
+              </div>
             </div>
           </article>
-
-          <article class="project-card reveal" data-motion="left">
-            <div class="project-visual visual-cashflow" aria-hidden="true">
-              <span class="visual-label">FINTECH // 03</span>
-              <div class="currency-orbit">
-                <span>USD</span><span>CUP</span><span>EUR</span>
-                <strong>FX</strong>
-              </div>
+          <article class="project-card reveal">
+            <div class="project-image">
+              <img src="/proyectos/yoisel-shop/preview.webp" alt="Captura de la web de Yoisel Shop" width="1440" height="900" loading="lazy" decoding="async" />
             </div>
             <div class="project-content">
-              <div class="project-meta"><span>03</span><span>Fintech · Mobile + API</span></div>
-              <h3>Cashflow</h3>
-              <p>
-                App móvil y API para casas de cambio: controla caja, saldos y movimientos por
-                moneda; centraliza tasas de cambio, gastos, objetivos, conciliaciones y reportes de
-                flujo de caja y resultados por período.
-              </p>
-              <details class="project-details">
-                <summary>Avances recientes del producto</summary>
-                <ul>
-                  <li>Importes financieros normalizados como cadenas decimales en tasas, caja, cuentas bancarias, indicadores y reportes, para preservar precisión al cruzar la API.</li>
-                  <li>El flujo de caja agrupa entradas y salidas por moneda e incorpora transacciones, gastos y ajustes de efectivo.</li>
-                  <li>Contrato OpenAPI con validación Spectral y control de cambios incompatibles mediante oasdiff.</li>
-                  <li>Generación y compilación comprobada de SDKs Swift y Kotlin; son clientes de API, no una afirmación de aplicaciones nativas publicadas.</li>
-                </ul>
-              </details>
-              <ul class="tech-list" data-stagger aria-label="Tecnologías">
-                <li>React Native</li><li>NestJS</li><li>Prisma</li><li>React Query</li>
+              <div class="project-meta"><span>03</span><span>Web + API · E-commerce</span></div>
+              <h3>Yoisel Shop</h3>
+              <p>Tienda online con catálogo, combos, ofertas y checkout. Incluye un panel para gestionar inventario, pedidos, ventas y usuarios, con web en Next.js y API en Go.</p>
+              <ul class="tech-list" data-stagger aria-label="Stack de Yoisel Shop">
+                <li>Next.js</li><li>TypeScript</li><li>Go</li><li>PostgreSQL</li><li>Tailwind CSS</li>
               </ul>
-              <a class="project-link" href="https://cashflow.kr4t3rdev.xyz" target="_blank" rel="noreferrer">
-                Ver producto <AnimatedIcon name="arrow-up-right" />
-              </a>
+              <div class="project-actions" aria-label="Enlaces de Yoisel Shop">
+                <span class="project-link project-link-unavailable" aria-disabled="true" title="Repositorio privado">Repo<span class="project-action-status">Privado</span></span>
+                <a class="project-link" href="/proyectos/yoisel-shop/">Caso de Estudio <AnimatedIcon name="arrow-up-right" /></a>
+                <a class="project-link" href="https://yoisel-shop.vercel.app" target="_blank" rel="noreferrer">Preview <AnimatedIcon name="arrow-up-right" /></a>
+              </div>
             </div>
           </article>
-
-          <section class="commerce-lab reveal" aria-labelledby="commerce-lab-title">
-            <header class="commerce-lab-header">
-              <div>
-                <p class="commerce-lab-code">COMMERCE_LAB // 04—06</p>
-                <h3 id="commerce-lab-title">Mismo producto.<br /><span>Tres backends.</span></h3>
-              </div>
-              <p class="commerce-lab-intro">
-                Una misma experiencia de comercio reconstruida con tres enfoques de servidor. El
-                objetivo no fue cambiar la tienda, sino explorar cómo distintas arquitecturas
-                resuelven el mismo dominio: catálogo, inventario, promociones, pedidos y operación.
-              </p>
-            </header>
-
-            <div class="shared-frontend">
-              <div class="shared-frontend-title">
-                <span aria-hidden="true">UI</span>
-                <div><small>CAPA COMÚN</small><strong>Frontend compartido</strong></div>
-              </div>
-              <div class="shared-frontend-grid" data-stagger>
-                <p><strong>Next.js 16 + React 19</strong><span>Estructuran la tienda, navegación, renderizado y panel administrativo.</span></p>
-                <p><strong>TypeScript + Zod</strong><span>Tipan datos y validan formularios y contratos antes de enviarlos al servidor.</span></p>
-                <p><strong>Tailwind CSS</strong><span>Construye una interfaz responsive y consistente para catálogo, checkout y gestión.</span></p>
-                <p><strong>React Table + Playwright</strong><span>Organizan datos operativos y automatizan recorridos críticos de la experiencia.</span></p>
-              </div>
-              <p class="shared-surface"><span>SUPERFICIE FUNCIONAL</span> Catálogo · detalle de producto · combos · ofertas · checkout · inventario · pedidos · ventas · usuarios</p>
-            </div>
-
-            <div class="backend-bridge" aria-hidden="true"><span>UNA INTERFAZ</span><i></i><span>TRES IMPLEMENTACIONES</span></div>
-
-            <div class="backend-variants" data-stagger>
-              <article class="backend-variant variant-cesar">
-                <header>
-                  <span class="variant-number">04</span><span class="variant-monogram" aria-hidden="true">CF</span>
-                  <div><small>PYTHON BACKEND</small><h4>Cesar Fashion</h4></div>
-                  <strong class="backend-badge">FastAPI</strong>
-                </header>
-                <p class="variant-summary">API separada y organizada por capas para mantener las reglas comerciales independientes del transporte y la base de datos.</p>
-                <dl class="technology-breakdown">
-                  <div><dt>FastAPI + Pydantic</dt><dd>Exponen endpoints HTTP y validan con esquemas los datos que entran y salen.</dd></div>
-                  <div><dt>SQLAlchemy 2 + PostgreSQL</dt><dd>Modelan y persisten productos, inventario, pedidos, usuarios y promociones.</dd></div>
-                  <div><dt>JWT + bcrypt</dt><dd>Protegen sesiones, contraseñas y acciones según el rol del usuario.</dd></div>
-                  <div><dt>Servicios + dominio</dt><dd>Aíslan precios, descuentos y combos para evitar reglas mezcladas con los controladores.</dd></div>
-                </dl>
-                <div class="variant-links"><a class="project-link" href="https://cesar-fashion.vercel.app" target="_blank" rel="noreferrer">Ver tienda <AnimatedIcon name="arrow-up-right" /></a></div>
-              </article>
-
-              <article class="backend-variant variant-yoisel">
-                <header>
-                  <span class="variant-number">05</span><span class="variant-monogram" aria-hidden="true">YS</span>
-                  <div><small>GO BACKEND</small><h4>Yoisel Shop</h4></div>
-                  <strong class="backend-badge">Go</strong>
-                </header>
-                <p class="variant-summary">Servicio HTTP explícito y compacto, diseñado para que transporte, casos de uso, dominio y persistencia tengan límites claros.</p>
-                <dl class="technology-breakdown">
-                  <div><dt>Go HTTP handlers</dt><dd>Reciben solicitudes, serializan JSON y devuelven errores consistentes sin un framework pesado.</dd></div>
-                  <div><dt>pgx + PostgreSQL</dt><dd>Ejecutan SQL y migraciones con control directo sobre la persistencia relacional.</dd></div>
-                  <div><dt>Services + interfaces</dt><dd>Separan los casos de uso del almacenamiento para facilitar pruebas y evolución.</dd></div>
-                  <div><dt>Money + security</dt><dd>Representan importes en centavos y encapsulan autenticación, contraseñas y archivos seguros.</dd></div>
-                </dl>
-                <a class="project-link" href="https://yoisel-shop.vercel.app" target="_blank" rel="noreferrer">Ver tienda <AnimatedIcon name="arrow-up-right" /></a>
-              </article>
-
-              <article class="backend-variant variant-ym">
-                <header>
-                  <span class="variant-number">06</span><span class="variant-monogram" aria-hidden="true">Y&amp;M</span>
-                  <div><small>FULL-STACK BACKEND</small><h4>Y&amp;M Fashion</h4></div>
-                  <strong class="backend-badge">Next.js full-stack</strong>
-                </header>
-                <p class="variant-summary">Implementación integrada: la interfaz y la lógica de servidor viven en una sola aplicación, reduciendo fronteras de despliegue.</p>
-                <dl class="technology-breakdown">
-                  <div><dt>Next.js server layer</dt><dd>Conecta las acciones de la interfaz con servicios del servidor sin mantener una API externa separada.</dd></div>
-                  <div><dt>Prisma + PostgreSQL</dt><dd>Define el modelo relacional y repositorios para consultar y actualizar la operación comercial.</dd></div>
-                  <div><dt>NextAuth + roles</dt><dd>Gestiona identidad, sesiones y autorización del área administrativa.</dd></div>
-                  <div><dt>Zod + UploadThing</dt><dd>Valida entradas y gestiona los recursos visuales asociados al catálogo.</dd></div>
-                </dl>
-                <div class="variant-links"><a class="project-link" href="https://y-m-fashion-llc.vercel.app" target="_blank" rel="noreferrer">Ver tienda <AnimatedIcon name="arrow-up-right" /></a><a class="project-link subtle" href="https://github.com/kr4t3rdev/Y-M-fashion-LLC" target="_blank" rel="noreferrer">Código</a></div>
-              </article>
-            </div>
-          </section>
         </div>
       </section>
 

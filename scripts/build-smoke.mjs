@@ -6,11 +6,16 @@ const buildDirectory = process.argv[2] ?? 'dist';
 const builtFiles = [
   'index.html',
   'proyectos/financemdm/index.html',
+  'proyectos/cashflows/index.html',
+  'proyectos/yoisel-shop/index.html',
   'styles.css',
   'motion.css',
   'theme.css',
   'script.js',
   'favicon.svg',
+  'proyectos/financemdm/preview.webp',
+  'proyectos/cashflows/preview.webp',
+  'proyectos/yoisel-shop/preview.webp',
   'proyectos/financemdm/case-study.css',
   'licenses/pqoqubbw-icons-MIT.txt',
   'licenses/lucide-ISC-and-feather-MIT.txt',
@@ -42,9 +47,28 @@ const lucideNotice = await readFile(join(buildDirectory, 'licenses/lucide-ISC-an
 
 assert.match(home, /<title[^>]*>[^<]+<\/title>/i, 'Home page must have a title');
 assert.match(home, /href="\/proyectos\/financemdm\/"/, 'Home page must link to the FinanceMDM case study');
-assert.match(home, /href="\.\/styles\.css(?:\?[^"]*)?"/, 'Home page must load its stylesheet');
+assert.match(home, /href="\/styles\.css(?:\?[^"]*)?"/, 'Home page must load its stylesheet');
 assert.match(financeCase, /<h1[ >]/, 'FinanceMDM case study must render its main heading');
 assert.match(financeCase, /href="\/proyectos\/financemdm\/case-study\.css(?:\?[^"]*)?"/, 'Case study must load its stylesheet');
+
+const projectSection = home.split('id="proyectos"')[1].split('id="servicios"')[0];
+assert.deepEqual([...projectSection.matchAll(/<h3>([^<]+)<\/h3>/g)].map(match => match[1]), [
+  'FinanceMDM', 'Cashflows', 'Yoisel Shop',
+]);
+assert.doesNotMatch(projectSection, /FinanceMDM Mobile|Cesar Fashion|Y&amp;M Fashion|Tres backends/);
+assert.equal((projectSection.match(/Web \+ API \+ App/g) ?? []).length, 2);
+assert.match(projectSection, /href="https:\/\/yoisel-shop\.vercel\.app"/);
+const cards = [...projectSection.matchAll(/<article class="project-card[^>]*>([\s\S]*?)<\/article>/g)].map(match => match[1]);
+assert.equal(cards.length, 3);
+for (const card of cards) {
+  assert.match(card, /<img[^>]+loading="lazy"/);
+  assert.match(card, /alt="[^"]+"/);
+  const actions = card.split('class="project-actions"')[1];
+  assert.ok(actions.indexOf('Repo') < actions.indexOf('Caso de Estudio'));
+  assert.ok(actions.indexOf('Caso de Estudio') < actions.indexOf('Preview'));
+  assert.doesNotMatch(actions, /href="#"/);
+}
+
 
 console.log('Built route and asset smoke checks passed.');
 
@@ -88,4 +112,31 @@ for (const pageName of ['index.html', 'proyectos/financemdm/index.html']) {
   assert.match(pageHtml, /localStorage\.getItem\('theme'\)/, `${pageName} must ship the no-flash theme script`);
   assert.match(pageHtml, /dataset\.theme\s*=\s*theme/, `${pageName} must set the theme before paint`);
   assert.match(pageHtml, /class="theme-toggle"/, `${pageName} must render the theme toggle`);
+}
+
+/* All project cards must lead to a rendered, self-contained study. */
+for (const slug of ['financemdm', 'cashflows', 'yoisel-shop']) {
+  assert.match(projectSection, new RegExp(`href="/proyectos/${slug}/"`));
+  const study = await readFile(join(buildDirectory, `proyectos/${slug}/index.html`), 'utf8');
+  assert.equal((study.match(/<h1[ >]/g) ?? []).length, 1);
+  assert.match(study, /id="contexto"/);
+  assert.match(study, /id="arquitectura"/);
+  assert.match(study, /id="calidad"/);
+  assert.match(study, /class="theme-toggle"/);
+  assert.match(study, /href="\/#proyectos"/);
+  if (slug !== 'yoisel-shop') {
+    assert.match(study, /id="apps-nativas"/);
+    assert.match(study, /id="contratos"/);
+    assert.match(study, /un contrato por producto/i);
+    assert.match(study, /en desarrollo/i);
+    assert.match(study, /Swift/);
+    assert.match(study, /Kotlin/);
+  }
+}
+assert.doesNotMatch(projectSection, /React Native|\bExpo\b|React Query/);
+assert.equal((projectSection.match(/<li>OpenAPI<\/li>/g) ?? []).length, 2);
+console.log('Rendered native studies and product contracts passed.');
+
+for (const asset of ['favicon.svg', 'styles.css', 'motion.css', 'theme.css', 'script.js']) {
+  assert.ok(home.includes(`"/${asset}"`), `Built homepage asset must be root-absolute: ${asset}`);
 }
