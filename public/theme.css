@@ -69,13 +69,10 @@
 
 /* Acentos */
 [data-theme="dark"] .hero-intro strong { background: linear-gradient(transparent 58%, rgba(207, 138, 108, 0.32) 58%); }
-[data-theme="dark"] .status-dot { box-shadow: 0 0 0 5px rgba(168, 182, 153, 0.16); }
-
-@keyframes status-pulse-dark {
-  0% { box-shadow: 0 0 0 0 rgba(168, 182, 153, 0.35); }
-  70%, 100% { box-shadow: 0 0 0 8px rgba(168, 182, 153, 0); }
+[data-theme="dark"] .status-dot {
+  box-shadow: 0 0 0 5px rgba(168, 182, 153, 0.16);
+  --status-pulse-color: rgba(168, 182, 153, 0.35);
 }
-[data-theme="dark"] .status-dot { animation-name: status-pulse-dark; }
 
 /* ---------- Botón de tema ---------- */
 

@@ -141,12 +141,14 @@ nav a:not(.nav-cta):hover { border-color: var(--ink); }
 }
 
 .status-dot {
+  position: relative;
   display: inline-block;
   width: 8px;
   aspect-ratio: 1;
   margin-right: 0.65rem;
   border-radius: 50%;
   background: var(--sage-dark);
+  --status-pulse-color: rgba(182, 109, 82, 0.45);
   box-shadow: 0 0 0 5px rgba(86, 99, 78, 0.12);
 }
 
