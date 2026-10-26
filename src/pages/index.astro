@@ -9,11 +9,23 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#171916" />
+    <meta name="theme-color" content="#e7e1d4" />
     <meta
       name="description"
       content="Portfolio de Michel García Aguero, ingeniero de software especializado en productos financieros, inventario, aplicaciones móviles y comercio electrónico."
     />
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem('theme');
+        const theme =
+          stored === 'light' || stored === 'dark'
+            ? stored
+            : matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark'
+              : 'light';
+        document.documentElement.dataset.theme = theme;
+      })();
+    </script>
     <meta property="og:title" content="Michel García Aguero — Software Engineer" />
     <meta
       property="og:description"
@@ -31,6 +43,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
     />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./motion.css" />
+    <link rel="stylesheet" href="./theme.css" />
     <script src="./script.js" defer></script>
     <title>Michel García Aguero — Software Engineer</title>
     <ClientRouter />
@@ -52,6 +65,15 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
         <a href="#proyectos">Proyectos</a>
         <a href="#metodo">Método</a>
         <a class="nav-cta" href="#contacto">Contacto <AnimatedIcon name="arrow-up-right" /></a>
+        <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar a modo oscuro">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4.2" />
+            <path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9" />
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M20.4 14.2A8.3 8.3 0 0 1 9.8 3.6a8.3 8.3 0 1 0 10.6 10.6Z" />
+          </svg>
+        </button>
       </nav>
     </header>
 

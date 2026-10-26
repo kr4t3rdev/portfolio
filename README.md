@@ -46,6 +46,19 @@ The animation layer is dependency-free: `public/motion.css` (styles, keyframes, 
 
 All motion uses GPU-friendly properties (`transform`, `opacity`, `filter`, `clip-path`) with the existing editorial easing `cubic-bezier(.2, .75, .25, 1)`. The engine is idempotent and re-initializes on `astro:page-load`, so reveals survive view transitions without duplicating listeners. A 26-check Playwright suite verified the layer in a real browser, including the reduced-motion path.
 
+## Dark mode
+
+The theme layer lives in `public/theme.css` with engine support in `public/script.js`. `--ink`/`--paper` are a semantic foreground/background pair, so `:root[data-theme="dark"]` inverts the whole site — including the inverted panels (contact, commerce-lab header, platform sheet, architecture diagram), which become light over dark to preserve the editorial contrast rhythm. Hard-coded legacy colors get surgical `[data-theme="dark"]` overrides; the hero console keeps its terminal look and the phone mock stays dark in both themes.
+
+Behavior:
+
+- **Resolution order:** `localStorage('theme')` if set, otherwise the system `prefers-color-scheme`. An inline `<head>` script sets `data-theme` before first paint, so there is no flash of the wrong theme.
+- **Toggle:** a 44px `.theme-toggle` button (sun/moon SVG, spinning entrance) in the nav and the case-study header flips the theme, persists the choice, syncs `meta[name="theme-color"]`, and updates `aria-pressed`/`aria-label`.
+- **Transition:** a transient `html.theme-anim` class cross-fades colors for 240ms; under `prefers-reduced-motion` the switch is instant and the icon animation is removed.
+- **Contraste:** dark body text measures 13.44:1 on `#191b17` (WCAG AA+); `color-scheme` is declared for native controls.
+
+Verified with a 25-check Playwright suite (defaults, system preference, toggle, persistence, meta sync, contrast, case study, reduced motion) plus a 24-check motion regression running under dark theme.
+
 ## Reusable icons
 
 `src/components/icons/AnimatedIcon.astro` provides the locally rendered, typed directional and service SVGs; use its `name`, optional `size`, `strokeWidth`, `class`, and optional accessible `label` props. Without a label it is decorative (`aria-hidden` and unfocusable); with a label it is exposed as an image. `BrandIcon.astro` reuses the existing WhatsApp and Instagram SVG geometry without changing the accessible names on their links. Shared styles are imported with the components. On link, button, or summary hover and keyboard focus, directional arrows travel 5 SVG units along their indicated direction and recoil in a 520ms one-shot; WhatsApp rocks through a 9-degree nudge in 520ms, while Instagram turns 9 degrees and scales to 1.12 before settling in 560ms. Inside an opt-in `.icon-trigger`, the 24px service marks animate only on hover/focus-within: the three panel pieces separate and settle in 720ms, server racks open/close 3 units with a brief LED blink in 760ms, and the three layers fan apart by up to 3 units in 680ms. There are no loops, automatic entrances, or layout shifts. All are CSS-only; `prefers-reduced-motion` removes animation, transitions, and transforms so every icon remains fully visible and static.

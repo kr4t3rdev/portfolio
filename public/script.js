@@ -7,6 +7,59 @@
  */
 (() => {
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const THEME_BG = { light: '#e7e1d4', dark: '#191b17' };
+
+  /**
+   * @description Aplica un tema al documento: fija data-theme, persiste la
+   *   elección, sincroniza meta theme-color y el botón, con transición suave
+   *   opcional (desactivada si el usuario prefiere movimiento reducido).
+   * @param {'light'|'dark'} theme - Tema a aplicar.
+   * @param {{ persist?: boolean, animate?: boolean }} [options] - Persistir en
+   *   localStorage y animar el cambio de tema.
+   * @returns {void}
+   */
+  const applyTheme = (theme, { persist = false, animate = false } = {}) => {
+    const root = document.documentElement;
+    if (animate && !prefersReduced.matches) {
+      root.classList.add('theme-anim');
+      window.setTimeout(() => root.classList.remove('theme-anim'), 300);
+    }
+    root.dataset.theme = theme;
+    if (persist) window.localStorage.setItem('theme', theme);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', THEME_BG[theme] ?? THEME_BG.light);
+    syncToggle();
+  };
+
+  /**
+   * @description Sincroniza el estado del botón de tema (aria-pressed y
+   *   etiqueta descriptiva) con el tema actual del documento.
+   * @returns {void}
+   */
+  const syncToggle = () => {
+    const toggle = document.querySelector('.theme-toggle');
+    if (!toggle) return;
+    const isDark = document.documentElement.dataset.theme === 'dark';
+    toggle.setAttribute('aria-pressed', String(isDark));
+    toggle.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  };
+
+  /**
+   * @description Enlaza el botón de tema una sola vez por elemento y deja el
+   *   estado accesible en orden.
+   * @returns {void}
+   */
+  const initTheme = () => {
+    const toggle = document.querySelector('.theme-toggle');
+    if (toggle && !toggle.__themeBound) {
+      toggle.__themeBound = true;
+      toggle.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        applyTheme(next, { persist: true, animate: true });
+      });
+    }
+    syncToggle();
+  };
 
   const revealObserver = () =>
     new IntersectionObserver(
@@ -30,6 +83,7 @@
    * @returns {void}
    */
   const initMotion = () => {
+    initTheme();
     const year = document.querySelector('#year');
     if (year) year.textContent = String(new Date().getFullYear());
 

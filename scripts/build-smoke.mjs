@@ -8,6 +8,7 @@ const builtFiles = [
   'proyectos/financemdm/index.html',
   'styles.css',
   'motion.css',
+  'theme.css',
   'script.js',
   'favicon.svg',
   'proyectos/financemdm/case-study.css',
@@ -77,3 +78,14 @@ assert.match(home, /data-stagger="pop"/);
 assert.match(home, /data-parallax="0\.05"/);
 assert.match(financeCase, /data-intro="mask"/);
 assert.match(financeCase, /data-stagger/);
+
+/* Theme layer presente en el build. */
+const themeBuilt = await readFile(join(buildDirectory, 'theme.css'), 'utf8');
+assert.match(themeBuilt, /:root\[data-theme="dark"\]/);
+assert.match(themeBuilt, /\.theme-toggle/);
+for (const pageName of ['index.html', 'proyectos/financemdm/index.html']) {
+  const pageHtml = await readFile(join(buildDirectory, pageName), 'utf8');
+  assert.match(pageHtml, /localStorage\.getItem\('theme'\)/, `${pageName} must ship the no-flash theme script`);
+  assert.match(pageHtml, /dataset\.theme\s*=\s*theme/, `${pageName} must set the theme before paint`);
+  assert.match(pageHtml, /class="theme-toggle"/, `${pageName} must render the theme toggle`);
+}

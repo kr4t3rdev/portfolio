@@ -217,3 +217,42 @@ for (const attr of [
 assert.ok(casePage.includes('data-motion="left"'));
 assert.ok(casePage.includes('data-stagger'));
 assert.ok(casePage.includes('data-delay="90"'));
+
+/* ---------- Theme layer: modo oscuro ---------- */
+const themeStyles = await readFile('public/theme.css', 'utf8');
+
+assert.match(themeStyles, /:root\[data-theme="dark"\]\s*\{/, 'dark token block missing');
+assert.match(themeStyles, /--ink:\s*#e8e2d5/, 'dark --ink must invert to light');
+assert.match(themeStyles, /--paper:\s*#191b17/, 'dark --paper must invert to dark');
+assert.match(themeStyles, /color-scheme:\s*dark/, 'dark color-scheme missing');
+assert.match(themeStyles, /\.theme-toggle\s*\{[^}]*cursor:\s*pointer/, 'theme toggle needs cursor pointer');
+assert.match(themeStyles, /\.theme-toggle\s*\{[^}]*width:\s*44px/, 'theme toggle needs 44px target');
+assert.match(themeStyles, /:root:not\(\[data-theme="dark"\]\)\s*\.theme-toggle\s*\.icon-moon/, 'icon swap rules missing');
+assert.match(themeStyles, /@keyframes status-pulse-dark/, 'dark status pulse missing');
+assert.match(themeStyles, /html\.theme-anim/, 'theme transition rules missing');
+assert.match(themeStyles, /prefers-reduced-motion:\s*reduce\)[\s\S]*animation:\s*none\s*!important/, 'reduced motion must disable theme animations');
+for (const override of [
+  '[data-theme="dark"] .project-card',
+  '[data-theme="dark"] .commerce-lab {',
+  '[data-theme="dark"] .hero-console',
+  '[data-theme="dark"] .contact-code',
+  '[data-theme="dark"] .phone-frame',
+  '[data-theme="dark"] .service-sheet-platform',
+  '[data-theme="dark"] .architecture-clients',
+]) {
+  assert.ok(themeStyles.includes(override), `dark override missing: ${override}`);
+}
+
+assert.match(motionScript, /applyTheme/, 'engine must include applyTheme');
+assert.match(motionScript, /localStorage\.setItem\('theme'/, 'theme choice must persist');
+assert.match(motionScript, /aria-pressed/, 'toggle must expose aria-pressed');
+assert.match(motionScript, /meta\[name="theme-color"\]/, 'engine must sync meta theme-color');
+
+for (const page of [html, casePage]) {
+  assert.match(page, /theme\.css/, 'page must link theme.css');
+  assert.match(page, /localStorage\.getItem\('theme'\)/, 'page needs inline no-flash theme script');
+  assert.match(page, /content="#e7e1d4"/, 'meta theme-color must default to light paper');
+  assert.match(page, /class="theme-toggle"/, 'page needs the theme toggle button');
+  assert.match(page, /class="icon-sun"/, 'toggle needs sun icon');
+  assert.match(page, /class="icon-moon"/, 'toggle needs moon icon');
+}
