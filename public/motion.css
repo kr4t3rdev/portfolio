@@ -59,7 +59,7 @@
   filter: none;
 }
 
-[data-motion="blur"].reveal {
+.motion-ready [data-motion="blur"].reveal {
   opacity: 0;
   transform: translateY(12px);
   filter: blur(12px);
@@ -75,7 +75,7 @@
   transform: none;
 }
 
-[data-motion="mask"].reveal > * {
+.motion-ready [data-motion="mask"].reveal > * {
   opacity: 0;
   transform: translateY(18px);
   clip-path: inset(0 0 100% 0);
@@ -84,7 +84,7 @@
   transition-timing-function: cubic-bezier(.2, .75, .25, 1);
 }
 
-[data-motion="mask"].reveal.is-visible > * {
+.motion-ready [data-motion="mask"].reveal.is-visible > * {
   opacity: 1;
   transform: none;
   clip-path: inset(0 0 -12% 0);
@@ -121,17 +121,17 @@
 .status-dot { animation: status-pulse 2.4s ease-out infinite; }
 
 /* Barras del panel FinanceMDM crecen al entrar el card en escena. */
-.ledger-chart i {
+.motion-ready .ledger-chart i {
   transform: scaleY(0);
   transform-origin: bottom;
   transition: transform 720ms cubic-bezier(.2, .75, .25, 1);
 }
-.project-card-featured.is-visible .ledger-chart i { transform: scaleY(1); }
-.project-card-featured.is-visible .ledger-chart i:nth-child(2) { transition-delay: 90ms; }
-.project-card-featured.is-visible .ledger-chart i:nth-child(3) { transition-delay: 160ms; }
-.project-card-featured.is-visible .ledger-chart i:nth-child(4) { transition-delay: 230ms; }
-.project-card-featured.is-visible .ledger-chart i:nth-child(5) { transition-delay: 300ms; }
-.project-card-featured.is-visible .ledger-chart i:nth-child(6) { transition-delay: 370ms; }
+.motion-ready .project-card-featured.is-visible .ledger-chart i { transform: scaleY(1); }
+.motion-ready .project-card-featured.is-visible .ledger-chart i:nth-child(2) { transition-delay: 90ms; }
+.motion-ready .project-card-featured.is-visible .ledger-chart i:nth-child(3) { transition-delay: 160ms; }
+.motion-ready .project-card-featured.is-visible .ledger-chart i:nth-child(4) { transition-delay: 230ms; }
+.motion-ready .project-card-featured.is-visible .ledger-chart i:nth-child(5) { transition-delay: 300ms; }
+.motion-ready .project-card-featured.is-visible .ledger-chart i:nth-child(6) { transition-delay: 370ms; }
 
 /* Monedas del orbit de Cashflow respiran en alturas desfasadas. */
 @keyframes orbit-float { from { transform: translateY(-4px); } to { transform: translateY(4px); } }
@@ -140,12 +140,12 @@
 .currency-orbit span:nth-child(3) { animation-duration: 5.5s; animation-delay: 1.4s; }
 
 /* Línea del puente backend-variants se dibuja al llegar. */
-.backend-bridge i {
+.motion-ready .backend-bridge i {
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 900ms cubic-bezier(.7, 0, .2, 1) 180ms;
 }
-.commerce-lab.is-visible .backend-bridge i { transform: scaleX(1); }
+.motion-ready .commerce-lab.is-visible .backend-bridge i { transform: scaleX(1); }
 
 /* Contenido de <details> entra con un barrido suave. */
 @keyframes detail-item { from { opacity: 0; transform: translateY(-6px); } }

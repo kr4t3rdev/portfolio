@@ -170,6 +170,10 @@ const motionScript = await readFile('public/script.js', 'utf8');
 assert.match(styles, /\.reveal\s*\{[^}]*opacity:\s*1/);
 assert.match(styles, /\.motion-ready \.reveal:not\(\.is-visible\)/);
 assert.match(motionStyles, /\.motion-ready \[data-stagger\] > \*/);
+assert.match(motionStyles, /\.motion-ready \[data-motion="blur"\]\.reveal/);
+assert.match(motionStyles, /\.motion-ready \[data-motion="mask"\]\.reveal > \*/);
+assert.match(motionStyles, /\.motion-ready \.ledger-chart i/);
+assert.match(motionStyles, /\.motion-ready \.backend-bridge i/);
 assert.match(motionScript, /document\.documentElement\.classList\.add\(['"]motion-ready['"]\)/);
 
 for (const keyframe of [
