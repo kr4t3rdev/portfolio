@@ -93,6 +93,7 @@ assert.match(motionBuilt, /@keyframes intro-mask/);
 assert.match(motionBuilt, /::view-transition-new\(root\)/);
 assert.match(motionBuilt, /prefers-reduced-motion: reduce/);
 assert.match(motionScriptBuilt, /astro:page-load/);
+assert.match(motionScriptBuilt, /astro:after-swap/, 'dist script must hook the swap to preserve the theme');
 assert.match(home, /motion\.css/);
 assert.match(financeCase, /motion\.css/);
 assert.match(home, /class="scroll-progress"/);

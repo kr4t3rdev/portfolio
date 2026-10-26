@@ -51,6 +51,28 @@
   };
 
   /**
+   * @description Resuelve el tema desde su fuente de verdad: la preferencia
+   *   guardada o, en su defecto, la preferencia del sistema. Tolerante a
+   *   almacenamiento bloqueado. El router de Astro borra los atributos de
+   *   <html> en cada swap, por lo que el motor no debe confiar en el
+   *   atributo data-theme tras una navegación de cliente (issue #13).
+   * @returns {'light'|'dark'} Tema resuelto.
+   */
+  const resolveTheme = () => {
+    let stored;
+    try {
+      stored = window.localStorage.getItem('theme');
+    } catch {
+      /* Almacenamiento no disponible: se usa la preferencia del sistema. */
+    }
+    return stored === 'light' || stored === 'dark'
+      ? stored
+      : window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light';
+  };
+
+  /**
    * @description Enlaza el botón de tema una sola vez por elemento y deja el
    *   estado accesible en orden.
    * @returns {void}
@@ -64,7 +86,7 @@
         applyTheme(next, { persist: true, animate: true });
       });
     }
-    applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+    applyTheme(resolveTheme());
   };
 
   const revealObserver = () => {
@@ -179,4 +201,11 @@
     initMotion();
   }
   document.addEventListener('astro:page-load', initMotion);
+
+  /* El swap del router borra data-theme: se re-resuelve el tema apenas
+     termina el intercambio del documento (issue #13). */
+  if (!window.__themeSwapBound) {
+    window.__themeSwapBound = true;
+    document.addEventListener('astro:after-swap', () => applyTheme(resolveTheme()));
+  }
 })();
