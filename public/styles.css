@@ -794,3 +794,27 @@ body { overflow-x: clip; }
     box-shadow: 0 8px 20px rgba(23,25,22,.08);
   }
 }
+
+/* Section 2: stagger the three case studies without changing their content order. */
+@media (min-width: 901px) {
+  #proyectos .project-grid { align-items: start; }
+  #proyectos .section-heading { margin-bottom: 3rem; }
+  #proyectos .project-card { border-radius: 16px; }
+  #proyectos .project-card:nth-child(2) { margin-block-start: 22px; }
+  #proyectos .project-card:nth-child(3) { margin-block-start: 44px; }
+  #proyectos .project-card:nth-child(2) .project-preview-frame { order: 2; }
+  #proyectos .project-card:nth-child(2) .project-content { order: 1; }
+  #proyectos .project-preview-frame { border-radius: 16px; }
+  #proyectos .project-image { border-radius: 9px; }
+}
+#proyectos .project-content { border-radius: 16px; }
+#proyectos .project-card:nth-child(2) .project-preview-frame { order: 2; }
+#proyectos .project-card:nth-child(2) .project-content { order: 1; }
+@media (min-width: 901px) and (max-height: 800px) {
+  #proyectos .section-heading { margin-bottom: 2.5rem; }
+}
+@media (max-width: 900px) {
+  #proyectos .project-card { margin-block-start: 0; border-radius: 16px; }
+  #proyectos .project-preview-frame { border-radius: 16px; }
+  #proyectos .project-image { border-radius: 9px; }
+}
