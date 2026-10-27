@@ -67,8 +67,9 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
         <span>MICHEL<span class="brand-dot">.DEV</span></span>
       </a>
       <nav aria-label="Navegación principal">
-        <a href="#servicios">Servicios</a>
+        <a href="#inicio">Inicio</a>
         <a href="#proyectos">Proyectos</a>
+        <a href="#servicios">Servicios</a>
         <a href="#metodo">Método</a>
         <a class="nav-cta" href="#contacto">Contacto <AnimatedIcon name="arrow-up-right" /></a>
         <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar a modo oscuro">
@@ -136,14 +137,6 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
         </div>
       </section>
 
-      <section class="manifesto section-shell reveal" data-motion="blur" aria-label="Principios de trabajo">
-        <p class="manifesto-index">[01]</p>
-        <p>
-          No construyo pantallas aisladas. Construyo <em>sistemas completos</em>: desde la regla de
-          negocio y el contrato de datos hasta la experiencia que finalmente toca el usuario.
-        </p>
-      </section>
-
       <section class="projects section-shell" id="proyectos" aria-labelledby="projects-title">
         <div class="section-heading reveal" data-motion="mask">
           <div>
@@ -157,13 +150,15 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
 
         <div class="project-grid">
           <article class="project-card reveal">
-            <div class="project-image">
+            <div class="project-preview-frame">
+              <div class="project-image">
               <img src="/proyectos/financemdm/preview.webp" alt="Captura de la web de FinanceMDM" width="1440" height="900" loading="lazy" decoding="async" />
+              </div>
             </div>
             <div class="project-content">
               <div class="project-meta"><span>01</span><span>Web + API + App</span></div>
               <h3>FinanceMDM</h3>
-              <p>ERP multiempresa para coordinar inventario, compras, ventas y producción con facturación y contabilidad multidivisa. Integra acceso por roles y trazabilidad operativa en web y API, con apps nativas en desarrollo para iOS y Android.</p>
+              <p>ERP multiempresa para inventario, compras, ventas y producción, con facturación multidivisa y trazabilidad por roles. Web y API; apps nativas para iOS y Android en desarrollo.</p>
               <ul class="tech-list" data-stagger aria-label="Stack de FinanceMDM">
                 <li>Next.js</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li><li>Swift</li><li>Kotlin</li><li>OpenAPI</li>
               </ul>
@@ -175,13 +170,15 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             </div>
           </article>
           <article class="project-card reveal">
-            <div class="project-image">
+            <div class="project-preview-frame">
+              <div class="project-image">
               <img src="/proyectos/cashflows/preview.webp" alt="Captura de la web de Cashflows" width="1440" height="900" loading="lazy" decoding="async" />
+              </div>
             </div>
             <div class="project-content">
               <div class="project-meta"><span>02</span><span>Web + API + App</span></div>
               <h3>Cashflows</h3>
-              <p>Web, API y apps nativas en desarrollo para casas de cambio: controla caja, saldos y movimientos por moneda; centraliza tasas, gastos, conciliaciones y reportes de flujo de caja.</p>
+              <p>Web y API para casas de cambio: saldos y movimientos por moneda, tasas, gastos, conciliaciones y reportes de flujo de caja. Apps nativas en desarrollo.</p>
               <ul class="tech-list" data-stagger aria-label="Stack de Cashflows">
                 <li>NestJS</li><li>TypeScript</li><li>Prisma</li><li>PostgreSQL</li><li>Swift</li><li>Kotlin</li><li>OpenAPI</li>
               </ul>
@@ -193,13 +190,15 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             </div>
           </article>
           <article class="project-card reveal">
-            <div class="project-image">
+            <div class="project-preview-frame">
+              <div class="project-image">
               <img src="/proyectos/yoisel-shop/preview.webp" alt="Captura de la web de Yoisel Shop" width="1440" height="900" loading="lazy" decoding="async" />
+              </div>
             </div>
             <div class="project-content">
               <div class="project-meta"><span>03</span><span>Web + API · E-commerce</span></div>
               <h3>Yoisel Shop</h3>
-              <p>Tienda online con catálogo, combos, ofertas y checkout. Incluye un panel para gestionar inventario, pedidos, ventas y usuarios, con web en Next.js y API en Go.</p>
+              <p>Tienda online con catálogo, combos, ofertas y checkout; incluye panel para inventario, pedidos, ventas y usuarios. Web en Next.js, API en Go.</p>
               <ul class="tech-list" data-stagger aria-label="Stack de Yoisel Shop">
                 <li>Next.js</li><li>TypeScript</li><li>Go</li><li>PostgreSQL</li><li>Tailwind CSS</li>
               </ul>
@@ -219,64 +218,25 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
           <p class="section-note">Servicios por alcance, no paquetes rígidos. Cada propuesta parte de tus objetivos, procesos y prioridades.</p>
         </header>
         <div class="service-catalog" aria-label="Servicios de desarrollo">
-          <article class="service-sheet icon-trigger reveal" data-motion="left" aria-labelledby="service-landing">
-            <header class="service-intro">
-              <p class="service-tag"><AnimatedIcon name="layout-panel-top" />WEB / PRESENCIA</p>
-              <h3 id="service-landing">Una primera impresión que trabaja por tu marca.</h3>
-              <p>Landing pages y sitios para explicar tu propuesta, presentar productos y convertir visitas en conversaciones.</p>
-            </header>
-            <div class="service-body">
-              <div class="service-deliverables">
-                <h4>Qué podemos construir</h4>
-                <ul data-stagger><li>Diseño personalizado y responsive para móvil, tablet y escritorio.</li><li>Estructura y contenido alineados con la identidad de tu negocio.</li><li>Iconografía, recursos gráficos y llamadas a la acción claras.</li></ul>
-              </div>
-              <footer class="service-footer">
-                <p>El presupuesto se ajusta a la cantidad de páginas, complejidad visual y funcionalidades.</p>
-                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20landing%20page%20o%20sitio%20web." target="_blank" rel="noreferrer">Hablemos de tu sitio <AnimatedIcon name="arrow-up-right" /></a>
-              </footer>
-            </div>
+          <article class="service-card reveal" data-motion="left" aria-labelledby="service-landing">
+            <a class="service-photo" href="/servicios/landing" aria-label="Ver detalles de diseño web y presencia"><img src="/images/services/landing.webp" alt="Espacio de trabajo de un pequeño negocio, preparado para atender clientes" width="960" height="640" loading="lazy" decoding="async" /></a>
+            <div class="service-card-copy"><p class="service-tag"><AnimatedIcon name="layout-panel-top" />WEB / PRESENCIA</p><h3 id="service-landing">Una primera impresión que trabaja por tu marca.</h3><p>Landing pages y sitios claros que presentan tu propuesta, productos y próximos pasos.</p><a class="service-cta" href="/servicios/landing">Ver detalles <AnimatedIcon name="arrow-up-right" /></a></div>
           </article>
-          <article class="service-sheet icon-trigger reveal" data-motion="right" aria-labelledby="service-negocio">
-            <header class="service-intro">
-              <p class="service-tag"><AnimatedIcon name="server" />WEB / OPERACIÓN</p>
-              <h3 id="service-negocio">Menos tareas dispersas. Más control del negocio.</h3>
-              <p>Una aplicación web conectada a su API y base de datos, diseñada alrededor de los procesos del pequeño negocio.</p>
-            </header>
-            <div class="service-body">
-              <div class="service-deliverables">
-                <h4>Qué podemos construir</h4>
-                <ul data-stagger><li>Panel administrativo y gestión de usuarios.</li><li>Módulos CRUD para productos, clientes u otros registros del negocio.</li><li>Reglas de acceso y datos modelados según el flujo acordado.</li></ul>
-              </div>
-              <footer class="service-footer">
-                <p>El alcance y el presupuesto dependen de los módulos, pantallas y reglas operativas.</p>
-                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20un%20sistema%20web%20para%20mi%20negocio." target="_blank" rel="noreferrer">Hablemos de tu sistema <AnimatedIcon name="arrow-up-right" /></a>
-              </footer>
-            </div>
+          <article class="service-card reveal" data-motion="right" aria-labelledby="service-negocio">
+            <a class="service-photo" href="/servicios/negocio" aria-label="Ver detalles de sistemas para pequeños negocios"><img src="/images/services/business.webp" alt="Comerciante gestionando una venta en el mostrador de su negocio" width="960" height="640" loading="lazy" decoding="async" /></a>
+            <div class="service-card-copy"><p class="service-tag"><AnimatedIcon name="server" />WEB / OPERACIÓN</p><h3 id="service-negocio">Menos tareas dispersas. Más control del negocio.</h3><p>Aplicaciones web con API y base de datos para ordenar los procesos cotidianos.</p><a class="service-cta" href="/servicios/negocio">Ver detalles <AnimatedIcon name="arrow-up-right" /></a></div>
           </article>
-          <article class="service-sheet service-sheet-platform icon-trigger reveal" data-motion="zoom" aria-labelledby="service-plataforma">
-            <header class="service-intro">
-              <p class="service-tag"><AnimatedIcon name="layers" />PLATAFORMA / WEB + MÓVIL</p>
-              <h3 id="service-plataforma">Una plataforma para usuarios, equipos y operaciones complejas.</h3>
-              <p>Soluciones de mayor alcance con servicios compartidos, controles de acceso y aplicaciones nativas.</p>
-            </header>
-            <div class="service-body">
-              <div class="service-deliverables">
-                <h4>Qué podemos construir</h4>
-                <ul data-stagger><li>Frontend, API y base de datos PostgreSQL.</li><li>OAuth, roles y paneles para usuarios y administración.</li><li>Middleware para proteger rutas y operaciones.</li><li>Despliegue web y aplicaciones nativas: Swift para iOS, Kotlin para Android.</li></ul>
-              </div>
-              <footer class="service-footer">
-                <p>La propuesta define módulos, integraciones, plataformas, infraestructura y mantenimiento; la publicación en tiendas se acuerda por separado.</p>
-                <a class="service-cta" href="https://wa.me/5353917705?text=Hola%2C%20quiero%20solicitar%20presupuesto%20para%20una%20plataforma%20web%20con%20apps%20nativas." target="_blank" rel="noreferrer">Hablemos de tu plataforma <AnimatedIcon name="arrow-up-right" /></a>
-              </footer>
-            </div>
+          <article class="service-card reveal" data-motion="zoom" aria-labelledby="service-plataforma">
+            <a class="service-photo" href="/servicios/plataforma" aria-label="Ver detalles de plataformas web y móviles"><img src="/images/services/platform.webp" alt="Equipo de trabajo coordinando un proyecto en una mesa" width="960" height="640" loading="lazy" decoding="async" /></a>
+            <div class="service-card-copy"><p class="service-tag"><AnimatedIcon name="layers" />PLATAFORMA / WEB + MÓVIL</p><h3 id="service-plataforma">Una plataforma para usuarios, equipos y operaciones complejas.</h3><p>Servicios compartidos, controles de acceso y aplicaciones nativas según el alcance.</p><a class="service-cta" href="/servicios/plataforma">Ver detalles <AnimatedIcon name="arrow-up-right" /></a></div>
           </article>
         </div>
       </section>
-
       <section class="method section-shell" id="metodo" aria-labelledby="method-title">
         <div class="method-intro reveal">
           <p class="kicker">MI MANERA DE CONSTRUIR</p>
           <h2 id="method-title">Menos magia.<br />Más ingeniería.</h2>
+          <p class="method-manifesto">No construyo pantallas aisladas. Construyo <em>sistemas completos</em>: desde la regla de negocio y el contrato de datos hasta la experiencia que finalmente toca el usuario.</p>
           <p>
             La velocidad importa, pero nunca a costa de los fundamentos. Cada producto empieza por
             comprender el negocio y termina con evidencia de que realmente funciona.
@@ -303,7 +263,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
       </section>
 
       <section class="contact section-shell reveal" id="contacto" aria-labelledby="contact-title">
-        <div class="contact-code" data-parallax="0.05" aria-hidden="true">READY_FOR_<br />THE_NEXT_<br />MISSION</div>
+        <div class="contact-code" data-parallax="0.05" aria-hidden="true">READY<br />FOR WHAT'S NEXT</div>
         <div class="contact-copy">
           <p class="kicker">CANAL ABIERTO</p>
           <h2 id="contact-title">¿Construimos algo que importe?</h2>

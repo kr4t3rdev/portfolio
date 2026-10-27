@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import { access, readFile, readdir } from 'node:fs/promises';
 import { extname, join } from 'node:path';
+import { runInNewContext } from 'node:vm';
 
 const buildDirectory = process.argv[2] ?? 'dist';
 const builtFiles = [
@@ -140,4 +141,30 @@ console.log('Rendered native studies and product contracts passed.');
 
 for (const asset of ['favicon.svg', 'styles.css', 'motion.css', 'theme.css', 'script.js']) {
   assert.ok(home.includes(`"/${asset}"`), `Built homepage asset must be root-absolute: ${asset}`);
+}
+
+/* Service detail theme bootstraps must execute before paint with every preference source. */
+const serviceThemeCases = [
+  { name: 'stored light', stored: 'light', systemDark: true, expected: 'light' },
+  { name: 'stored dark', stored: 'dark', systemDark: false, expected: 'dark' },
+  { name: 'system light', stored: null, systemDark: false, expected: 'light' },
+  { name: 'system dark', stored: null, systemDark: true, expected: 'dark' },
+  { name: 'blocked storage', storageThrows: true, systemDark: true, expected: 'dark' },
+];
+for (const slug of ['landing', 'negocio', 'plataforma']) {
+  const page = await readFile(join(buildDirectory, `servicios/${slug}/index.html`), 'utf8');
+  const bootstrap = [...page.matchAll(/<script(?: [^>]*)?>([\s\S]*?)<\/script>/g)].map((match) => match[1]).find((script) => script.includes("localStorage.getItem('theme')"));
+  assert.ok(bootstrap, `service ${slug} must ship an inline theme bootstrap`);
+  for (const testCase of serviceThemeCases) {
+    const root = { dataset: {} };
+    const meta = { content: null, setAttribute(name, value) { if (name === 'content') this.content = value; } };
+    const context = {
+      document: { documentElement: root, querySelector: () => meta },
+      localStorage: { getItem() { if (testCase.storageThrows) throw new Error('blocked'); return testCase.stored; } },
+      matchMedia: () => ({ matches: testCase.systemDark }),
+    };
+    runInNewContext(bootstrap, context);
+    assert.equal(root.dataset.theme, testCase.expected, `${slug} must resolve ${testCase.name}`);
+    assert.equal(meta.content, testCase.expected === 'dark' ? '#191b17' : '#e7e1d4', `${slug} must sync theme-color for ${testCase.name}`);
+  }
 }

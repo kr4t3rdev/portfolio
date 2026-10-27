@@ -14,10 +14,10 @@ assert.match(projectCards[0], /Web \+ API \+ App/);
 for (const card of projectCards.slice(0, 2)) {
   for (const technology of ['Swift', 'Kotlin', 'OpenAPI']) assert.ok(card.includes(`<li>${technology}</li>`), `Native stack must include ${technology}`);
   assert.doesNotMatch(card, /React Native|\bExpo\b|React Query/);
-  assert.match(card, /nativ[ao]s?[^<]*en desarrollo/i);
+  assert.match(card, /apps?[^<]*en desarrollo/i);
 }
 assert.match(projectCards[1], /Web \+ API \+ App/);
-assert.match(projectCards[1], /Web, API y app/);
+assert.match(projectCards[1], /Web y API/);
 assert.match(projectCards[2], /href="https:\/\/yoisel-shop\.vercel\.app"/);
 for (const technology of ['Next.js', 'Go', 'PostgreSQL']) assert.ok(projectCards[2].includes(technology));
 assert.match(projectSection, /Tres proyectos/);
@@ -95,6 +95,31 @@ for (const page of [html, casePage]) {
 assert.match(html, /href="https:\/\/cashflow\.kr4t3rdev\.xyz"/);
 assert.doesNotMatch(html, /cashflow-eight-cyan\.vercel\.app/);
 
+const servicesData = await readFile('src/data/services.ts', 'utf8');
+const servicePage = await readFile('src/pages/servicios/[slug].astro', 'utf8');
+const photoSources = await readFile('public/images/services/README.md', 'utf8');
+assert.match(html, /id="metodo"/);
+assert.doesNotMatch(html, /class="method-intro reveal" data-motion="blur"/);
+assert.match(html, /Menos magia/);
+assert.match(html, /No construyo pantallas aisladas/);
+assert.equal((html.match(/No construyo pantallas aisladas/g) ?? []).length, 1);
+assert.match(html, /service-card/);
+assert.match(html, /href="\/servicios\/landing"/);
+assert.match(html, /href="\/servicios\/negocio"/);
+assert.match(html, /href="\/servicios\/plataforma"/);
+assert.match(servicesData, /OAuth/);
+assert.match(servicePage, /ClientRouter/);
+assert.match(servicePage, /theme-toggle/);
+assert.match(styles, /min-block-size: calc\(100svh - 90px\)/);
+assert.match(servicePage, /service-detail-block/);
+assert.match(servicePage, /service\.sections\.map/);
+for (const item of ['Para quién', 'Alcance técnico', 'Entregables posibles', 'Cómo lo abordamos', 'Qué se acuerda', 'OAuth', 'PostgreSQL']) assert.ok(servicesData.includes(item));
+assert.match(styles, /max-height: 800px/);
+assert.match(photoSources, /Unsplash License/);
+assert.match(photoSources, /Not identified from source URL/);
+assert.match(styles, /site-header nav a:not\(\.nav-cta\)[\s\S]*?display: inline-flex/);
+
+
 console.log('Portfolio and case-study checks passed.');
 
 assert.match(html, /id="servicios"/);
@@ -102,19 +127,9 @@ for (const id of ['landing', 'negocio', 'plataforma']) {
   assert.match(html, new RegExp(`id="service-${id}"`));
   assert.match(html, new RegExp(`aria-labelledby="service-${id}"`));
 }
-for (const term of ['Swift', 'Kotlin', 'OAuth', 'PostgreSQL', 'Hablemos de tu sitio']) assert.ok(html.includes(term));
+for (const term of ['Swift', 'Kotlin', 'OAuth', 'PostgreSQL']) assert.ok(servicesData.includes(term));
 assert.match(html, /href="#servicios"/);
-assert.match(styles, /\.service-sheet/);
-assert.match(visibleText, /producción con facturación/i);
-assert.match(visibleText, /trazabilidad operativa/i);
-assert.match(visibleText, /ERP multiempresa/i);
-assert.match(visibleText, /acceso por roles/i);
-assert.match(visibleText, /saldos y movimientos por\s+moneda/i);
-assert.match(visibleText, /flujo de caja/i);
-
-
-assert.match(html, /service-sheet/);
-assert.match(styles, /\.service-sheet/);
+for (const slug of ['landing', 'negocio', 'plataforma']) assert.ok(servicesData.includes(slug));
 
 const animatedIcon = await readFile('src/components/icons/AnimatedIcon.astro', 'utf8');
 const brandIcon = await readFile('src/components/icons/BrandIcon.astro', 'utf8');
@@ -158,7 +173,7 @@ assert.match(animatedIcon, /<style is:global>[\s\S]*@import "\.\/icon-motion\.cs
 assert.match(brandIcon, /<style is:global>[\s\S]*@import "\.\/icon-motion\.css"/);
 assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="6" y2="6"/);
 assert.match(animatedIcon, /class="server-led" x1="6" x2="10" y1="18" y2="18"/);
-assert.match(html, /<article class="service-sheet icon-trigger reveal"/);
+assert.match(html, /<article class="service-card reveal"/);
 assert.match(readme, /<AnimatedIcon name="arrow-up-right" \/>/);
 assert.match(brandIcon, /data-icon=\{name\}/);
 assert.match(html, /aria-label="Contactar por WhatsApp"/);
@@ -237,7 +252,7 @@ assert.match(html, /class="scroll-progress"/);
 assert.match(casePage, /class="scroll-progress"/);
 for (const attr of [
   'data-intro="down"', 'data-intro="right"', 'data-intro="mask"', 'data-intro="fade"',
-  'data-motion="blur"', 'data-motion="mask"', 'data-motion="left"', 'data-motion="right"',
+  'data-motion="mask"', 'data-motion="left"', 'data-motion="right"',
   'data-motion="zoom"', 'data-stagger="pop"', 'data-parallax="0.05"',
 ]) {
   assert.ok(html.includes(attr), `index page must include ${attr}`);
@@ -353,3 +368,12 @@ for (const source of [html, casePage, cashflowsCase, shopCase]) {
   assert.match(source, /try\s*\{\s*stored = localStorage\.getItem\('theme'\);\s*\} catch/, 'all case bootstraps must tolerate blocked storage');
   assert.match(source, /setAttribute\('content', theme === 'dark' \? '#191b17' : '#e7e1d4'\)/, 'inline theme bootstrap must sync theme-color');
 }
+assert.match(motionScript, /applyTheme\(resolveTheme\(\)\)/, 'client navigation must sync theme-color during theme initialization');
+
+// Desktop projects keep screenshots and their editorial cards as distinct groups.
+for (const card of projectCards) {
+  assert.match(card, /<div class="project-preview-frame">\s*<div class="project-image/);
+  assert.match(card, /<\/div>\s*<div class="project-content/);
+  assert.match(card, /project-image[\s\S]*?project-content[\s\S]*?project-actions/);
+}
+assert.match(styles, /\.projects[^\{]*\{[^}]*min-block-size:\s*calc\(100svh\s*-\s*90px\)/);

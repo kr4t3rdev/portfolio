@@ -1,0 +1,60 @@
+---
+import "../../styles/global.css";
+import { ClientRouter } from "astro:transitions";
+import AnimatedIcon from "../../components/icons/AnimatedIcon.astro";
+import { services } from "../../data/services";
+
+export function getStaticPaths() {
+  return services.map((service) => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e7e1d4" /><meta name="description" content={service.summary} />
+  <script is:inline>
+    (() => {
+      let stored;
+      try {
+        stored = localStorage.getItem('theme');
+      } catch {
+        /* Use the system preference when storage is unavailable. */
+      }
+      const theme =
+        stored === 'light' || stored === 'dark'
+          ? stored
+          : matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+      document.documentElement.dataset.theme = theme;
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#191b17' : '#e7e1d4');
+    })();
+  </script>
+  <link rel="canonical" href={`https://kr4t3rdev.xyz/servicios/${service.slug}/`} />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" /><link rel="stylesheet" href="/motion.css" /><link rel="stylesheet" href="/theme.css" />
+  <script src="/script.js" defer></script><title>{service.label} — Michel García Aguero</title><ClientRouter />
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a><div class="scroll-progress" aria-hidden="true"><i></i></div>
+  <header class="site-header section-shell service-detail-header">
+    <a class="brand" href="/#inicio" aria-label="Ir al inicio"><span class="brand-mark" aria-hidden="true">M</span><span>MICHEL<span class="brand-dot">.DEV</span></span></a>
+    <nav aria-label="Navegación principal"><a href="/#servicios">Servicios</a><a href="/#proyectos">Proyectos</a><a href="/#metodo">Método</a><a class="nav-cta" href="/#contacto">Contacto <AnimatedIcon name="arrow-up-right" /></a><button class="theme-toggle" type="button" aria-pressed="false" aria-label="Cambiar a modo oscuro"><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2" /><path d="M12 2.5v2.6M12 18.9v2.6M2.5 12h2.6M18.9 12h2.6M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9-1.9" /></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 14.2A8.3 8.3 0 0 1 9.8 3.6a8.3 8.3 0 1 0 10.6 10.6Z" /></svg></button></nav>
+  </header>
+  <main id="contenido" class="service-detail section-shell" aria-labelledby="service-title">
+    <a class="service-back" href="/#servicios"><AnimatedIcon name="arrow-left" /> Todos los servicios</a>
+    <div class="service-detail-grid">
+      <div class="service-detail-copy"><p class="service-tag">{service.label}</p><h1 id="service-title">{service.title}</h1><p class="service-detail-lead">{service.intro}</p></div>
+      <img class="service-detail-photo" src={service.photo} alt={service.alt} width="1200" height="800" fetchpriority="high" decoding="async" />
+    </div>
+    <div class="service-detail-content">{service.sections.map((section, index) => <section class="service-detail-block" aria-labelledby={`service-section-${index}`}><div><p class="kicker">{index === 0 ? "SERVICIO" : `ALCANCE / 0${index + 1}`}</p><h2 id={`service-section-${index}`}>{section.title}</h2></div><div class="service-detail-block-copy"><p>{section.body}</p>{section.items.length > 0 && <ul>{section.items.map((item) => <li>{item}</li>)}</ul>}</div></section>)}</div>
+    <div class="service-detail-bottom"><p>{service.scope}</p><a class="button button-primary" href={`https://wa.me/5353917705?text=${encodeURIComponent(service.message)}`} target="_blank" rel="noreferrer">Conversar sobre el alcance <AnimatedIcon name="arrow-up-right" /></a></div>
+  </main>
+  <footer class="site-footer section-shell"><p>© <span id="year">2026</span> Michel García Aguero</p><p>Diseñado con intención. Construido con código.</p><a href="/#inicio">Volver al inicio <AnimatedIcon name="arrow-up" /></a></footer>
+</body>
+</html>
