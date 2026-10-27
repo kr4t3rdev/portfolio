@@ -31,9 +31,14 @@ for (const card of projectCards) {
   assert.doesNotMatch(actions, /href="#"/);
 }
 assert.match(styles, /grid-template-columns: repeat\(3, minmax\(0, 1fr\)\)/);
-assert.match(styles, /#proyectos \.section-heading \{ margin-bottom: 3rem; \}/);
+assert.match(styles, /#proyectos \.section-heading \{ margin-bottom: 4rem; \}/);
 assert.match(styles, /#proyectos \.project-card:nth-child\(2\) \{ margin-block-start: 22px; \}/);
 assert.match(styles, /#proyectos \.project-card:nth-child\(3\) \{ margin-block-start: 44px; \}/);
+assert.match(styles, /@media \(min-width: 901px\) and \(max-height: 800px\)[\s\S]*?#proyectos \.section-heading \{ margin-bottom: 3\.5rem; \}/);
+assert.match(styles, /@media \(max-width: 680px\)[\s\S]*?#proyectos \.section-heading \{ margin-bottom: 2rem; \}/);
+assert.match(styles, /@media \(min-width: 901px\)[\s\S]*?\.section-shell \.project-card \{[\s\S]*?gap: 1\.5rem;/);
+assert.match(styles, /@media \(min-width: 901px\) and \(max-height: 800px\)[\s\S]*?\.section-shell \.project-card \{ gap: 1rem; \}/);
+assert.match(styles, /@media \(max-width: 900px\)[\s\S]*?\.project-card \{[\s\S]*?gap: 1\.25rem/);
 assert.match(styles, /#proyectos \.project-content \{ border-radius: 16px; \}/);
 assert.match(styles, /@media \(max-width: 900px\)[\s\S]*?#proyectos \.project-card \{ margin-block-start: 0/);
 assert.match(styles, /#proyectos \.project-card:nth-child\(2\) \.project-preview-frame \{ order: 2; \}/);
