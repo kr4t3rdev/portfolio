@@ -263,7 +263,7 @@ assert.match(casePage, /ClientRouter/);
 assert.match(html, /class="scroll-progress"/);
 assert.match(casePage, /class="scroll-progress"/);
 for (const attr of [
-  'data-intro="down"', 'data-intro="right"', 'data-intro="mask"', 'data-intro="fade"',
+  'data-intro="down"', 'data-intro="mask"', 'data-intro="fade"',
   'data-motion="mask"', 'data-motion="left"', 'data-motion="right"',
   'data-motion="zoom"', 'data-stagger="pop"', 'data-parallax="0.05"',
 ]) {
@@ -389,3 +389,7 @@ for (const card of projectCards) {
   assert.match(card, /project-image[\s\S]*?project-content[\s\S]*?project-actions/);
 }
 assert.match(styles, /\.projects[^\{]*\{[^}]*min-block-size:\s*calc\(100svh\s*-\s*90px\)/);
+
+await import('./test-scroll-text-reveal.mjs');
+await import('./test-console-assembly.mjs');
+await import('./test-scroll-image-motion.mjs');

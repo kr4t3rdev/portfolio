@@ -168,3 +168,6 @@ for (const slug of ['landing', 'negocio', 'plataforma']) {
     assert.equal(meta.content, testCase.expected === 'dark' ? '#191b17' : '#e7e1d4', `${slug} must sync theme-color for ${testCase.name}`);
   }
 }
+
+// Project images retain their accessible markup within the motion component.
+assert.equal((projectSection.match(/<div class="scroll-image-motion" data-scroll-image-motion/g) ?? []).length, 3);

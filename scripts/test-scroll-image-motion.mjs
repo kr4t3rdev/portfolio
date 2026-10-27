@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+const home = await readFile('src/pages/index.astro', 'utf8');
+const component = await readFile('src/components/animations/ScrollImageMotion.astro', 'utf8');
+const section = home.split('id="proyectos"')[1].split('id="servicios"')[0];
+assert.equal((section.match(/<ScrollImageMotion\b/g) ?? []).length, 3, 'Three project images use reusable scroll motion');
+assert.equal((section.match(/<img[^>]+alt="[^"]+"/g) ?? []).length, 3);
+assert.match(component, /prefers-reduced-motion: reduce/);
+assert.match(component, /astro:before-swap/);
+assert.match(component, /requestAnimationFrame/);
+assert.match(component, /removeEventListener/);
+console.log('ScrollImageMotion source checks passed.');

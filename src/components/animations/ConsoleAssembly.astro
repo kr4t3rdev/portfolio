@@ -1,0 +1,78 @@
+---
+interface Props { label?: string }
+const { label = 'Profile' } = Astro.props;
+---
+<div class="console-assembly" data-console-assembly aria-label={label}>
+  <div class="assembly-backplate" data-assembly-backplate aria-hidden="true"></div>
+  <div class="assembly-panel" data-assembly-panel><slot /></div>
+  <div class="assembly-badge" data-assembly-badge><slot name="badge" /></div>
+</div>
+<script is:inline>
+  // Hide only after JavaScript has run; without it, the content stays visible.
+  (() => {
+    const assembly = document.currentScript?.previousElementSibling;
+    if (assembly?.hasAttribute('data-console-assembly') && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      assembly.setAttribute('data-assembly-pending', '');
+      // Fail open if the module cannot initialize, so content never stays hidden.
+      setTimeout(() => assembly.removeAttribute('data-assembly-pending'), 4000);
+    }
+  })();
+</script>
+<style>
+  .console-assembly { position: relative; align-self: center; transform: rotate(1.7deg); }
+  .assembly-backplate { position: absolute; inset: 18px -18px -18px 18px; border-radius: var(--radius-lg); background: var(--clay); }
+  .assembly-panel { position: relative; }
+  .assembly-panel :global(.hero-console) { transform: none; box-shadow: var(--shadow); }
+  .assembly-badge { position: absolute; right: -30px; bottom: -48px; width: 130px; aspect-ratio: 1; }
+  .assembly-badge :global(.orbit-stamp) { position: relative; inset: auto; width: 100%; }
+  @media (max-width: 700px) {
+    .assembly-backplate { inset: 10px -10px -10px 10px; }
+    .assembly-badge { right: -5px; width: 105px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .console-assembly[data-assembly-pending] .assembly-backplate,
+    .console-assembly[data-assembly-pending] .assembly-panel,
+    .console-assembly[data-assembly-pending] .assembly-badge { opacity: 0; }
+    .console-assembly[data-assembly-active] .assembly-backplate { animation: backplate-in 850ms cubic-bezier(.2,.75,.25,1) both; }
+    .console-assembly[data-assembly-active] .assembly-panel { animation: panel-in 850ms 650ms cubic-bezier(.2,.75,.25,1) both; }
+    .console-assembly[data-assembly-active] .assembly-badge { animation: badge-in 650ms 1400ms cubic-bezier(.2,.75,.25,1) both; }
+    .console-assembly[data-assembly-active] :global([data-scroll-text-reveal]) { animation: text-in 350ms 2050ms ease-out both; }
+  }
+  @keyframes backplate-in { from { opacity: 0; transform: translate(-64px, 28px) rotate(-5deg); } to { opacity: 1; transform: none; } }
+  @keyframes panel-in { from { opacity: 0; transform: translate(70px, -30px) rotate(5deg); } to { opacity: 1; transform: none; } }
+  @keyframes badge-in { from { opacity: 0; transform: translate(28px, 40px) rotate(65deg) scale(.65); } to { opacity: 1; transform: none; } }
+  @keyframes text-in { from { opacity: 0; } to { opacity: 1; } }
+</style>
+<script>
+  let cleanup = () => {};
+  let initialized = false;
+  function initConsoleAssemblies() {
+    if (initialized) return;
+    cleanup();
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const assemblies = [...document.querySelectorAll<HTMLElement>('[data-console-assembly]')];
+    if (!assemblies.length) return;
+    initialized = true;
+    let frame = 0;
+    function finish(root: HTMLElement) {
+      if (!root.hasAttribute('data-assembly-active')) return;
+      root.removeAttribute('data-assembly-active');
+      root.dispatchEvent(new CustomEvent('assembly:complete', { bubbles: true }));
+    }
+    function onEnd(event: AnimationEvent) {
+      if (event.animationName !== 'badge-in') return;
+      const root = (event.target as HTMLElement).closest<HTMLElement>('[data-console-assembly]');
+      if (root) root.dispatchEvent(new CustomEvent('assembly:integrated', { bubbles: true }));
+    }
+    function onReducedChange() { if (reduced.matches) assemblies.forEach(root => { root.removeAttribute('data-assembly-pending'); finish(root); }); }
+    assemblies.forEach(root => root.addEventListener('animationend', onEnd));
+    reduced.addEventListener('change', onReducedChange);
+    if (!reduced.matches) frame = requestAnimationFrame(() => assemblies.forEach(root => { root.setAttribute('data-assembly-active', ''); root.removeAttribute('data-assembly-pending'); }));
+    else assemblies.forEach(root => root.removeAttribute('data-assembly-pending'));
+    cleanup = () => { cancelAnimationFrame(frame); reduced.removeEventListener('change', onReducedChange); assemblies.forEach(root => { root.removeEventListener('animationend', onEnd); root.removeAttribute('data-assembly-active'); root.removeAttribute('data-assembly-pending'); }); initialized = false; cleanup = () => {}; };
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initConsoleAssemblies, { once: true });
+  else initConsoleAssemblies();
+  document.addEventListener('astro:page-load', initConsoleAssemblies);
+  document.addEventListener('astro:before-swap', () => cleanup());
+</script>

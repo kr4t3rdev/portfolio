@@ -3,6 +3,9 @@ import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
 import AnimatedIcon from "../components/icons/AnimatedIcon.astro";
 import BrandIcon from "../components/icons/BrandIcon.astro";
+import ScrollTextReveal from "../components/animations/ScrollTextReveal.astro";
+import ConsoleAssembly from "../components/animations/ConsoleAssembly.astro";
+import ScrollImageMotion from "../components/animations/ScrollImageMotion.astro";
 ---
 <!doctype html>
 <html lang="es">
@@ -111,12 +114,14 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
           </div>
         </div>
 
-        <div class="hero-console" data-intro="right" style="--intro-delay: 420ms" aria-label="Perfil técnico resumido">
+        <ConsoleAssembly label="Perfil técnico resumido">
+        <div class="hero-console">
           <div class="console-bar">
             <span class="console-dots" aria-hidden="true"><i></i><i></i><i></i></span>
             <span>michel.profile</span>
             <span>01</span>
           </div>
+          <ScrollTextReveal afterEntrance>
           <div class="console-body">
             <p><span class="prompt">$</span> whoami</p>
             <p class="console-output">software_engineer</p>
@@ -130,11 +135,13 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
             <p><span class="prompt">$</span> system-status</p>
             <p class="console-output success">● ALL SYSTEMS CURIOUS</p>
           </div>
-          <div class="orbit-stamp" aria-hidden="true">
+          </ScrollTextReveal>
+        </div>
+          <div slot="badge" class="orbit-stamp" aria-hidden="true">
             <span>ARCHITECTURE · CODE · PRODUCT ·</span>
             <strong>MG</strong>
           </div>
-        </div>
+        </ConsoleAssembly>
       </section>
 
       <section class="projects section-shell" id="proyectos" aria-labelledby="projects-title">
@@ -152,7 +159,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
           <article class="project-card reveal">
             <div class="project-preview-frame">
               <div class="project-image">
-              <img src="/proyectos/financemdm/preview.webp" alt="Captura de la web de FinanceMDM" width="1440" height="900" loading="lazy" decoding="async" />
+              <ScrollImageMotion><img src="/proyectos/financemdm/preview.webp" alt="Captura de la web de FinanceMDM" width="1440" height="900" loading="lazy" decoding="async" /></ScrollImageMotion>
               </div>
             </div>
             <div class="project-content">
@@ -172,7 +179,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
           <article class="project-card reveal">
             <div class="project-preview-frame">
               <div class="project-image">
-              <img src="/proyectos/cashflows/preview.webp" alt="Captura de la web de Cashflows" width="1440" height="900" loading="lazy" decoding="async" />
+              <ScrollImageMotion><img src="/proyectos/cashflows/preview.webp" alt="Captura de la web de Cashflows" width="1440" height="900" loading="lazy" decoding="async" /></ScrollImageMotion>
               </div>
             </div>
             <div class="project-content">
@@ -192,7 +199,7 @@ import BrandIcon from "../components/icons/BrandIcon.astro";
           <article class="project-card reveal">
             <div class="project-preview-frame">
               <div class="project-image">
-              <img src="/proyectos/yoisel-shop/preview.webp" alt="Captura de la web de Yoisel Shop" width="1440" height="900" loading="lazy" decoding="async" />
+              <ScrollImageMotion><img src="/proyectos/yoisel-shop/preview.webp" alt="Captura de la web de Yoisel Shop" width="1440" height="900" loading="lazy" decoding="async" /></ScrollImageMotion>
               </div>
             </div>
             <div class="project-content">
